@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Tooltip, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from "@mui/material";
-import Instructions from "./components/Instructions";
+import Instructions from "./components/instructions";
 import "./App.css";
 
 function App() {
