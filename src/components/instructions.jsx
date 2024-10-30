@@ -37,3 +37,15 @@ export default function Instructions() {
     </>
   );
 }
+import React from 'react';
+
+function Instructions() {
+  return (
+    <div>
+      <h2>Instructions</h2>
+      <p>Here are some instructions for using the app.</p>
+    </div>
+  );
+}
+
+export default Instructions;
