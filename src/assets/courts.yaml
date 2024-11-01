@@ -1,0 +1,43 @@
+- name: Matchpoint Wrocław
+  id: matchpoint
+  address: Szyszkowa 6, 55-040 Ślęza, Poland
+  googleMapsLink: https://maps.app.goo.gl/Dm2WNmwLiSPtBanZ9
+  website: https://www.matchpoint.com.pl/
+  courts:
+  - surface: hard
+    type: indoor
+    courts: ['1', '2']    
+    price:
+      2023-2024:
+        firstWinterDay: '2023-11-01'
+        firstSummerDay: '2024-05-01'
+        summer:
+          su:00-23: '50'
+          st:15-23: '60'
+          st:7-15: '80'
+          "*:16-23": '80'
+          "*:7-15": '60'
+          "!:23-6": '110'
+      2024-2025:
+        firstWinterDay: '2024-11-01'
+        firstSummerDay: '2025-05-01'
+        winter:
+          "*:23-15": '140'
+          "*:15-23": '170'
+          st:00-15: '170'
+          st:15-23: '140'
+          su:00-23: '140'
+          "!:23-6": '110'
+  - surface: hard
+    type: tent
+    courts: ['4', '5', '6', '7']    
+    price:
+      2024-2025:
+        firstWinterDay: '2024-11-01'
+        firstSummerDay: '2025-05-01'
+        winter:
+          "*:7-15": '130'
+          "*:15-23": '160'
+          st:00-15: '160'
+          st:15-23: '140'
+          su:00-23: '130'

@@ -3,75 +3,7 @@ import { Tooltip, Table, TableBody, TableCell, TableContainer, TableHead, TableR
 import "./App.css";
 
 function App() {
-  const tennisCourts = [
-    {
-        "name": "Matchpoint Wrocław",
-        "address": "ul. Księcia Witolda 1, Wrocław",
-        "googleMapsLink": "https://www.matchpoint.com.pl/en/offer/tennis/",
-        "courtGroups": [
-            { "count": 8, "price": "70 PLN/godzina", "surface": "Rebound Ace", "type": "indoor" }
-        ]
-    },
-    {
-        "name": "Pałac Brzeźno",
-        "address": "ul. Brzeźno 1, Wrocław",
-        "googleMapsLink": "https://palacbrzezno.pl/en/tennis/",
-        "courtGroups": [
-            { "count": 3, "price": "50 PLN/godzina", "surface": "hard", "type": "outdoor" }
-        ]
-    },
-    {
-        "name": "Tennis Club Wrocław",
-        "address": "Aleja Ignacego Jana Paderewskiego 2, Wrocław",
-        "googleMapsLink": "https://tennisround.com/pl/tennis-courts/wojewodztwodolnoslaskie/wroclaw",
-        "courtGroups": [
-            { "count": 14, "price": "60 PLN/godzina", "surface": "hard", "type": "indoor" },
-            { "count": 2, "price": "55 PLN/godzina", "surface": "clay", "type": "outdoor" }
-        ]
-    },
-    {
-        "name": "Tennis Courts in Wrocław",
-        "address": "Various locations, Wrocław",
-        "googleMapsLink": "https://www.globaltennisnetwork.com/tennis-courts/courts/city/21244-wroclaw-poland",
-        "courtGroups": [
-            { "count": 5, "price": "65 PLN/godzina", "surface": "clay", "type": "outdoor" },
-            { "count": 3, "price": "75 PLN/godzina", "surface": "hard", "type": "indoor" }
-        ]
-    },
-    {
-        "name": "Tennis Club Wrocław - OSiR",
-        "address": "ul. Kłokoczyn 1, Wrocław",
-        "googleMapsLink": "https://www.osir.wroclaw.pl/",
-        "courtGroups": [
-            { "count": 4, "price": "45 PLN/godzina", "surface": "hard", "type": "outdoor" }
-        ]
-    },
-    {
-        "name": "Tennis Academy Wrocław",
-        "address": "ul. Włodkowica 7, Wrocław",
-        "googleMapsLink": "https://tennisacademy.pl/",
-        "courtGroups": [
-            { "count": 6, "price": "80 PLN/godzina", "surface": "hard", "type": "indoor" }
-        ]
-    },
-    {
-        "name": "KKT Wrocław",
-        "address": "ul. Słowiańska 1, Wrocław",
-        "googleMapsLink": "https://kktwroclaw.pl/",
-        "courtGroups": [
-            { "count": 3, "price": "55 PLN/godzina", "surface": "clay", "type": "outdoor" },
-            { "count": 2, "price": "65 PLN/godzina", "surface": "hard", "type": "indoor" }
-        ]
-    },
-    {
-        "name": "Tenisowy Klub Sportowy Wrocław",
-        "address": "ul. Poniatowskiego 2, Wrocław",
-        "googleMapsLink": "https://www.tenisowyklub.pl/",
-        "courtGroups": [
-            { "count": 2, "price": "50 PLN/godzina", "surface": "grass", "type": "outdoor" },
-            { "count": 2, "price": "60 PLN/godzina", "surface": "hard", "type": "indoor" }
-        ]
-    }
+  
     // Add more clubs and courts as needed
 ];
 
