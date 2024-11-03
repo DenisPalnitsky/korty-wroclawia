@@ -7,6 +7,7 @@ import {
   TableContainer,
   TableHead,
   TableRow,
+  CardHeader,
   Slider,
   TextField,
   Box,
@@ -16,24 +17,9 @@ import {
   Card,
   CardContent,
 } from '@mui/material';
-import { styled } from '@mui/material/styles';
+import CourtSquareWithLines from './CourtSquare';
+import TennisCourt from './TennisCourt';
 
-const CourtSquare = styled(Box)(({ surface }) => ({
-  width: 60,
-  height: 60,
-  margin: 4,
-  border: '1px solid #000',
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  cursor: 'pointer',
-  backgroundColor: surface === 'clay' ? '#ff8c69' : '#4169e1',
-  color: '#fff',
-  transition: 'transform 0.2s',
-  '&:hover': {
-    transform: 'scale(1.05)',
-  },
-}));
 
 const marks = [
   { value: 0, label: '00:00' },
@@ -60,13 +46,26 @@ const ClubViewer = ({ pricingSystem }) => {
     return club.getPrice(courtId, startTime, endTime);
   };
 
+  const getDates = () => {
+    const [year, month, day] = selectedDate.split('-').map(Number);
+    var startTime = new Date(year, month - 1, day, timeRange[0], 0, 0);
+    var endTime = new Date(year, month - 1, day, timeRange[1], 0, 0);
+    if (startTime > endTime) {
+      const t = startTime;
+      startTime = endTime;
+      endTime = t;
+    }
+
+    return { startTime, endTime };
+  }
+
   return (
     <Box sx={{ p: 3 }}>
       <Box sx={{ mb: 4 }}>
         <Typography variant="h5" gutterBottom>
-          Tennis Court Booking System
+          Tennis Court Price Comparison
         </Typography>
-        
+
         <Box sx={{ display: 'flex', gap: 4, mb: 3, alignItems: 'center' }}>
           <TextField
             type="date"
@@ -77,8 +76,8 @@ const ClubViewer = ({ pricingSystem }) => {
               shrink: true,
             }}
           />
-          
-          <Box sx={{ width: 300 }}>
+
+          <Box sx={{ width: 600 }}>
             <Typography gutterBottom>Time Range</Typography>
             <Slider
               value={timeRange}
@@ -99,76 +98,62 @@ const ClubViewer = ({ pricingSystem }) => {
 
       {clubs.map((club) => (
         <Card key={club.id} sx={{ mb: 3 }}>
-          <CardContent>
-            <Typography variant="h6" gutterBottom>
-              {club.name}
-            </Typography>
-            
-            <Link 
-              href={club.googleMapsLink} 
-              target="_blank" 
+          <CardHeader title={club.name}
+            subheader={<Link
+              href={club.googleMapsLink}
+              target="_blank"
               rel="noopener noreferrer"
               sx={{ display: 'block', mb: 2 }}
             >
               {club.address}
-            </Link>
+            </Link>} />
+
+          <CardContent>
 
             {club.courtGroups.map((courtGroup, groupIndex) => (
-              <Box key={groupIndex} sx={{ mb: 3 }}>
-                <Typography variant="subtitle1" sx={{ mb: 1 }}>
-                  {courtGroup.type} - {courtGroup.surface}
-                </Typography>
-                
-                <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1, mb: 2 }}>
+              <Box key={groupIndex} sx={{ mb: 3, display: 'flex' }} >
+                <Box sx={{ flex: 1 }} id="group-info">
+                  <Typography variant="subtitle1" sx={{ mb: 1 }}>
+                    {courtGroup.type} - {courtGroup.surface}
+                  </Typography>
+
+                  <Typography variant="subtitle1" >
+                    Price: {courtGroup.getPrice(getDates().startTime, getDates().endTime)} PLN
+                  </Typography>
+                  <Typography variant="body1">
+                    Price Range Week Day: {courtGroup.getMaxMinPriceForWeekday().minPrice - courtGroup.getMaxMinPriceForWeekday().maxPrice} PLN
+                  </Typography>
+                  <Typography variant="body1">
+                    Price Range For Weekend: {courtGroup.getMaxMinPriceForWeekend().minPrice - courtGroup.getMaxMinPriceForWeekend().maxPrice} PLN
+                  </Typography>
+                </Box>
+
+                <Box sx={{
+                   display: 'grid',
+                    gap: 1,
+                  gridTemplateColumns: 'repeat(2, 1fr)'                  
+                }} id="court-tiles" >
                   {courtGroup.courts.map((court) => {
-                    const price = getCourtPrice(club, court.id);
+                    const price = courtGroup.getPrice(getDates().startTime, getDates().endTime);
                     return (
                       <Tooltip
                         key={court.id}
                         title={
-                          price 
-                            ? `Court ${court.id}: ${price} PLN` 
+                          price
+                            ? `Court ${court.id}: ${price} PLN`
                             : 'Price not available'
                         }
-                      >
-                        <CourtSquare surface={court.surface}>
+                      > 
+                        <TennisCourt surface={court.surface}>
                           {court.id}
-                        </CourtSquare>
+                        </TennisCourt>
                       </Tooltip>
                     );
                   })}
                 </Box>
-
-                <TableContainer component={Paper}>
-                  <Table size="small">
-                    <TableHead>
-                      <TableRow>
-                        <TableCell>Court</TableCell>
-                        <TableCell>Surface</TableCell>
-                        <TableCell>Type</TableCell>
-                        <TableCell align="right">Current Price</TableCell>
-                      </TableRow>
-                    </TableHead>
-                    <TableBody>
-                      {courtGroup.courts.map((court) => {
-                        const currentPrice = getCourtPrice(club, court.id);
-                        const priceInfo = court.getMaxMinPrice(new Date(selectedDate));
-                        return (
-                          <TableRow key={court.id}>
-                            <TableCell>{court.id}</TableCell>
-                            <TableCell>{court.surface}</TableCell>
-                            <TableCell>{court.type}</TableCell>
-                            <TableCell align="right">
-                              {currentPrice ? `${currentPrice} PLN` : 'N/A'}
-                            </TableCell>
-                          </TableRow>
-                        );
-                      })}
-                    </TableBody>
-                  </Table>
-                </TableContainer>
               </Box>
             ))}
+
           </CardContent>
         </Card>
       ))}

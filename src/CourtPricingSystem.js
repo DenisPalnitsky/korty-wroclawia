@@ -99,14 +99,29 @@ class CourtGroup {
     };
   }
 
-  getPrice(courtId, startTime, endTime) {
+  // finds next monday from current date and returns the min and max price for the week
+  getMaxMinPriceForWeekday() {
+    const date = new Date();
+    const day = date.getDay();
+    const diff = 1 + (7 + 1 - day) % 7;
+    date.setDate(date.getDate() + diff);
+    const minMaxPrice = this.getMaxMinPrice(date);
+    return minMaxPrice;
+  }
+
+  // finds next saturday from current date and returns the min and max price for the week
+  getMaxMinPriceForWeekend() {
+    const date = new Date();
+    const day = date.getDay();
+    const diff = 6 + (7 + 6 - day) % 7;
+    date.setDate(date.getDate() + diff);
+    const minMaxPrice = this.getMaxMinPrice(date);
+    return minMaxPrice;
+  }
+
+  getPrice(startTime, endTime) {
     const start = new Date(startTime);
     const end = new Date(endTime);
-
-    // Verify court exists in this group
-    if (!this.courts.some(court => court.id === courtId)) {
-      return null;
-    }
 
     // Find active pricing for the date
     const activePricing = this.findActivePricing(start);
