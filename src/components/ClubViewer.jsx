@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import {
   Paper,
   Table,
@@ -46,35 +46,18 @@ const marks = [
 const ClubViewer = ({ pricingSystem }) => {
   const [selectedDate, setSelectedDate] = useState(new Date().toISOString().split('T')[0]);
   const [timeRange, setTimeRange] = useState([8, 10]);
-  const [courts, setCourts] = useState([]);
+  const clubs = pricingSystem.list();
 
   const formatTime = (hour) => {
     return `${hour.toString().padStart(2, '0')}:00`;
   };
 
-  useEffect(() => {
-    if (pricingSystem) {
-      const updatedCourts = pricingSystem.listCourts();
-      setCourts(updatedCourts);
-    }
-  }, [pricingSystem, selectedDate, timeRange]);
+  const getCourtPrice = (club, courtId) => {
+    const [year, month, day] = selectedDate.split('-').map(Number);
+    const startTime = new Date(year, month - 1, day, timeRange[0], 0, 0);
+    const endTime = new Date(year, month - 1, day, timeRange[1], 0, 0);
 
- 
-  const groupCourtsByClub = () => {
-    const clubMap = new Map();
-    
-    courts.forEach(court => {
-      if (!clubMap.has(court.clubId)) {
-        const club = pricingSystem.clubs.find(c => c.id === court.clubId);
-        clubMap.set(court.clubId, {
-          ...club,
-          courts: []
-        });
-      }
-      clubMap.get(court.clubId).courts.push(court);
-    });
-
-    return Array.from(clubMap.values());
+    return club.getPrice(courtId, startTime, endTime);
   };
 
   return (
@@ -114,7 +97,7 @@ const ClubViewer = ({ pricingSystem }) => {
         </Box>
       </Box>
 
-      {pricingSystem.list().map(club) => (
+      {clubs.map((club) => (
         <Card key={club.id} sx={{ mb: 3 }}>
           <CardContent>
             <Typography variant="h6" gutterBottom>
@@ -130,54 +113,62 @@ const ClubViewer = ({ pricingSystem }) => {
               {club.address}
             </Link>
 
-            <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1, mb: 2 }}>
-              {club.courts.map((court) => {          
-                const price = 20;
-                return (
-                  <Tooltip
-                    key={court.courtId}
-                    title={
-                      price 
-                        ? `Court ${court.courtId}: ${price} PLN` 
-                        : 'Price not available'
-                    }
-                  >
-                    <CourtSquare surface={court.surface}>
-                      {court.courtId}
-                    </CourtSquare>
-                  </Tooltip>
-                );
-              })}
-            </Box>
+            {club.courtGroups.map((courtGroup, groupIndex) => (
+              <Box key={groupIndex} sx={{ mb: 3 }}>
+                <Typography variant="subtitle1" sx={{ mb: 1 }}>
+                  {courtGroup.type} - {courtGroup.surface}
+                </Typography>
+                
+                <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1, mb: 2 }}>
+                  {courtGroup.courts.map((court) => {
+                    const price = getCourtPrice(club, court.id);
+                    return (
+                      <Tooltip
+                        key={court.id}
+                        title={
+                          price 
+                            ? `Court ${court.id}: ${price} PLN` 
+                            : 'Price not available'
+                        }
+                      >
+                        <CourtSquare surface={court.surface}>
+                          {court.id}
+                        </CourtSquare>
+                      </Tooltip>
+                    );
+                  })}
+                </Box>
 
-            <TableContainer component={Paper}>
-              <Table size="small">
-                <TableHead>
-                  <TableRow>
-                    <TableCell>Court</TableCell>
-                    <TableCell>Surface</TableCell>
-                    <TableCell>Type</TableCell>
-                    <TableCell align="right">Min Price</TableCell>
-                    <TableCell align="right">Max Price</TableCell>
-                    <TableCell align="right">Current Price</TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {club.courts.map((court) => (
-                    <TableRow key={court.courtId}>
-                      <TableCell>{court.courtId}</TableCell>
-                      <TableCell>{court.surface}</TableCell>
-                      <TableCell>{court.type}</TableCell>
-                      <TableCell align="right">{court.minPrice} PLN</TableCell>
-                      <TableCell align="right">{court.maxPrice} PLN</TableCell>
-                      <TableCell align="right">
-                        {court.getPrice()} PLN
-                      </TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
-            </TableContainer>
+                <TableContainer component={Paper}>
+                  <Table size="small">
+                    <TableHead>
+                      <TableRow>
+                        <TableCell>Court</TableCell>
+                        <TableCell>Surface</TableCell>
+                        <TableCell>Type</TableCell>
+                        <TableCell align="right">Current Price</TableCell>
+                      </TableRow>
+                    </TableHead>
+                    <TableBody>
+                      {courtGroup.courts.map((court) => {
+                        const currentPrice = getCourtPrice(club, court.id);
+                        const priceInfo = court.getMaxMinPrice(new Date(selectedDate));
+                        return (
+                          <TableRow key={court.id}>
+                            <TableCell>{court.id}</TableCell>
+                            <TableCell>{court.surface}</TableCell>
+                            <TableCell>{court.type}</TableCell>
+                            <TableCell align="right">
+                              {currentPrice ? `${currentPrice} PLN` : 'N/A'}
+                            </TableCell>
+                          </TableRow>
+                        );
+                      })}
+                    </TableBody>
+                  </Table>
+                </TableContainer>
+              </Box>
+            ))}
           </CardContent>
         </Card>
       ))}
