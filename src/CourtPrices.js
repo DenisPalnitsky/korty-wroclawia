@@ -1,23 +1,35 @@
 import fs from 'fs';
 import yaml from 'js-yaml';
 
+class Court {
+  constructor(courtId, surface, type) {
+    this.id = courtId;
+    this.surface = surface;
+    this.type = type;
+  }
+}
 
-class CourtPricingSystem {
-  constructor(yamlFilePath) {
-    try {
-      const fileContents = fs.readFileSync(yamlFilePath, 'utf8');
-      const data = yaml.load(fileContents);
-      this.clubs = Array.isArray(data) ? data : [data];
-    } catch (error) {
-      console.error('Error loading YAML file:', error);
-      throw error;
-    }
+class CourtGroup {
+  constructor(surface, type, courtIds, pricingPeriods) {
+    this.surface = surface;
+    this.type = type;
+    this.courts = courtIds.map(id => new Court(id, surface, type));
+    this.pricingPeriods = pricingPeriods;
   }
 
-  findActivePricing(pricingPeriods, date) {
+  isTimeInRange(hour, timeRange) {
+    const [start, end] = timeRange.split('-').map(Number);
+    if (start < end) {
+      return hour >= start && hour < end;
+    }
+    // Handle overnight ranges (e.g., 23-6)
+    return hour >= start || hour < end;
+  }
+
+  findActivePricing(date) {
     const targetDate = new Date(date);
     
-    for (const [period, config] of Object.entries(pricingPeriods)) {
+    for (const [period, config] of Object.entries(this.pricingPeriods)) {
       const winterStart = new Date(config.firstWinterDay);
       const summerStart = new Date(config.firstSummerDay);
       
@@ -28,16 +40,6 @@ class CourtPricingSystem {
       }
     }
     return null;
-  }
-
-  isTimeInRange(hour, timeRange) {
-    const [start, end] = timeRange.split('-').map(Number);
-    if (start < end) {
-      return hour >= start && hour < end;
-    } else {
-      // Handle overnight ranges (e.g., 23-6)
-      return hour >= start || hour < end;
-    }
   }
 
   findApplicableRate(pricing, date) {
@@ -78,54 +80,30 @@ class CourtPricingSystem {
     return null;
   }
 
-  listCourts() {
-    const now = new Date();
-    const result = [];
+  getMaxMinPrice(date) {
+    const activePricing = this.findActivePricing(date);
+    
+    if (!activePricing || !activePricing.pricing) return null;
 
-    for (const club of this.clubs) {
-      for (const courtGroup of club.courts) {
-        const activePricing = this.findActivePricing(courtGroup.price, now);
-        
-        if (!activePricing || !activePricing.pricing) continue;
-
-        const prices = Object.values(activePricing.pricing).map(price => parseInt(price));
-        const minPrice = Math.min(...prices);
-        const maxPrice = Math.max(...prices);
-
-        const courts = [];
-        for (const courtNumber of courtGroup.courts) {
-          courts.push({
-            clubId: club.id,
-            courtId: courtNumber,
-            surface: courtGroup.surface,
-            type: courtGroup.type,
-            minPrice,
-            maxPrice,
-            season: activePricing.season
-          });
-        }      
-      }
-    }
-
-    return result;
+    const prices = Object.values(activePricing.pricing).map(price => parseInt(price));
+    return {
+      minPrice: Math.min(...prices),
+      maxPrice: Math.max(...prices),
+      season: activePricing.season
+    };
   }
 
-  getPrice(clubId, courtId, startTime, endTime) {
-    // Ensure proper date parsing by padding single-digit hours with zeros
-    const start = new Date(startTime)
-    const end = new Date(endTime)
+  getPrice(courtId, startTime, endTime) {
+    const start = new Date(startTime);
+    const end = new Date(endTime);
 
-    // Find the club and court
-    const club = this.clubs.find(c => c.id === clubId);
-    if (!club) return null;
-
-    const courtGroup = club.courts.find(cg => 
-      cg.courts.includes(courtId.toString())
-    );
-    if (!courtGroup) return null;
+    // Verify court exists in this group
+    if (!this.courts.some(court => court.id === courtId)) {
+      return null;
+    }
 
     // Find active pricing for the date
-    const activePricing = this.findActivePricing(courtGroup.price, start);
+    const activePricing = this.findActivePricing(start);
     if (!activePricing || !activePricing.pricing) return null;
 
     // Calculate total price for each hour
@@ -146,6 +124,84 @@ class CourtPricingSystem {
     }
 
     return totalPrice;
+  }
+}
+
+class Club {
+  constructor(id, name, address, googleMapsLink, website, courts) {
+    this.id = id;
+    this.name = name;
+    this.address = address;
+    this.googleMapsLink = googleMapsLink;
+    this.website = website;
+    this.courtGroups = courts.map(group => 
+      new CourtGroup(group.surface, group.type, group.courts, group.price)
+    );
+  }
+
+  getPrice(courtId, startTime, endTime) {
+    const courtGroup = this.courtGroups.find(group => 
+      group.courts.some(court => court.id === courtId)
+    );
+    
+    if (!courtGroup) return null;
+    
+    return courtGroup.getPrice(courtId, startTime, endTime);
+  }
+
+  getMaxMinPrice(date = new Date()) {
+    const result = [];
+    
+    for (const courtGroup of this.courtGroups) {
+      const pricing = courtGroup.getMaxMinPrice(date);
+      if (!pricing) continue;
+
+      for (const court of courtGroup.courts) {
+        result.push({
+          clubId: this.id,
+          courtId: court.id,
+          surface: court.surface,
+          type: court.type,
+          minPrice: pricing.minPrice,
+          maxPrice: pricing.maxPrice,
+          season: pricing.season
+        });
+      }
+    }
+
+    return result;
+  }
+}
+
+class CourtPricingSystem {
+  constructor(yamlFilePath) {
+    try {
+      const fileContents = fs.readFileSync(yamlFilePath, 'utf8');
+      const data = yaml.load(fileContents);
+      const clubsData = Array.isArray(data) ? data : [data];
+      
+      this.clubs = clubsData.map(club => 
+        new Club(
+          club.id,
+          club.name,
+          club.address,
+          club.googleMapsLink,
+          club.website,
+          club.courts
+        )
+      );
+    } catch (error) {
+      console.error('Error loading YAML file:', error);
+      throw error;
+    }
+  }
+
+  listCourts() {
+    const result = [];
+    for (const club of this.clubs) {
+      result.push(club);
+    }
+    return result;
   }
 }
 
