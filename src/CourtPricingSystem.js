@@ -1,11 +1,17 @@
-import fs from 'fs';
-import yaml from 'js-yaml';
-
 class Court {
-  constructor(courtId, surface, type) {
+  constructor(courtId, surface, type, courtGroup) {
     this.id = courtId;
     this.surface = surface;
-    this.type = type;
+    this.type = type;        
+    this.courtGroup = courtGroup;
+  }
+
+  getPrice(startTime, endTime) {
+    return this.courtGroup.getPrice(this.id, startTime, endTime);
+  }
+
+  getMaxMinPrice(date) {
+    return this.courtGroup.getMaxMinPrice(date);
   }
 }
 
@@ -13,7 +19,7 @@ class CourtGroup {
   constructor(surface, type, courtIds, pricingPeriods) {
     this.surface = surface;
     this.type = type;
-    this.courts = courtIds.map(id => new Court(id, surface, type));
+    this.courts = courtIds.map(id => new Court(id, surface, type, this));
     this.pricingPeriods = pricingPeriods;
   }
 
@@ -174,10 +180,8 @@ class Club {
 }
 
 class CourtPricingSystem {
-  constructor(yamlFilePath) {
-    try {
-      const fileContents = fs.readFileSync(yamlFilePath, 'utf8');
-      const data = yaml.load(fileContents);
+  constructor(data) {
+    try {      
       const clubsData = Array.isArray(data) ? data : [data];
       
       this.clubs = clubsData.map(club => 
@@ -196,7 +200,7 @@ class CourtPricingSystem {
     }
   }
 
-  listCourts() {
+  list() {
     const result = [];
     for (const club of this.clubs) {
       result.push(club);

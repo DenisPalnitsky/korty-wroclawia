@@ -1,12 +1,20 @@
 import { expect } from 'chai';
-import  CourtPricingSystem  from '../CourtPrices.js';
+import  CourtPricingSystem  from '../CourtPricingSystem.js';
+import fs from 'fs';
+import yaml from 'js-yaml';
 
-const courtPricingSystem = new CourtPricingSystem('src/tests/courts_test.yaml');
 
 
 describe('CourtPricing', () => {
-  it('should return the correct price for a given date and time range', () => {
+
+  const fileContents = fs.readFileSync('src/tests/courts_test.yaml', 'utf8');
+    const data = yaml.load(fileContents);
+    const courtPricingSystem = new CourtPricingSystem(data);
+
+
+  it('should return the correct price for a given date and time range', () => {    
     const club = courtPricingSystem.listCourts()[0];
+
 
     var price = club.getPrice('1', '2024-11-04T10:00:00', '2024-11-04T12:00:00');
     expect(price).to.equal(140*2);
