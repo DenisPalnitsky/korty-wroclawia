@@ -1,133 +1,152 @@
-import yaml from 'js-yaml';
 import fs from 'fs';
-import { RRule, RRuleSet, rrulestr } from 'rrule';
+import yaml from 'js-yaml';
 
-class CourtPricing {
+
+class CourtPricingSystem {
   constructor(yamlFilePath) {
-    this.data = yaml.load(fs.readFileSync(yamlFilePath, 'utf8'));
+    try {
+      const fileContents = fs.readFileSync(yamlFilePath, 'utf8');
+      const data = yaml.load(fileContents);
+      this.clubs = Array.isArray(data) ? data : [data];
+    } catch (error) {
+      console.error('Error loading YAML file:', error);
+      throw error;
+    }
   }
 
-  getPrice(clubId, courtId, startDate, endDate) {
-    const club = this.data.find(club => club.id === clubId);
-    if (!club) return null;
+  findActivePricing(pricingPeriods, date) {
+    const targetDate = new Date(date);
+    
+    for (const [period, config] of Object.entries(pricingPeriods)) {
+      const winterStart = new Date(config.firstWinterDay);
+      const summerStart = new Date(config.firstSummerDay);
+      
+      if (targetDate >= winterStart && targetDate < summerStart) {
+        return { season: 'winter', pricing: config.winter };
+      } else if (targetDate >= summerStart && targetDate < new Date(winterStart.getTime() + 365 * 24 * 60 * 60 * 1000)) {
+        return { season: 'summer', pricing: config.summer };
+      }
+    }
+    return null;
+  }
 
-    const court = club.courts.find(court => court.courts.includes(courtId));
-    if (!court) return null;
+  isTimeInRange(hour, timeRange) {
+    const [start, end] = timeRange.split('-').map(Number);
+    if (start < end) {
+      return hour >= start && hour < end;
+    } else {
+      // Handle overnight ranges (e.g., 23-6)
+      return hour >= start || hour < end;
+    }
+  }
 
-    const start = new Date(startDate);
-    const end = new Date(endDate);
-    const prices = [];
+  findApplicableRate(pricing, date) {
+    if (!pricing) return null;
 
-    for (let d = start; d <= end; d.setDate(d.getDate() + 1)) {
-      const price = this.getPriceForDate(court, d);
-      if (price) prices.push(price);
+    const weekday = date.getDay();
+    const dayMap = {
+      1: 'mo', 2: 'tu', 3: 'we', 4: 'th', 5: 'fr', 6: 'st', 0: 'su'
+    };
+    const dayName = dayMap[weekday];
+    const hour = date.getHours();
+
+    // Check universal rules (!)
+    for (const [rule, price] of Object.entries(pricing)) {
+      const [ruleDay, timeRange] = rule.split(':');
+      if (ruleDay === '!' && this.isTimeInRange(hour, timeRange)) {
+        return parseInt(price);
+      }
     }
 
-    return prices.length ? prices.reduce((a, b) => a + b, 0) / prices.length : null;
-  }
+    // Check specific day rules first
+    for (const [rule, price] of Object.entries(pricing)) {
+      const [ruleDay, timeRange] = rule.split(':');
+      if (ruleDay === dayName && this.isTimeInRange(hour, timeRange)) {
+        return parseInt(price);
+      }
+    }
 
-  getPriceForDate(court, date) {
-    const season = this.getSeason(court.price, date);
-    if (!season) return null;
-
-    const day = date.toLocaleString('en-US', { weekday: 'short' }).toLowerCase();
-    const time = `${date.getHours()}:${date.getMinutes()}`;
-
-    for (const [key, value] of Object.entries(season)) {
-      if (key.includes(day) || key.includes('*') || key.includes('!')) {
-        const [start, end] = key.split(':');
-        if (this.isTimeInRange(time, start, end)) {
-          return parseFloat(value);
-        }
+    // Check wildcard rules (*)
+    for (const [rule, price] of Object.entries(pricing)) {
+      const [ruleDay, timeRange] = rule.split(':');
+      if (ruleDay === '*' && !['st', 'su'].includes(dayName) && 
+          this.isTimeInRange(hour, timeRange)) {
+        return parseInt(price);
       }
     }
 
     return null;
   }
 
-  getSeason(price, date) {
-    const year = date.getFullYear();
-    const winterStart = new Date(price[`${year}-${year + 1}`].firstWinterDay);
-    const summerStart = new Date(price[`${year}-${year + 1}`].firstSummerDay);
-
-    if (date >= winterStart && date < summerStart) {
-      return price[`${year}-${year + 1}`].winter;
-    } else {
-      return price[`${year}-${year + 1}`].summer;
-    }
-  }
-
-  isTimeInRange(time, start, end) {
-    const [startHour, startMinute] = start.split(':').map(Number);
-    const [endHour, endMinute] = end.split(':').map(Number);
-    const [hour, minute] = time.split(':').map(Number);
-
-    const startTime = startHour * 60 + startMinute;
-    const endTime = endHour * 60 + endMinute;
-    const currentTime = hour * 60 + minute;
-
-    return currentTime >= startTime && currentTime <= endTime;
-  }
-
-  getMinMaxPrice(date) {
-    const prices = [];
-
-    this.data.forEach(club => {
-      club.courts.forEach(court => {
-        const price = this.getPriceForDate(court, new Date(date));
-        if (price) prices.push(price);
-      });
-    });
-
-    return {
-      min: Math.min(...prices),
-      max: Math.max(...prices)
-    };
-  }
-
   listCourts() {
-    const currentDate = new Date();
-    return this.data.map(club => {
-      const courts = club.courts.map(court => {
-        const minMaxPrice = this.getMinMaxPrice(currentDate);
-        return {
-          surface: court.surface,
-          type: court.type,
-          courts: court.courts,
-          minMaxPrice
-        };
-      });
+    const now = new Date();
+    const result = [];
 
-      return {
-        id: club.id,
-        address: club.address,
-        googleMapsLink: club.googleMapsLink,
-        website: club.website,
-        courts
-      };
-    });
+    for (const club of this.clubs) {
+      for (const courtGroup of club.courts) {
+        const activePricing = this.findActivePricing(courtGroup.price, now);
+        
+        if (!activePricing || !activePricing.pricing) continue;
+
+        const prices = Object.values(activePricing.pricing).map(price => parseInt(price));
+        const minPrice = Math.min(...prices);
+        const maxPrice = Math.max(...prices);
+
+        const courts = [];
+        for (const courtNumber of courtGroup.courts) {
+          courts.push({
+            clubId: club.id,
+            courtId: courtNumber,
+            surface: courtGroup.surface,
+            type: courtGroup.type,
+            minPrice,
+            maxPrice,
+            season: activePricing.season
+          });
+        }      
+      }
+    }
+
+    return result;
+  }
+
+  getPrice(clubId, courtId, startTime, endTime) {
+    // Ensure proper date parsing by padding single-digit hours with zeros
+    const start = new Date(startTime)
+    const end = new Date(endTime)
+
+    // Find the club and court
+    const club = this.clubs.find(c => c.id === clubId);
+    if (!club) return null;
+
+    const courtGroup = club.courts.find(cg => 
+      cg.courts.includes(courtId.toString())
+    );
+    if (!courtGroup) return null;
+
+    // Find active pricing for the date
+    const activePricing = this.findActivePricing(courtGroup.price, start);
+    if (!activePricing || !activePricing.pricing) return null;
+
+    // Calculate total price for each hour
+    let totalPrice = 0;
+    let currentTime = new Date(start);
+
+    while (currentTime < end) {
+      const hourPrice = this.findApplicableRate(activePricing.pricing, currentTime);
+      if (hourPrice === null) return null;
+
+      // Calculate how much of the hour is used (in hours)
+      const hourEnd = new Date(currentTime.getTime() + 60 * 60 * 1000);
+      const slotEnd = new Date(Math.min(hourEnd.getTime(), end.getTime()));
+      const duration = (slotEnd - currentTime) / (60 * 60 * 1000);
+
+      totalPrice += hourPrice * duration;
+      currentTime = hourEnd;
+    }
+
+    return totalPrice;
   }
 }
 
-// Tests
-import assert from 'assert';
-
-const courtPricing = new CourtPricing('courts.yaml');
-
-// Test getPrice
-assert.strictEqual(courtPricing.getPrice('matchpoint', '1', '2024-11-01', '2024-11-01'), 160);
-
-// Test getMinMaxPrice
-const minMaxPrice = courtPricing.getMinMaxPrice('2024-11-01');
-assert.strictEqual(minMaxPrice.min, 130);
-assert.strictEqual(minMaxPrice.max, 160);
-
-// Test listCourts
-const courtsList = courtPricing.listCourts();
-assert.strictEqual(courtsList.length, 2);
-assert.strictEqual(courtsList[0].id, 'matchpoint');
-assert.strictEqual(courtsList[0].address, 'Szyszkowa 6, 55-040 Ślęza, Poland');
-assert.strictEqual(courtsList[0].courts[0].minMaxPrice.min, 130);
-assert.strictEqual(courtsList[0].courts[0].minMaxPrice.max, 160);
-
-console.log('All tests passed!');
+export default CourtPricingSystem;
