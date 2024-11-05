@@ -31,25 +31,23 @@ const TennisCourt = forwardRef(({ surface = 'hard', courtNumber, ...props }, ref
         <g stroke="white" strokeWidth="2" fill="none" transform="translate(6,8) scale(0.8)">
          
 
-      {/* Outer court */}
-      <rect x="0" y="0" width="100%" height="100%" />
+      {/* Outer court
+      <rect x="0" y="0" width="100%" height="100%" /> */}
 
       {/* Singles sidelines */}
-      <line x1="16.67%" y1="0" x2="16.67%" y2="100%" /> {/* Left singles sideline */}
-      <line x1="83.33%" y1="0" x2="83.33%" y2="100%" /> {/* Right singles sideline */}
+      {/* <line x1="16.67%" y1="0" x2="16.67%" y2="100%" /> Left singles sideline */}
+      {/* <line x1="83.33%" y1="0" x2="83.33%" y2="100%" /> Right singles sideline */}
 
       {/* Net */}
-      <line x1="0" y1="50%" x2="100%" y2="50%" /> {/* Net line */}
+      {/* <line x1="0" y1="50%" x2="100%" y2="50%" /> Net line */}
 
-      {/* Center service line */}
-      <line x1="50%" y1="100%" x2="50%" y2="75%" /> {/* Center service line */}
 
       {/* Service boxes */}
-      <rect x="16.67%" y="25%" width="33.33%" height="25%" /> {/* Left top service box */}
-      <rect x="50%" y="25%" width="33.33%" height="25%" /> {/* Right top service box */}
+      {/* <rect x="16.67%" y="25%" width="33.33%" height="25%" /> Left top service box */}
+      {/* <rect x="50%" y="25%" width="33.33%" height="25%" /> Right top service box */}
 
-      <rect x="16.67%" y="50%" width="33.33%" height="25%" /> {/* Left bottom service box */}
-      <rect x="50%" y="50%" width="33.33%" height="25%" /> {/*Right bottom service box */}
+      {/* <rect x="16.67%" y="50%" width="33.33%" height="25%" /> Left bottom service box */}
+      {/* <rect x="50%" y="50%" width="33.33%" height="25%" /> Right bottom service box */}
 
       <rect
         x="20%"
@@ -57,6 +55,7 @@ const TennisCourt = forwardRef(({ surface = 'hard', courtNumber, ...props }, ref
         width="60%"
         height="60%"
         fill={colors[surface]}
+        stroke="none"
       />
 
         {/* Court number text */}
