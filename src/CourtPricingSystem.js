@@ -160,16 +160,6 @@ class Club {
     );
   }
 
-  getPrice(courtId, startTime, endTime) {
-    const courtGroup = this.courtGroups.find(group => 
-      group.courts.some(court => court.id === courtId)
-    );
-    
-    if (!courtGroup) return null;
-    
-    return courtGroup.getPrice(courtId, startTime, endTime);
-  }
-
   getMaxMinPrice(date = new Date()) {
     const result = [];
     
@@ -221,6 +211,63 @@ class CourtPricingSystem {
       result.push(club);
     }
     return result;
+  }
+
+  verifySchedules() {
+    const errors = [];
+    
+    for (const club of this.clubs) {
+      for (const courtGroup of club.courtGroups) {
+        // Check both winter and summer schedules
+        const winterDate = new Date(courtGroup.pricingPeriods[0].firstWinterDay);
+        const summerDate = new Date(courtGroup.pricingPeriods[0].firstSummerDay);
+        
+        // Verify winter schedule
+        const winterPricing = courtGroup.findActivePricing(winterDate);
+        if (winterPricing) {
+          this.verifyDaySchedule(winterPricing.pricing, courtGroup, club, errors, 'winter');
+        } else {
+          errors.push(`Missing winter pricing for club ${club.name}, court group ${courtGroup.surface} ${courtGroup.type}`);
+        }
+        
+        // Verify summer schedule
+        const summerPricing = courtGroup.findActivePricing(summerDate);
+        if (summerPricing) {
+          this.verifyDaySchedule(summerPricing.pricing, courtGroup, club, errors, 'summer');
+        } else {
+          errors.push(`Missing summer pricing for club ${club.name}, court group ${courtGroup.surface} ${courtGroup.type}`);
+        }
+      }
+    }
+    
+    return {
+      isValid: errors.length === 0,
+      errors: errors
+    };
+  }
+
+  verifyDaySchedule(pricing, courtGroup, club, errors, season) {
+    const days = ['mo', 'tu', 'we', 'th', 'fr', 'st', 'su'];
+    const operatingHours = { start: 7, end: 22 };
+    
+    for (const day of days) {
+      // Check each hour in operating hours
+      for (let hour = operatingHours.start; hour < operatingHours.end; hour++) {
+        const testDate = new Date(2024, 0, 1, hour); // Use a Monday in 2024
+        // Adjust the day of week
+        testDate.setDate(testDate.getDate() + days.indexOf(day));
+        
+        const rate = courtGroup.findApplicableRate({ ...pricing }, testDate);
+        
+        if (rate === null) {
+          errors.push(
+            `Gap found in ${season} schedule for club ${club.name}, ` +
+            `court group ${courtGroup.surface} ${courtGroup.type}, ` +
+            `day ${day}, hour ${hour}:00`
+          );
+        }
+      }
+    }
   }
 }
 
