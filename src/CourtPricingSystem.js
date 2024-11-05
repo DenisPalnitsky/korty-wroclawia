@@ -35,7 +35,7 @@ class CourtGroup {
   findActivePricing(date) {
     const targetDate = new Date(date);
     
-    for (const [period, config] of Object.entries(this.pricingPeriods)) {
+    for (const [, config] of Object.entries(this.pricingPeriods)) {
       const winterStart = new Date(config.firstWinterDay);
       const summerStart = new Date(config.firstSummerDay);
       

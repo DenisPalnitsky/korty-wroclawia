@@ -1,5 +1,6 @@
-import React, { forwardRef } from 'react';
+import  { forwardRef } from 'react';
 import { Box } from '@mui/material'; // Import Box from Material-UI
+import PropTypes from 'prop-types';
 
 const TennisCourt = forwardRef(({ surface = 'hard', courtNumber, ...props }, ref) => {
   const colors = {
@@ -76,6 +77,11 @@ const TennisCourt = forwardRef(({ surface = 'hard', courtNumber, ...props }, ref
     </Box>
   );
 });
+
+TennisCourt.propTypes = {
+  surface: PropTypes.string.isRequired,
+  courtNumber: PropTypes.number.isRequired,
+};
 
 TennisCourt.displayName = 'TennisCourt';
 

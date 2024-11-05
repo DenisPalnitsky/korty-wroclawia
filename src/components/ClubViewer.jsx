@@ -1,12 +1,6 @@
-import React, { useState } from 'react';
-import {
-  Paper,
-  Table,
-  TableBody,
-  TableCell,
-  TableContainer,
-  TableHead,
-  TableRow,
+import  { useState } from 'react';
+import PropTypes from 'prop-types';
+import {  
   CardHeader,
   Slider,
   TextField,
@@ -151,6 +145,11 @@ const ClubViewer = ({ pricingSystem }) => {
       ))}
     </Box>
   );
+};
+ClubViewer.propTypes = {
+  pricingSystem: PropTypes.shape({
+    list: PropTypes.func.isRequired,
+  }).isRequired,
 };
 
 export default ClubViewer;

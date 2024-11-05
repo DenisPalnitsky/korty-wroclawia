@@ -1,3 +1,4 @@
+/* eslint-env mocha */
 import { expect } from 'chai';
 import  CourtPricingSystem  from '../CourtPricingSystem.js';
 import fs from 'fs';
