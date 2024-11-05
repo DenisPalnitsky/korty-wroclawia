@@ -17,7 +17,6 @@ import {
   Card,
   CardContent,
 } from '@mui/material';
-import CourtSquareWithLines from './CourtSquare';
 import TennisCourt from './TennisCourt';
 
 
@@ -38,13 +37,6 @@ const ClubViewer = ({ pricingSystem }) => {
     return `${hour.toString().padStart(2, '0')}:00`;
   };
 
-  const getCourtPrice = (club, courtId) => {
-    const [year, month, day] = selectedDate.split('-').map(Number);
-    const startTime = new Date(year, month - 1, day, timeRange[0], 0, 0);
-    const endTime = new Date(year, month - 1, day, timeRange[1], 0, 0);
-
-    return club.getPrice(courtId, startTime, endTime);
-  };
 
   const getDates = () => {
     const [year, month, day] = selectedDate.split('-').map(Number);
@@ -144,7 +136,7 @@ const ClubViewer = ({ pricingSystem }) => {
                             : 'Price not available'
                         }
                       > 
-                        <TennisCourt surface={court.surface}>
+                        <TennisCourt surface={court.surface} courtNumber= {court.id}>
                           {court.id}
                         </TennisCourt>
                       </Tooltip>
