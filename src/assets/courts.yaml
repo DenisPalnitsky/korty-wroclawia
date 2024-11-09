@@ -3,25 +3,24 @@
   address: Szyszkowa 6, 55-040 Ślęza, Poland
   googleMapsLink: https://maps.app.goo.gl/Dm2WNmwLiSPtBanZ9
   website: https://www.matchpoint.com.pl/
+  partnerCards: ['multisport-plus']
   courts:
   - surface: hard
     type: indoor
     courts: ['1', '2']    
-    price:
-      2023-2024:
-        firstWinterDay: '2023-11-01'
-        firstSummerDay: '2024-05-01'
-        summer:
+    prices:      
+      - from: '2023-11-01'
+        to: '2024-05-01'
+        schedule:
+          "*:7-15": '60'
+          "*:15-23": '80'          
+          "!:23-6": '110'      
           su:00-23: '50'
           st:15-23: '60'
           st:7-15: '80'
-          "*:16-23": '80'
-          "*:7-15": '60'
-          "!:23-6": '110'
-      2024-2025:
-        firstWinterDay: '2024-11-01'
-        firstSummerDay: '2025-05-01'
-        winter:
+      - from: '2024-11-01'
+        to: '2025-05-01'
+        schedule:
           "*:7-15": '140'
           "*:15-23": '170'
           st:00-15: '170'
@@ -31,11 +30,10 @@
   - surface: hard
     type: tent
     courts: ['4', '5', '6', '7']    
-    price:
-      2024-2025:
-        firstWinterDay: '2024-11-01'
-        firstSummerDay: '2025-05-01'
-        winter:
+    prices:      
+      - from: '2024-11-01'
+        to: '2025-05-01'
+        schedule:
           "*:7-15": '130'
           "*:15-23": '160'
           st:00-15: '160'
@@ -46,28 +44,330 @@
   address: Powstańców Śląskich 211A, 53-020 Wrocław
   googleMapsLink: https://maps.app.goo.gl/BM8n6n7zNntvJRXZ8
   website: http://www.krzyckapark.pl/
+  partnerCards: ['multisport']
   courts:
   - surface: clay
     type: outdoor
+    light: yes
     courts: ['3', '4']    
-    price:   
-      2024-2025:
-        firstWinterDay: '2024-11-01'
-        firstSummerDay: '2025-05-01'
-        winter:
-          "!:00-23": '45'        
-        summer:
-          "!:00-23": '45'
+    prices:         
+      - from: '2024-01-01'
+        to: '2025-01-01'        
+        schedule:
+          "*:7-15": '40'
+          "*:15-23": '50'
+          "su:7-23": '45'
+          "st:7-23": '45'
+          "hl:7-23": '45'
   - surface: clay
-    type: tent
+    type: hala pneum
     courts: ['1', '2']    
-    price:
-      2024-2025:
-        firstWinterDay: '2024-10-01'
-        firstSummerDay: '2025-05-01'
-        winter:
+    prices:      
+      - from: '2024-10-01'
+        to: '2025-05-01'
+        schedule:
           "*:7-15": '110'
           "*:15-23": '170'
-          st:7-23: '120'
-          su:7-23: '120'
+          "st:7-23": '120'
+          "su:7-23": '120'
+          "hl:7-23": '120'
+
+- name: Spartan Pułtuska
+  id: spartan-pultuska
+  address: Pułtuska 13, Wrocław, Poland
+  googleMapsLink: https://g.co/kgs/WV8e8kt
+  website: https://spartan.wroc.pl/pultuska/tenis
+  courts:
+  - surface: clay
+    type: outdoor
+    light: yes
+    courts: ['1', '2' , '3' ,'4', 'C' , '5' , '6']    
+    prices:      
+      - from: 2024-05-01
+        to: 2024-11-11
+        schedule:
+          "*:07-11": '55'
+          "*:11-16": '44'
+          "*:16-22": '68'
+          "st:07-22": '55'
+          "su:07-22": '55'
+          "hl:07-22": '55'
+  - surface: hard
+    type: tent
+    courts: ['1', '2' , '3' ,'4', '5']    
+    prices:  
+      - from: 2024-10-01
+        to: 2025-05-01  
+        schedule:
+          "*:07-11": '140' 
+          "*:11-16": '110'
+          "*:16-22": '170' 
+
+          "sa:7-14": '140' 
+          "su:7-14": '140' 
+          "hl:7-14": '140' 
           
+          "sa:14-22": '120' 
+          "su:14-22": '120' 
+          "hl:14-22": '120' 
+
+- name: Spartan Lubinska
+  id: spartan-lubinska
+  address: ul. Lubińska 53 53-623 Wrocław
+  googleMapsLink: https://maps.app.goo.gl/2bpBtoohqyhVU96SA
+  website: https://spartan.wroc.pl/lubinska/tenis
+  courts:
+  - surface: clay
+    type: outdoor
+    light: true
+    courts: ['1', '2' , '3']    
+    prices:      
+      - from: '2024-10-01'  
+        to: '2025-05-01'  
+        schedule:
+          "su:7-22": '45'
+          "st:7-22": '45'
+          "*:7-11": '45'
+          "*:11-16": '34'
+          "*:16-22": '58'        
+          "hl:7-22": '45'
+  - surface: carpet
+    type: tent
+    courts: ['4', '5']    
+    prices:
+      - from: '2024-10-01'  
+        to: '2025-05-01'
+        schedule:
+          "*:7-16": '90'
+          "*:16-23": '125' 
+          "st:00-23": '100'
+          "su:00-23": '100'
+          "hl:00-23": '100'  
+      - from: '2024-10-01'  
+        to: '2025-05-01'
+        schedule:         
+          su:7-22: '45'
+          st:7-22: '45'
+          hl:7-22: '45'
+          "*:7-11": '45'
+          "*:11-16": '34'                           
+          "*:16-22": '58'
+
+- name: Spartan Spiska
+  id: spartan-spiska
+  address: ul. Spiska 1 50-562 Wrocław
+  googleMapsLink: https://maps.app.goo.gl/BRhyRcCt6Vd7koyC8
+  website: https://spartan.wroc.pl/spiska/tenis
+  courts:
+  - surface: clay
+    type: outdoor
+    courts: ['5', '6' , '7' , '8']
+    light: no
+    prices:      
+      - from: '2023-11-01'
+        to: '2024-05-01'
+        schedule:         
+          "*:7-11": '55'
+          "*:11-16": '44'
+          "*:16-22": '68'
+          "su:7-22": '55'
+          "st:7-22": '55'        
+          "hl:7-23": '55'
+  - surface: clay
+    type: tent
+    courts: ['1', '2' , '3' , '4']    
+    prices:      
+      - from: '2023-11-01'
+        to: '2024-05-01'
+        schedule:         
+          "*:7-11": '125'
+          "*:11-16": '110'
+          "*:16-22": '160'
+          "su:7-14": '125'
+          "st:7-14": '125'        
+          "hl:7-14": '125'
+
+          "su:14-22": '110'
+          "st:14-22": '110'
+          "hl:14-22": '110'
+          
+- name: Redeco
+  id: redeco
+  address: al. Generała Józefa Hallera 81A, 53-325 Wrocław
+  googleMapsLink: https://maps.app.goo.gl/JB32kdVwZSP8E3DJ8
+  website: https://redeco.pl
+  partnerCards: ['multisport-plus']
+  courts:
+  - surface: hard
+    type: indoor
+    courts: ['1', '2' , '3']    
+    prices:      
+      - from: '2024-11-01'
+        to: '2025-05-01'
+        schedule:         
+          "*:7-15": '130'
+          "*:15-22": '170'
+          "*:22-7": '100'
+          "su:8-22": '135'
+          "st:8-22": '135'
+          "hl:8-22": '135'          
+          "su:22-8": '100'
+          "st:22-8": '100'
+          "hl:22-8": '100'                        
+  - surface: clay
+    type: baloon 
+    courts: ['1', '2' , '3']    
+    prices:
+      - from: '2024-11-01'
+        to: '2025-05-01'
+        schedule:         
+          "*:7-15": '130'
+          "*:15-22": '170'
+                    
+          "su:8-22": '135'
+          "st:8-22": '135'
+          "hl:8-22": '135'          
+                  
+- name: Vario Sport
+  id: vario-sport
+  address: Żerniki Wrocławskie - Parkowa 32 55-010 WROCŁAW, dolnośląskie
+  googleMapsLink: https://maps.app.goo.gl/qh9DuwG1KUz9o5cZ7
+  website: https://www.twojtenis.pl/pl/kluby/vario_sport/info.html
+  courts:
+  - surface: clay 
+    type: baloon
+    light: no
+    heating: no
+    courts: ['1', '2']    
+    prices:
+      - from: '2024-11-01'
+        to: '2025-05-01'
+        schedule:         
+          "*:7-16": '60' 
+          "*:16-23": '140'
+          "su:8-23": '60'
+          "st:7-22": '60'
+         
+- name: Winner's Tenis Club
+  id: winners
+  address: ul. Kominiarska 42, 51-180 Wrocław
+  googleMapsLink: https://maps.app.goo.gl/6fn5UrsWGKmejWQLA
+  website: http://winnerstennisclub.pl
+  partnerCards: ['multisport']
+  courts:
+  - surface: clay 
+    type: baloon
+    courts: ['1', '2' , '3']
+    heating: yes    
+    prices:      
+      - from: '2024-11-01'
+        to: '2025-05-01'
+        schedule:         
+          "*:8-15": '115' 
+          "*:15-23": '150'
+          
+          "su:8-13": '120'
+          "st:8-13": '120'
+          "hl:8-13": '120'
+          
+          "su:13-17": '105'
+          "st:13-17": '105'
+          "hl:13-17": '105'                  
+
+- name: Oleśnicki Klub Tenisowy
+  id: olesnicki-klub-tenisowy
+  address: Rabarbarowa 7 56-400 OLEŚNICA, dolnośląskie
+  googleMapsLink: https://maps.app.goo.gl/5WGKjGSHppaXjnh77
+  website: https://www.twojtenis.pl/pl/kluby/olesnicki_klub_tenisowy/info.html
+  courts:
+  - surface: clay 
+    type: outdoor
+    courts: ['1']    
+    prices:
+      - from: '2024-05-01'
+        to: '2024-11-01'
+        schedule:         
+          "mo:0-23": '30'
+  - surface: clay 
+    type: outdoor
+    courts: ['2' , '3']    
+    prices:
+      - from: '2024-05-01'
+        to: '2024-11-01'
+        schedule:         
+          "!:6-22": '30'
+- name: KosmoS Arena
+  id: kosmos-arena
+  address: ul.Mieroszowska 2 (róg Kosmonautów) 54-034 WROCŁAW, dolnośląskie
+  googleMapsLink: https://maps.app.goo.gl/zPKhWBUSApd4LKMX7
+  website: www.kosmosarena.pl
+  courts:
+  - surface: carpet 
+    type: baloon
+    courts: ['1', '2']    
+    prices:      
+      - from: '2024-10-01'
+        to: '2025-05-01'
+        schedule:         
+          "*:8-11": '120'
+          "*:11-15": '95'
+          "*:15-21": '140'
+          "*:21-23": '130'
+          
+          "su:8-23": '130'
+          "st:8-23": '130'          
+      - from: 2025-05-01
+        to: 2025-10-01
+        schedule:  
+          "*:8-11": '45'
+          "*:11-15": '35'
+          "*:15-21": '70'
+          "*:21-23": '65'
+          
+          "su:8-23": '60'
+          "st:8-23": '60'          
+          
+  - surface: carpet? 
+    type: outdoor
+    courts: ['3']    
+    prices:      
+      - from: 2024-01-01
+        to: 2024-12-31
+        schedule:         
+          "su:8-23": '60'
+          "st:8-23": '60'
+          "*:8-11": '45' 
+          "*:11-15": '35'
+          "*:15-21": '70'
+          "*:21-23": '65'
+- name: Hala Tenisowa Hotel Gem
+  id: gem
+  address: Józefa Mianowskiego 2B, 51-605 Wrocław
+  googleMapsLink: https://maps.app.goo.gl/rnYYGhw3bookeDak9
+  website: www.gemhotel.pl/pl/obiekty-sportowe/hala-tenisowa-i-korty
+  courts:
+  - surface: hard 
+    type: indoor
+    courts: ['1', '2' , '3']    
+    prices:      
+      - from: 2024-11-01
+        to: 2025-05-01
+        schedule:                   
+          "*:7-16": '110' 
+          "*:16-22": '150'
+          "su:7-20": '115'
+          "st:7-20": '115'
+          "hl:7-20": '115'
+  - surface: clay 
+    type: outdoor
+    courts: ['4', '5' , '6' , '7' , '8']    
+    prices:
+      2023-2024:
+        from: '2025-05-01'
+        to: 2025-11-01'
+        schedule:         
+          "*:7-15": '40' 
+          "*:15-22": '50'
+          "su:7-20": '40'
+          "st:7-20": '40'
+          "hl:7-20": '40'
