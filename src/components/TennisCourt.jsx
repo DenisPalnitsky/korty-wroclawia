@@ -1,15 +1,12 @@
 import  { forwardRef } from 'react';
 import { Box } from '@mui/material'; // Import Box from Material-UI
 import PropTypes from 'prop-types';
+import { getCourtColor } from '../lib/consts';
 
-const TennisCourt = forwardRef(({ surface = 'hard', courtNumber, ...props }, ref) => {
-  const colors = {
-    hard: '#4169E1',
-    clay: '#D2691E',
-    grass: '#228B22',
-    carpet: '#A52A2A',
-  };
 
+const TennisCourt = forwardRef(({ surface = 'clay', courtName, ...props }, ref) => {
+  
+  
   return (
     <Box
       ref={ref}
@@ -27,7 +24,7 @@ const TennisCourt = forwardRef(({ surface = 'hard', courtNumber, ...props }, ref
         viewBox="0 0 60 80"
         width={60*0.5}
         height={80*0.5}
-        style={{ backgroundColor: colors[surface] }}
+        style={{ backgroundColor: getCourtColor(surface) }}
       >
         <g stroke="white" strokeWidth="2" fill="none" transform="translate(6,8) scale(0.8)">
          
@@ -55,7 +52,7 @@ const TennisCourt = forwardRef(({ surface = 'hard', courtNumber, ...props }, ref
         y="20%"
         width="60%"
         height="60%"
-        fill={colors[surface]}
+        fill={getCourtColor(surface)}
         stroke="none"
       />
 
@@ -68,9 +65,10 @@ const TennisCourt = forwardRef(({ surface = 'hard', courtNumber, ...props }, ref
           fill="white"
           stroke="none"
           fontSize="36"
-          fontWeight="bold"            
+          fontWeight="bold"
+          fontFamily='"Roboto", "Arial", sans-serif'
         >
-          {courtNumber}
+          {courtName}
         </text>
         </g>
       </svg>

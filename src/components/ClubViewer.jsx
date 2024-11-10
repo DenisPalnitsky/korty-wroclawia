@@ -13,6 +13,7 @@ import {
   Grid2
 } from '@mui/material';
 import TennisCourt from './TennisCourt';
+import { getCourtColor } from '../lib/consts';
 
 
 const marks = [
@@ -81,7 +82,7 @@ const ClubViewer = ({ pricingSystem }) => {
       </Box>
 
       {clubs.map((club) => (
-        <Card key={club.id} sx={{ mb: 3 }}>
+        <Card key={club.id} sx={{ mb: 3, border:0 }}>
           <CardHeader title={club.name}
             subheader={<Link
               href={club.googleMapsLink}
@@ -97,68 +98,64 @@ const ClubViewer = ({ pricingSystem }) => {
           >
 
             {club.courtGroups.map((courtGroup, groupIndex) => (
-              <Box id='court-group-box' key={groupIndex} 
+              <Grid2 container  spacing={2} id='court-group-box' key={groupIndex} 
                   sx={{                     
-                    border: 1,
+                    border: 3,
                     padding: 1,
+                    mb: 1,
                     display: 'flex',
-                    alignItems: 'flex-start',
-                    width: '100%'                    
-                    }} >
-                <Box sx={{ flex: 1 }} id="group-info">
-                  <Typography variant="subtitle1" sx={{ mb: 1 }}>
+                    alignItems: 'flex-start',                    
+                    borderRadius: 1,
+                    borderColor: getCourtColor(courtGroup.surface),            
+                    borderLeft: `5px solid ${getCourtColor(courtGroup.surface)}`,
+                    borderRight: 'none',
+                    borderTop: 'none',
+                    borderBottom: 'none',
+                  }} >
+                <Grid2 size={3}  id="group-info">
+                  <Typography variant="body1" sx={{ mb: 1 }}>
                     Court type:  {courtGroup.type} 
                     </Typography>
-                  <Typography variant="subtitle2" sx={{ mb: 1 }}>
+                  <Typography variant="body1" sx={{ mb: 1 }}>
                     Surface: {courtGroup.surface}
                   </Typography>               
-                </Box>
-
-                <Box id="prices" sx={{
-                                    display: 'flex',
-                                    gap: 2,
-                                    flexDirection: 'column',
-                                    alignItems: 'flex-start',
-                                    justifyContent: 'space-between'
-                                  }}>
-                   
-                  <Typography hidden={ !courtGroup.isClosed(getDates().startTime) } variant="body1" sx={{ mb: 1 }}>
-                    Closed
+                </Grid2>
+                  
+                  
+                {/* Price Column */}
+                <Grid2 size={2} sx={{
+                  borderRadius: 1,
+                  bgcolor: 'primary.main',
+                  '&:hover': {
+                    bgcolor: 'primary.dark',
+                  },
+                }}>
+                  <Typography variant="subtitle1">
+                    Price: {courtGroup.getPrice(getDates().startTime, getDates().endTime)} PLN
                   </Typography>
-                  
-                  <Grid2 container hidden={ courtGroup.isClosed(getDates().startTime)}> 
-                    <Box sx={{
-                      borderRadius: 1,
-                      bgcolor: 'primary.main',
-                      '&:hover': {
-                        bgcolor: 'primary.dark',
-                      },
-                    }}>
-                      <Typography variant="subtitle1">
-                        Price: {courtGroup.getPrice(getDates().startTime, getDates().endTime)} PLN
-                      </Typography>
-                    </Box>
+                </Grid2>
 
-                    {/* Price Ranges Column */}
-                    <Box>
-                      <Typography variant="body1">
-                        Price Range Week Day: {courtGroup.getMaxMinPriceForWeekday()?.minPrice - courtGroup.getMaxMinPriceForWeekday()?.maxPrice} PLN
-                      </Typography>
-                      <Typography variant="body1">
-                        Price Range For Weekend: {courtGroup.getMaxMinPriceForWeekend()?.minPrice - courtGroup.getMaxMinPriceForWeekend()?.maxPrice} PLN
-                      </Typography>
-                    </Box>
-                  </Grid2>
-                  
-                </Box>
-
-                <Box border={1} sx={{
-                        display: 'grid',
-                        gap: 1, // Increased gap for better spacing
-                        gridTemplateColumns: 'repeat(3, 1fr)',  
-                        marginLeft: 2, // Add spacing from group-info
-                        alignItems: 'right',
-                        justifyContent: 'start'              
+                {/* Price Ranges Column */}
+                <Grid2 size="grow">
+                  <Typography variant="body1">
+                    Price Range Week Day: {courtGroup.getMaxMinPriceForWeekday()?.minPrice - courtGroup.getMaxMinPriceForWeekday()?.maxPrice} PLN
+                  </Typography>
+                  <Typography variant="body1">
+                    Price Range For Weekend: {courtGroup.getMaxMinPriceForWeekend()?.minPrice - courtGroup.getMaxMinPriceForWeekend()?.maxPrice} PLN
+                  </Typography>
+                </Grid2>
+            
+                {/* Court Tiles Column */}
+                <Grid2 container size="auto" columns={5} sx={{
+                           display: 'flex', // Change to flex from grid
+                           flexWrap: 'wrap',
+                           gap: 1,
+                           marginLeft: 'auto', // Push content to right
+                           marginRight: 1,
+                           padding: 1,                           
+                           width: 'auto', // Allow container to shrink                           
+                           justifyContent: 'flex-end', // Align items to right
+                           alignItems: 'center'                           
                 }} id="court-tiles" >
                   {courtGroup.courts.map((court) => {
                     const price = courtGroup.getPrice(getDates().startTime, getDates().endTime);
@@ -171,14 +168,14 @@ const ClubViewer = ({ pricingSystem }) => {
                             : 'Price not available'
                         }
                       > 
-                        <TennisCourt surface={court.surface} courtNumber={court.id}>
+                        <TennisCourt surface={court.surface} courtName={court.id}>
                           {court.id}
                         </TennisCourt>
                       </Tooltip>
                     );
                   })}
-                </Box>
-              </Box>
+                </Grid2>
+              </Grid2>
             ))}
 
           </CardContent>
