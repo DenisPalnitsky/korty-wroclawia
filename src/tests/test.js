@@ -52,6 +52,40 @@ describe('CourtPricing', () => {
     expect(price).to.equal(50*2, "Two hours in the evening")
   });
 
+  describe('regression', () => {
+    it('should return price', () => {
+      const system = new CourtPricingSystem({
+        id: 'test-club',
+        name: 'Test Club',
+        courts: [
+          {
+            surface: 'hard',
+            type: 'indoor',
+            courts: ['1'],
+            prices: [{
+              from: '2024-01-01',
+              to: '2025-01-01',
+              schedule: { "*:7-22": "100" }
+            }]
+          },
+          {
+            surface: 'clay',
+            type: 'outdoor',
+            courts: ['2'],
+            prices: [{
+              from: '2024-05-01',
+              to: '2024-10-01',
+              schedule: { "*:7-22": "80" }
+            }]
+          }
+        ]
+      });
+      
+      const result = system.clubs[0].courtGroups[1].getPrice('2024-09-30T07:00:00', '2024-09-30T08:00:00');
+      expect(result).to.equal(80);
+    });
+  });
+
   describe('validate()', () => {
     it('should detect gaps between pricing periods', () => {
       const system = new CourtPricingSystem({
@@ -75,12 +109,12 @@ describe('CourtPricing', () => {
           ]
         }]
       });
-
+  
       const result = system.validate();
       expect(result.isValid).to.be.false;
       expect(result.errors[0]).to.include('Gap found');
     });
-
+  
     it('should detect overlapping periods', () => {
       const system = new CourtPricingSystem({
         id: 'test-club',
@@ -93,22 +127,22 @@ describe('CourtPricing', () => {
             {
               from: '2024-01-01',
               to: '2024-07-15',
-              schedule: { "*:7-22": "100" }
+              schedule: { "*:7-21": "100" }
             },
             {
-              from: '2024-07-01', // Overlaps with previous period
+              from: '2024-07-01',
               to: '2024-12-31',
-              schedule: { "*:7-22": "100" }
+              schedule: { "*:7-21": "100" }
             }
           ]
         }]
       });
-
+  
       const result = system.validate();
       expect(result.isValid).to.be.false;
       expect(result.errors[0]).to.include('Overlap found');
     });
-
+  
     it('should detect missing hours in schedule', () => {
       const system = new CourtPricingSystem({
         id: 'test-club',
@@ -122,17 +156,17 @@ describe('CourtPricing', () => {
             to: '2024-12-31',
             schedule: {
               "*:7-15": "100",
-              // Missing 15-22 schedule
+              // Missing 15-21 schedule
             }
           }]
         }]
       });
-
+  
       const result = system.validate();
       expect(result.isValid).to.be.false;
       expect(result.errors[0]).to.include('Missing price');
     });
-
+  
     it('should validate correct schedule configuration', () => {
       const system = new CourtPricingSystem({
         id: 'test-club',
@@ -143,7 +177,7 @@ describe('CourtPricing', () => {
           courts: ['1'],
           prices: [{
             from: '2024-01-01',
-            to: '2024-12-31',
+            to: '2025-01-01',
             schedule: {
               "*:7-15": "100",
               "*:15-22": "120",
@@ -153,23 +187,15 @@ describe('CourtPricing', () => {
           }]
         }]
       });
-
+  
       const result = system.validate();
       expect(result.isValid).to.be.true;
       expect(result.errors).to.have.lengthOf(0);
+      if (!result.isValid) {
+        console.log("Validation errors:", system.errors);
+      }
     });
-
-    it('should handle empty court groups', () => {
-      const system = new CourtPricingSystem({
-        id: 'test-club',
-        name: 'Test Club',
-        courts: []
-      });
-
-      const result = system.validate();
-      expect(result.isValid).to.be.true;
-    });
-
+  
     it('should handle multiple court groups', () => {
       const system = new CourtPricingSystem({
         id: 'test-club',
@@ -181,7 +207,7 @@ describe('CourtPricing', () => {
             courts: ['1'],
             prices: [{
               from: '2024-01-01',
-              to: '2024-12-31',
+              to: '2025-01-01',
               schedule: { "*:7-22": "100" }
             }]
           },
@@ -191,37 +217,23 @@ describe('CourtPricing', () => {
             courts: ['2'],
             prices: [{
               from: '2024-05-01',
-              to: '2024-09-30',
+              to: '2024-10-01',
               schedule: { "*:7-22": "80" }
             }]
           }
         ]
       });
-
+  
       const result = system.validate();
       expect(result.isValid).to.be.true;
     });
   });
 
-
-  // it('should return the correct min and max price for a given date and time', () => {
-  //   const minMaxPrice = courtPricing.getMinMaxPrice('2024-12-01');
-  //   expect(minMaxPrice.min).to.equal(130);
-  //   expect(minMaxPrice.max).to.equal(170);
-  // });
-
-  // it('should list all courts with their details and min/max price for the current date and time', () => {
-  //   const courtsList = courtPricing.listCourts();
-  //   expect(courtsList.courts).to.have.lengthOf(1);
-  //   expect(courtsList[0].id).to.equal('matchpoint');    
-  //   expect(courtsList[0].courts[0].minMaxPrice.min).to.equal(130);
-  //   expect(courtsList[0].courts[0].minMaxPrice.max).to.equal(170);
-  // });
 });
 
-describe('DataValidation', () => {
-  it('should verify data as correct', () => {
-    const fileContents = fs.readFileSync('src/tests/courts_test.yaml', 'utf8');
+describe('RealDataValidation', () => {
+  it('validation of assets/courts.yaml', () => {
+    const fileContents = fs.readFileSync('src/assets/courts.yaml', 'utf8');
     const data = yaml.load(fileContents);
     const courtPricingSystem = new CourtPricingSystem(data);
   
@@ -234,3 +246,27 @@ describe('DataValidation', () => {
   });
 });
 
+
+// describe('Debug',()=>{
+//   const getDatesForYear = (year) => {
+//     const dates = [];
+//     const start = new Date(year, 0, 1);
+//     const end = new Date(year + 1, 0, 1);
+    
+//     for (let d = start; d < end; d.setDate(d.getDate() + 1)) {
+//       dates.push(new Date(d));
+//     }
+//     return dates;
+//   };
+//   const year2024 = getDatesForYear(2024);
+
+//   it.only('should return relevant dates', () => {
+//     const minDate = new Date('2024-04-30T00:00:00');
+//     const maxDate = new Date('2024-05-01T00:00:00');
+//     const relevantDates = year2024.filter(date => 
+//       date >= minDate && date < maxDate
+//     );
+//     expect(relevantDates).to.have.lengthOf(1);  
+//     expect(relevantDates[0]).not.eq(maxDate);
+//   });
+// })

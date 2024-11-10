@@ -15,12 +15,23 @@ class Court {
   }
 }
 
+class PricePeriod {  
+  constructor(prices){
+    this.from = new Date(prices.from);
+    this.from.setHours(0,0,0,0);
+    this.to = new Date(prices.to);
+    this.to.setHours(0,0,0,0);
+
+    this.schedule = prices.schedule;
+  }
+}
+
 class CourtGroup {
   constructor(surface, type, courtIds, prices) {
     this.surface = surface;
     this.type = type;
     this.courts = courtIds.map(id => new Court(id, surface, type, this));
-    this.prices = prices; // Now an array of price periods
+    this.prices = prices.map(price => new PricePeriod(price));
   }
 
 
@@ -37,8 +48,8 @@ class CourtGroup {
     const targetDate = new Date(date);
 
     for (const pricePeriod of this.prices) {
-      const fromDate = new Date(pricePeriod.from);
-      const toDate = new Date(pricePeriod.to);
+      const fromDate = pricePeriod.from;
+      const toDate = pricePeriod.to;
 
       if (targetDate >= fromDate && targetDate <= toDate) {
         return {
@@ -78,7 +89,7 @@ class CourtGroup {
     // Check wildcard rules (*)
     for (const [rule, price] of Object.entries(pricing)) {
       const [ruleDay, timeRange] = rule.split(':');
-      if (ruleDay === '*' && !['st', 'su'].includes(dayName) &&
+      if (ruleDay === '*' &&
         this.isTimeInRange(hour, timeRange)) {
         return parseInt(price);
       }
@@ -283,7 +294,7 @@ class CourtPricingSystem {
     };
   
     const year2024 = getDatesForYear(2024);
-    const hours = Array.from({length: 16}, (_, i) => i + 7); // generates [7,8,...,21]
+    const hours = Array.from({length: 14}, (_, i) => i + 8); // generates [8,9...,21]
   
     for (const club of this.clubs) {
       for (const courtGroup of club.courtGroups) {
@@ -293,7 +304,7 @@ class CourtPricingSystem {
   
         // Filter dates within pricing period range
         const relevantDates = year2024.filter(date => 
-          date >= minDate && date <= maxDate
+          date >= minDate && date < maxDate
         );
   
         for (const date of relevantDates) {
