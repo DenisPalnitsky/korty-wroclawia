@@ -2,7 +2,7 @@ class Court {
   constructor(courtId, surface, type, courtGroup) {
     this.id = courtId;
     this.surface = surface;
-    this.type = type;        
+    this.type = type;
     this.courtGroup = courtGroup;
   }
 
@@ -15,13 +15,25 @@ class Court {
   }
 }
 
+class PricePeriod {  
+  constructor(prices){
+    this.from = new Date(prices.from);
+    this.from.setHours(0,0,0,0);
+    this.to = new Date(prices.to);
+    this.to.setHours(0,0,0,0);
+
+    this.schedule = prices.schedule;
+  }
+}
+
 class CourtGroup {
-  constructor(surface, type, courtIds, pricingPeriods) {
+  constructor(surface, type, courtIds, prices) {
     this.surface = surface;
     this.type = type;
     this.courts = courtIds.map(id => new Court(id, surface, type, this));
-    this.pricingPeriods = pricingPeriods;
+    this.prices = prices.map(price => new PricePeriod(price));
   }
+
 
   isTimeInRange(hour, timeRange) {
     const [start, end] = timeRange.split('-').map(Number);
@@ -34,15 +46,15 @@ class CourtGroup {
 
   findActivePricing(date) {
     const targetDate = new Date(date);
-    
-    for (const [, config] of Object.entries(this.pricingPeriods)) {
-      const winterStart = new Date(config.firstWinterDay);
-      const summerStart = new Date(config.firstSummerDay);
-      
-      if (targetDate >= winterStart && targetDate < summerStart) {
-        return { season: 'winter', pricing: config.winter };
-      } else if (targetDate >= summerStart && targetDate < new Date(winterStart.getTime() + 365 * 24 * 60 * 60 * 1000)) {
-        return { season: 'summer', pricing: config.summer };
+
+    for (const pricePeriod of this.prices) {
+      const fromDate = pricePeriod.from;
+      const toDate = pricePeriod.to;
+
+      if (targetDate >= fromDate && targetDate <= toDate) {
+        return {
+          pricing: pricePeriod.schedule
+        };
       }
     }
     return null;
@@ -77,8 +89,8 @@ class CourtGroup {
     // Check wildcard rules (*)
     for (const [rule, price] of Object.entries(pricing)) {
       const [ruleDay, timeRange] = rule.split(':');
-      if (ruleDay === '*' && !['st', 'su'].includes(dayName) && 
-          this.isTimeInRange(hour, timeRange)) {
+      if (ruleDay === '*' &&
+        this.isTimeInRange(hour, timeRange)) {
         return parseInt(price);
       }
     }
@@ -88,14 +100,13 @@ class CourtGroup {
 
   getMaxMinPrice(date) {
     const activePricing = this.findActivePricing(date);
-    
+
     if (!activePricing || !activePricing.pricing) return null;
 
     const prices = Object.values(activePricing.pricing).map(price => parseInt(price));
     return {
       minPrice: Math.min(...prices),
-      maxPrice: Math.max(...prices),
-      season: activePricing.season
+      maxPrice: Math.max(...prices)
     };
   }
 
@@ -146,6 +157,13 @@ class CourtGroup {
 
     return totalPrice;
   }
+
+  isClosed(startTime ){
+    const start = new Date(startTime);
+    const activePricing = this.findActivePricing(start);
+    if (!activePricing || !activePricing.pricing) return true;
+    return false;
+  }
 }
 
 class Club {
@@ -155,14 +173,15 @@ class Club {
     this.address = address;
     this.googleMapsLink = googleMapsLink;
     this.website = website;
-    this.courtGroups = courts.map(group => 
-      new CourtGroup(group.surface, group.type, group.courts, group.price)
+    this.courtGroups = courts.map(group =>
+      new CourtGroup(group.surface, group.type, group.courts, group.prices)
     );
   }
 
+
   getMaxMinPrice(date = new Date()) {
     const result = [];
-    
+
     for (const courtGroup of this.courtGroups) {
       const pricing = courtGroup.getMaxMinPrice(date);
       if (!pricing) continue;
@@ -186,10 +205,10 @@ class Club {
 
 class CourtPricingSystem {
   constructor(data) {
-    try {      
+    try {
       const clubsData = Array.isArray(data) ? data : [data];
-      
-      this.clubs = clubsData.map(club => 
+
+      this.clubs = clubsData.map(club =>
         new Club(
           club.id,
           club.name,
@@ -213,62 +232,111 @@ class CourtPricingSystem {
     return result;
   }
 
-  verifySchedules() {
+  validate() {
     const errors = [];
-    
-    for (const club of this.clubs) {
-      for (const courtGroup of club.courtGroups) {
-        // Check both winter and summer schedules
-        const winterDate = new Date(courtGroup.pricingPeriods[0].firstWinterDay);
-        const summerDate = new Date(courtGroup.pricingPeriods[0].firstSummerDay);
-        
-        // Verify winter schedule
-        const winterPricing = courtGroup.findActivePricing(winterDate);
-        if (winterPricing) {
-          this.verifyDaySchedule(winterPricing.pricing, courtGroup, club, errors, 'winter');
-        } else {
-          errors.push(`Missing winter pricing for club ${club.name}, court group ${courtGroup.surface} ${courtGroup.type}`);
-        }
-        
-        // Verify summer schedule
-        const summerPricing = courtGroup.findActivePricing(summerDate);
-        if (summerPricing) {
-          this.verifyDaySchedule(summerPricing.pricing, courtGroup, club, errors, 'summer');
-        } else {
-          errors.push(`Missing summer pricing for club ${club.name}, court group ${courtGroup.surface} ${courtGroup.type}`);
-        }
-      }
-    }
-    
+
+    // no gaps in the schedule
+    this.validateDateGaps(errors);
+
+    this.validateDaySchedule(errors);
+
     return {
       isValid: errors.length === 0,
       errors: errors
     };
   }
 
-  verifyDaySchedule(pricing, courtGroup, club, errors, season) {
-    const days = ['mo', 'tu', 'we', 'th', 'fr', 'st', 'su'];
-    const operatingHours = { start: 7, end: 22 };
-    
-    for (const day of days) {
-      // Check each hour in operating hours
-      for (let hour = operatingHours.start; hour < operatingHours.end; hour++) {
-        const testDate = new Date(2024, 0, 1, hour); // Use a Monday in 2024
-        // Adjust the day of week
-        testDate.setDate(testDate.getDate() + days.indexOf(day));
-        
-        const rate = courtGroup.findApplicableRate({ ...pricing }, testDate);
-        
-        if (rate === null) {
-          errors.push(
-            `Gap found in ${season} schedule for club ${club.name}, ` +
-            `court group ${courtGroup.surface} ${courtGroup.type}, ` +
-            `day ${day}, hour ${hour}:00`
-          );
+  
+
+  validateDateGaps(errors) {
+    for (const club of this.clubs) {
+      for (const courtGroup of club.courtGroups) {
+
+        if (courtGroup.prices.length === 0) {
+          continue;
+        }
+
+        // Sort periods by from date
+        courtGroup.prices.sort((a, b) => new Date(a.from) - new Date(b.from));
+
+        for (let i = 0; i < courtGroup.prices.length - 1; i++) {
+          const current = courtGroup.prices[i];
+          const next = courtGroup.prices[i + 1];
+
+          const currentEnd = new Date(current.to);
+          const nextStart = new Date(next.from);
+
+          // Check for gap
+          if (nextStart > currentEnd) {
+            errors.push(
+              `Gap found in schedule for club ${club.name}, ` +
+              `court group ${courtGroup.surface} ${courtGroup.type}, ` +
+              `between ${current.to} and ${next.from}`
+            );
+          }
+
+          // Check for overlap
+          if (nextStart < currentEnd) {
+            errors.push(
+              `Overlap found in schedule for club ${club.name}, ` +
+              `court group ${courtGroup.surface} ${courtGroup.type}, ` +
+              `between periods ${current.from}-${current.to} and ${next.from}-${next.to}`
+            );
+          }
         }
       }
     }
   }
+
+  validateDaySchedule(errors) {
+    const getDatesForYear = (year) => {
+      const dates = [];
+      const start = new Date(year, 0, 1);
+      const end = new Date(year + 1, 0, 1);
+      
+      for (let d = start; d < end; d.setDate(d.getDate() + 1)) {
+        dates.push(new Date(d));
+      }
+      return dates;
+    };
+  
+    const year2024 = getDatesForYear(2024);
+    const hours = Array.from({length: 14}, (_, i) => i + 8); // generates [8,9...,21]
+  
+    for (const club of this.clubs) {
+      for (const courtGroup of club.courtGroups) {
+        // Get min/max dates from pricing periods
+        const minDate = new Date(Math.min(...courtGroup.prices.map(p => new Date(p.from))));
+        const maxDate = new Date(Math.max(...courtGroup.prices.map(p => new Date(p.to))));
+  
+        // Filter dates within pricing period range
+        const relevantDates = year2024.filter(date => 
+          date >= minDate && date < maxDate
+        );
+  
+        for (const date of relevantDates) {
+          for (const hour of hours) {
+            const testTime = new Date(date);
+            testTime.setHours(hour, 0, 0, 0);
+            
+            const endTime = new Date(testTime);
+            endTime.setHours(hour + 1);
+  
+            const price = courtGroup.getPrice(testTime, endTime);
+            
+            if (price === null) {
+              errors.push(
+                `Missing price for club ${club.name}, ` +
+                `court group ${courtGroup.surface} ${courtGroup.type}, ` +
+                `at ${testTime.toISOString()}`
+              );
+            }
+          }
+        }
+      }
+    }
+  }
+
 }
 
 export default CourtPricingSystem;

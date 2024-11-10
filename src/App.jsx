@@ -1,33 +1,144 @@
-
+import { useState, useMemo } from 'react';
 import ClubViewer from "./components/ClubViewer";
 import CourtPricingSystem from "./CourtPricingSystem";
 import courtsData from './assets/courts.yaml';
-
-function App  () {
-  // const [pricingSystem, setPricingSystem] = useState(null);
-
-  // useEffect(() => {
-  //   fetch(courtsDataUrl)
-  //     .then(response => response.text())
-  //     .then(text => {
-  //       const data = yaml.load(text);
-  //       const system = new CourtPricingSystem(data);
-  //       setPricingSystem(system);
-  //     })
-  //     .catch(error => console.error('Error loading YAML file:', error));
-  // }, []);
-
-  // if (!pricingSystem) {
-  //   return <div>Loading...</div>;
-  // }
+import { ThemeProvider, Container, Typography, createTheme, IconButton, Box } from '@mui/material';
+import Brightness4Icon from '@mui/icons-material/Brightness4';
+import Brightness7Icon from '@mui/icons-material/Brightness7';
+import { TennisPallet } from './lib/consts';
 
 
-  console.log(courtsData);
+
+
+function App() {
+  const [mode, setMode] = useState('light');
+
+  const theme = useMemo(() => createTheme({
+    palette: {
+      mode,
+      primary: {
+        main: TennisPallet.hard,
+        light: '#2874A6',
+        dark: '#154360',
+      },
+      secondary: {
+        main: TennisPallet.clay,
+        light: '#F4D03F',
+        dark: '#B7950B',
+      },
+      background: {
+        default: mode === 'light' ? '#FFFFFF' : '#121212',
+        paper: mode === 'light' ? '#FFFFFF' : '#1E1E1E',
+      },
+      text: {
+        primary: mode === 'light' ? '#000000' : '#FFFFFF',
+        secondary: mode === 'light' ? '#424242' : '#B0B0B0',
+      }
+    },
+    typography: {
+      fontFamily: '"Roboto", "Arial", sans-serif',
+      h1: {
+        fontWeight: 700,
+        color: mode === 'light' ? '#000000' : '#FFFFFF',
+        fontSize: '2.5rem',
+      },
+      h2: {
+        fontWeight: 700,
+        color: mode === 'light' ? '#000000' : '#FFFFFF',
+        fontSize: '2rem',
+      },
+      h3: {
+        fontWeight: 600,
+        color: mode === 'light' ? '#000000' : '#FFFFFF',
+        fontSize: '1.75rem',
+      },
+      h4: {
+        fontWeight: 600,
+        color: mode === 'light' ? '#000000' : '#FFFFFF',
+        fontSize: '1.5rem',
+      },
+      h5: {
+        fontWeight: 600,
+        color: mode === 'light' ? '#000000' : '#FFFFFF',
+        fontSize: '1.25rem',
+      },
+      h6: {
+        fontWeight: 600,
+        color: mode === 'light' ? '#000000' : '#FFFFFF',
+        fontSize: '1rem',
+      },
+      body1: {
+        fontWeight: 400,
+        color: mode === 'light' ? '#000000' : '#FFFFFF',
+        fontSize: '1rem',
+      },
+      body2: {
+        fontWeight: 400,
+        color: mode === 'light' ? '#424242' : '#B0B0B0',
+        fontSize: '0.875rem',
+      },
+      subtitle1: {
+        fontWeight: 500,
+        color: mode === 'light' ? '#000000' : '#FFFFFF',
+        fontSize: '1rem',
+      },
+      subtitle2: {
+        fontWeight: 500,
+        color: mode === 'light' ? '#424242' : '#B0B0B0',
+        fontSize: '0.875rem',
+      },
+      button: {
+        textTransform: 'none',
+        fontWeight: 500,
+      },
+      caption: {
+        fontSize: '0.75rem',
+        color: mode === 'light' ? '#666666' : '#999999',
+      },
+    },
+    components: {
+      MuiCard: {
+        styleOverrides: {
+          root: {
+            borderLeft: `4px solid ${TennisPallet.clay}`,
+            backgroundColor: mode === 'light' ? '#FFFFFF' : '#1E1E1E',
+            boxShadow: mode === 'light' ? '0 2px 4px rgba(0,0,0,0.1)' : 'none',
+          }
+        }
+      }
+    }
+  }), [mode]);
+
   const system = new CourtPricingSystem(courtsData);
+  
   return (
-    <ClubViewer pricingSystem={system} />
+    <ThemeProvider theme={theme}>
+      <Container maxWidth="lg" sx={{ 
+        minHeight: '100vh',
+        bgcolor: 'background.default',
+        pt: 3
+      }}>
+        <Box sx={{ 
+          display: 'flex', 
+          justifyContent: 'space-between', 
+          alignItems: 'center',
+          mb: 3
+        }}>
+          <Typography variant="h5" gutterBottom={false}>
+            Tennis Court Price Comparison
+          </Typography>
+          <IconButton 
+            onClick={() => setMode(mode === 'light' ? 'dark' : 'light')}
+            color="inherit"
+            sx={{ ml: 2 }}
+          >
+            {mode === 'light' ? <Brightness4Icon /> : <Brightness7Icon />}
+          </IconButton>
+        </Box>
+        <ClubViewer pricingSystem={system} />
+      </Container>
+    </ThemeProvider>
   );
 }
-
 
 export default App;
