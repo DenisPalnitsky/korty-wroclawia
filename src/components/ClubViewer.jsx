@@ -10,6 +10,7 @@ import {
   Tooltip,
   Card,
   CardContent,
+  Grid2
 } from '@mui/material';
 import TennisCourt from './TennisCourt';
 
@@ -48,9 +49,6 @@ const ClubViewer = ({ pricingSystem }) => {
   return (
     <Box sx={{ p: 3 }}>
       <Box sx={{ mb: 4 }}>
-        <Typography variant="h5" gutterBottom>
-          Tennis Court Price Comparison
-        </Typography>
 
         <Box sx={{ display: 'flex', gap: 4, mb: 3, alignItems: 'center' }}>
           <TextField
@@ -89,35 +87,78 @@ const ClubViewer = ({ pricingSystem }) => {
               href={club.googleMapsLink}
               target="_blank"
               rel="noopener noreferrer"
-              sx={{ display: 'block', mb: 2 }}
+              sx={{ display: 'block', mb: 1 }}
             >
               {club.address}
             </Link>} />
 
-          <CardContent>
+          <CardContent
+            sx={{ p: { xs: 1, sm: 2 }}}
+          >
 
             {club.courtGroups.map((courtGroup, groupIndex) => (
-              <Box key={groupIndex} sx={{ mb: 3, display: 'flex' }} >
+              <Box id='court-group-box' key={groupIndex} 
+                  sx={{                     
+                    border: 1,
+                    padding: 1,
+                    display: 'flex',
+                    alignItems: 'flex-start',
+                    width: '100%'                    
+                    }} >
                 <Box sx={{ flex: 1 }} id="group-info">
                   <Typography variant="subtitle1" sx={{ mb: 1 }}>
-                    {courtGroup.type} - {courtGroup.surface}
-                  </Typography>
-
-                  <Typography variant="subtitle1" >
-                    Price: {courtGroup.getPrice(getDates().startTime, getDates().endTime)} PLN
-                  </Typography>
-                  <Typography variant="body1">
-                    Price Range Week Day: {courtGroup.getMaxMinPriceForWeekday().minPrice - courtGroup.getMaxMinPriceForWeekday().maxPrice} PLN
-                  </Typography>
-                  <Typography variant="body1">
-                    Price Range For Weekend: {courtGroup.getMaxMinPriceForWeekend().minPrice - courtGroup.getMaxMinPriceForWeekend().maxPrice} PLN
-                  </Typography>
+                    Court type:  {courtGroup.type} 
+                    </Typography>
+                  <Typography variant="subtitle2" sx={{ mb: 1 }}>
+                    Surface: {courtGroup.surface}
+                  </Typography>               
                 </Box>
 
-                <Box sx={{
-                   display: 'grid',
-                    gap: 1,
-                  gridTemplateColumns: 'repeat(2, 1fr)'                  
+                <Box id="prices" sx={{
+                                    display: 'flex',
+                                    gap: 2,
+                                    flexDirection: 'column',
+                                    alignItems: 'flex-start',
+                                    justifyContent: 'space-between'
+                                  }}>
+                   
+                  <Typography hidden={ !courtGroup.isClosed(getDates().startTime) } variant="body1" sx={{ mb: 1 }}>
+                    Closed
+                  </Typography>
+                  
+                  <Grid2 container hidden={ courtGroup.isClosed(getDates().startTime)}> 
+                    <Box sx={{
+                      borderRadius: 1,
+                      bgcolor: 'primary.main',
+                      '&:hover': {
+                        bgcolor: 'primary.dark',
+                      },
+                    }}>
+                      <Typography variant="subtitle1">
+                        Price: {courtGroup.getPrice(getDates().startTime, getDates().endTime)} PLN
+                      </Typography>
+                    </Box>
+
+                    {/* Price Ranges Column */}
+                    <Box>
+                      <Typography variant="body1">
+                        Price Range Week Day: {courtGroup.getMaxMinPriceForWeekday()?.minPrice - courtGroup.getMaxMinPriceForWeekday()?.maxPrice} PLN
+                      </Typography>
+                      <Typography variant="body1">
+                        Price Range For Weekend: {courtGroup.getMaxMinPriceForWeekend()?.minPrice - courtGroup.getMaxMinPriceForWeekend()?.maxPrice} PLN
+                      </Typography>
+                    </Box>
+                  </Grid2>
+                  
+                </Box>
+
+                <Box border={1} sx={{
+                        display: 'grid',
+                        gap: 1, // Increased gap for better spacing
+                        gridTemplateColumns: 'repeat(3, 1fr)',  
+                        marginLeft: 2, // Add spacing from group-info
+                        alignItems: 'right',
+                        justifyContent: 'start'              
                 }} id="court-tiles" >
                   {courtGroup.courts.map((court) => {
                     const price = courtGroup.getPrice(getDates().startTime, getDates().endTime);
@@ -130,7 +171,7 @@ const ClubViewer = ({ pricingSystem }) => {
                             : 'Price not available'
                         }
                       > 
-                        <TennisCourt surface={court.surface} courtNumber= {court.id}>
+                        <TennisCourt surface={court.surface} courtNumber={court.id}>
                           {court.id}
                         </TennisCourt>
                       </Tooltip>

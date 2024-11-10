@@ -80,7 +80,7 @@ const TennisCourt = forwardRef(({ surface = 'hard', courtNumber, ...props }, ref
 
 TennisCourt.propTypes = {
   surface: PropTypes.string.isRequired,
-  courtNumber: PropTypes.number.isRequired,
+  courtName: PropTypes.string.isRequired,
 };
 
 TennisCourt.displayName = 'TennisCourt';

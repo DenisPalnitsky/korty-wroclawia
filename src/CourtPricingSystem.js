@@ -157,6 +157,13 @@ class CourtGroup {
 
     return totalPrice;
   }
+
+  isClosed(startTime ){
+    const start = new Date(startTime);
+    const activePricing = this.findActivePricing(start);
+    if (!activePricing || !activePricing.pricing) return true;
+    return false;
+  }
 }
 
 class Club {
