@@ -124,16 +124,32 @@ const ClubViewer = ({ pricingSystem }) => {
                   
                 {/* Price Column */}
                 <Grid2 size={2} sx={{
-                  borderRadius: 1,
-                  bgcolor: 'primary.main',
-                  '&:hover': {
-                    bgcolor: 'primary.dark',
-                  },
-                }}>
-                  <Typography variant="subtitle1">
-                    Price: {courtGroup.getPrice(getDates().startTime, getDates().endTime)} PLN
-                  </Typography>
-                </Grid2>
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    height: '100%'
+                  }}>
+                    <Typography 
+                      variant="subtitle1"
+                      sx={{
+                        borderRadius: 1,
+                        bgcolor: 'primary.main',
+                        color: 'white',
+                        width: '120px',  // Fixed width
+                        padding: '8px 16px',
+                        textAlign: 'center',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        minHeight: '40px', // Fixed height
+                        '&:hover': {
+                          bgcolor: 'primary.dark',
+                        },
+                      }}
+                    >
+                      Price: {courtGroup.getPrice(getDates().startTime, getDates().endTime)} PLN
+                    </Typography>
+                  </Grid2>
 
                 {/* Price Ranges Column */}
                 <Grid2 size="grow">
