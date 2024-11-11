@@ -1,19 +1,18 @@
-import { useState, useMemo } from 'react';
-import ClubViewer from "./components/ClubViewer";
-import CourtPricingSystem from "./CourtPricingSystem";
+import React, { useState, useMemo } from 'react';
+import ClubViewer from './components/ClubViewer';
+import CourtPricingSystem from './CourtPricingSystem';
 import courtsData from './assets/courts.yaml';
-import { ThemeProvider, Container, Typography, createTheme, IconButton, Box } from '@mui/material';
+import { ThemeProvider, Container, Typography, createTheme, IconButton, Box, useTheme, useMediaQuery } from '@mui/material';
 import Brightness4Icon from '@mui/icons-material/Brightness4';
 import Brightness7Icon from '@mui/icons-material/Brightness7';
 import { TennisPallet } from './lib/consts';
 
-
-
-
 function App() {
   const [mode, setMode] = useState('light');
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
-  const theme = useMemo(() => createTheme({
+  const appTheme = useMemo(() => createTheme({
     palette: {
       mode,
       primary: {
@@ -33,66 +32,66 @@ function App() {
       text: {
         primary: mode === 'light' ? '#000000' : '#FFFFFF',
         secondary: mode === 'light' ? '#424242' : '#B0B0B0',
-      }
+      },
     },
     typography: {
       fontFamily: '"Roboto", "Arial", sans-serif',
       h1: {
         fontWeight: 700,
         color: mode === 'light' ? '#000000' : '#FFFFFF',
-        fontSize: '2.5rem',
+        fontSize: isMobile ? '2rem' : '2.5rem',
       },
       h2: {
         fontWeight: 700,
         color: mode === 'light' ? '#000000' : '#FFFFFF',
-        fontSize: '2rem',
+        fontSize: isMobile ? '1.75rem' : '2rem',
       },
       h3: {
         fontWeight: 600,
         color: mode === 'light' ? '#000000' : '#FFFFFF',
-        fontSize: '1.75rem',
+        fontSize: isMobile ? '1.5rem' : '1.75rem',
       },
       h4: {
         fontWeight: 600,
         color: mode === 'light' ? '#000000' : '#FFFFFF',
-        fontSize: '1.5rem',
+        fontSize: isMobile ? '1.25rem' : '1.5rem',
       },
       h5: {
         fontWeight: 600,
         color: mode === 'light' ? '#000000' : '#FFFFFF',
-        fontSize: '1.25rem',
+        fontSize: isMobile ? '1rem' : '1.25rem',
       },
       h6: {
         fontWeight: 600,
         color: mode === 'light' ? '#000000' : '#FFFFFF',
-        fontSize: '1rem',
+        fontSize: isMobile ? '0.875rem' : '1rem',
       },
       body1: {
         fontWeight: 400,
         color: mode === 'light' ? '#000000' : '#FFFFFF',
-        fontSize: '1rem',
+        fontSize: isMobile ? '0.875rem' : '1rem',
       },
       body2: {
         fontWeight: 400,
         color: mode === 'light' ? '#424242' : '#B0B0B0',
-        fontSize: '0.875rem',
+        fontSize: isMobile ? '0.75rem' : '0.875rem',
       },
       subtitle1: {
         fontWeight: 500,
         color: mode === 'light' ? '#000000' : '#FFFFFF',
-        fontSize: '1rem',
+        fontSize: isMobile ? '0.875rem' : '1rem',
       },
       subtitle2: {
         fontWeight: 500,
         color: mode === 'light' ? '#424242' : '#B0B0B0',
-        fontSize: '0.875rem',
+        fontSize: isMobile ? '0.75rem' : '0.875rem',
       },
       button: {
         textTransform: 'none',
         fontWeight: 500,
       },
       caption: {
-        fontSize: '0.75rem',
+        fontSize: isMobile ? '0.625rem' : '0.75rem',
         color: mode === 'light' ? '#666666' : '#999999',
       },
     },
@@ -103,39 +102,41 @@ function App() {
             borderLeft: `4px solid ${TennisPallet.clay}`,
             backgroundColor: mode === 'light' ? '#FFFFFF' : '#1E1E1E',
             boxShadow: mode === 'light' ? '0 2px 4px rgba(0,0,0,0.1)' : 'none',
-          }
-        }
-      }
-    }
-  }), [mode]);
+          },
+        },
+      },
+    },
+  }), [mode, isMobile]);
 
   const system = new CourtPricingSystem(courtsData);
-  
+
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={appTheme}>
       <Container maxWidth="lg" sx={{ 
         minHeight: '100vh',
         bgcolor: 'background.default',
-        pt: 3
+        pt: 3,
+        pb: 6, // Add bottom padding for mobile
       }}>
         <Box sx={{ 
           display: 'flex', 
           justifyContent: 'space-between', 
           alignItems: 'center',
-          mb: 3
+          mb: 3,
+          flexDirection: isMobile ? 'column' : 'row', // Adjust layout for mobile
         }}>
           <Typography variant="h5" gutterBottom={false}>
-            Tennis Court Price Comparison
+            Court of Wroclaw
           </Typography>
           <IconButton 
             onClick={() => setMode(mode === 'light' ? 'dark' : 'light')}
             color="inherit"
-            sx={{ ml: 2 }}
+            sx={{ ml: 2, mt: isMobile ? 2 : 0 }} // Add top margin for mobile
           >
             {mode === 'light' ? <Brightness4Icon /> : <Brightness7Icon />}
           </IconButton>
         </Box>
-        <ClubViewer pricingSystem={system} />
+        <ClubViewer pricingSystem={system} isMobile={isMobile} />
       </Container>
     </ThemeProvider>
   );
