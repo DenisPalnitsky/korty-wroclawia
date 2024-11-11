@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import React, { useState, useMemo } from 'react';
 import ClubViewer from './components/ClubViewer';
 import CourtPricingSystem from './CourtPricingSystem';
 import courtsData from './assets/courts.yaml';
@@ -6,7 +6,6 @@ import { ThemeProvider, Container, Typography, createTheme, IconButton, Box, use
 import Brightness4Icon from '@mui/icons-material/Brightness4';
 import Brightness7Icon from '@mui/icons-material/Brightness7';
 import { TennisPallet } from './lib/consts';
-import Footer from './components/Footer';
 
 function App() {
   const [mode, setMode] = useState('light');
@@ -116,7 +115,7 @@ function App() {
       <Container maxWidth="lg" sx={{ 
         minHeight: '100vh',
         bgcolor: 'background.default',
-        pt: isMobile ? 1 : 3,
+        pt: 3,
         pb: 6, // Add bottom padding for mobile
       }}>
         <Box sx={{ 
@@ -124,23 +123,21 @@ function App() {
           justifyContent: 'center', 
           alignItems: 'center',
           mb: 3,
-          flexDirection: 'row', // Align items vertically
+          flexDirection: isMobile ? 'column' : 'row', // Adjust layout for mobile
         }}>
-          
-          <Typography variant="h3">
-            Courts of Wroclaw
+          <Typography variant="h5" gutterBottom={false}>
+            Court of Wroclaw
           </Typography>
           
           <IconButton 
             onClick={() => setMode(mode === 'light' ? 'dark' : 'light')}
             color="inherit"
-            sx={{ justifySelf: 'right' }}        
+            sx={{ ml: 2, mt: isMobile ? 2 : 0 }} // Add top margin for mobile
           >
             {mode === 'light' ? <Brightness4Icon /> : <Brightness7Icon sx={{ color: 'white' }} />}
           </IconButton>
         </Box>
         <ClubViewer pricingSystem={system} isMobile={isMobile} />
-        <Footer />
       </Container>
     </ThemeProvider>
   );
