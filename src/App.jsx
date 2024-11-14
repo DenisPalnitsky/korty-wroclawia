@@ -115,7 +115,7 @@ function App() {
       <Container maxWidth="lg" sx={{ 
         minHeight: '100vh',
         bgcolor: 'background.default',
-        pt: 3,
+        pt: isMobile ? 1 : 3,
         pb: 6, // Add bottom padding for mobile
       }}>
         <Box sx={{ 
@@ -123,16 +123,17 @@ function App() {
           justifyContent: 'center', 
           alignItems: 'center',
           mb: 3,
-          flexDirection: isMobile ? 'column' : 'row', // Adjust layout for mobile
+          flexDirection: 'row', // Align items vertically
         }}>
-          <Typography variant="h5" gutterBottom={false}>
-            Court of Wroclaw
+          
+          <Typography variant="h3">
+            Courts of Wroclaw
           </Typography>
           
           <IconButton 
             onClick={() => setMode(mode === 'light' ? 'dark' : 'light')}
             color="inherit"
-            sx={{ ml: 2, mt: isMobile ? 2 : 0 }} // Add top margin for mobile
+            sx={{ justifySelf: 'right' }}        
           >
             {mode === 'light' ? <Brightness4Icon /> : <Brightness7Icon sx={{ color: 'white' }} />}
           </IconButton>
