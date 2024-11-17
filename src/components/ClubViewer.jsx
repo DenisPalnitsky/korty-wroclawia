@@ -10,7 +10,7 @@ import {
   Typography,
   Link,
   Tooltip,
-  CardContent,
+  CardContent,  
   Grid,
   Paper,
 } from '@mui/material';
@@ -63,36 +63,38 @@ const ClubViewer = ({ pricingSystem, isMobile }) => {
         mb: 3
       }}>
 
-        <TextField
-          type="date"
-          label="Select Date"
-          value={selectedDate}
-          onChange={(e) => setSelectedDate(e.target.value)}
-          sx={{ minWidth: '160px' }}
-        />
-
-      <Slider
-        value={timeRange}
-        onChange={(_, newValue) => {          
-          setTimeRange(newValue);}}
-        valueLabelDisplay="auto"
-        marks={marks}
-        min={0}
-        max={48}
-        step={1}
-        valueLabelFormat={formatTimeForSlider}
-        sx={{ width: isMobile ? '100%' : '60%' }}
+      <TextField
+        type="date"
+        label="Select Date"
+        value={selectedDate}
+        onChange={(e) => setSelectedDate(e.target.value)}
+        sx={{ minWidth: '160px' }}
       />
 
-        <Box sx={{
-          display: 'flex',
-          justifyContent: 'space-between',
-          flexDirection: isMobile ? 'column' : 'row',
-          gap: isMobile ? 1 : 0
-        }}>
-          <Typography>Start: {format(getDates().startTime, 'p')} | {formatDistanceStrict(getDates().startTime, getDates().endTime)} </Typography>
-        </Box>
+      
+        <Box sx={{display: 'flex', width: "100%", gap: 2, visibility: isMobile ?  "visible" : "hidden" }}>
+          <Slider
+            value={timeRange}
+            onChange={(_, newValue) => { setTimeRange(newValue);}}
+            valueLabelDisplay="auto"
+            marks={marks}
+            min={0}
+            max={48}
+            step={1}
+            valueLabelFormat={formatTimeForSlider}
+            sx={{ width:'75%' }} />
+    
 
+          <Box sx={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              flexDirection: 'row',
+              gap: 1
+            }}>
+            <Typography>Start: {format(getDates().startTime, 'p')} | {formatDistanceStrict(getDates().startTime, getDates().endTime)} </Typography>
+          </Box>
+
+        </Box>        
 
       </Box>
 
