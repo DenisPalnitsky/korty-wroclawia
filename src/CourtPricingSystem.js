@@ -22,6 +22,11 @@ class PricePeriod {
     this.to = new Date(prices.to);
     this.to.setHours(0,0,0,0);
 
+    if (prices.schedule === undefined || (prices.schedule && prices.schedule.length === 0)) {
+      this.isClosed = true;
+    }else{
+      this.isClosed = false;
+    }
     this.schedule = prices.schedule;
   }
 }
@@ -208,15 +213,20 @@ class CourtPricingSystem {
     try {
       const clubsData = Array.isArray(data) ? data : [data];
 
-      this.clubs = clubsData.map(club =>
-        new Club(
-          club.id,
-          club.name,
-          club.address,
-          club.googleMapsLink,
-          club.website,
-          club.courts
-        )
+      this.clubs = clubsData.map(club =>{
+        try{
+          return new Club(
+            club.id,
+            club.name,
+            club.address,
+            club.googleMapsLink,
+            club.website,
+            club.courts
+          )
+        } catch (error) {
+          throw new Error(`Error parsing club data for club ${club.name}: ${error.message}`);
+        }
+      }
       );
     } catch (error) {
       console.error('Error loading YAML file:', error);
@@ -259,7 +269,11 @@ class CourtPricingSystem {
         // Sort periods by from date
         courtGroup.prices.sort((a, b) => new Date(a.from) - new Date(b.from));
 
-        for (let i = 0; i < courtGroup.prices.length - 1; i++) {
+        for (let i = 0; i < courtGroup.prices.length-1; i++) {
+          if (courtGroup.prices[i].isClosed){
+            continue;
+          }
+
           const current = courtGroup.prices[i];
           const next = courtGroup.prices[i + 1];
 
@@ -273,6 +287,10 @@ class CourtPricingSystem {
               `court group ${courtGroup.surface} ${courtGroup.type}, ` +
               `between ${current.to} and ${next.from}`
             );
+          }
+
+          if (errors.length > 0) {
+            return;
           }
 
           // Check for overlap
@@ -322,6 +340,9 @@ class CourtPricingSystem {
             const endTime = new Date(testTime);
             endTime.setHours(hour + 1);
   
+            if (courtGroup.isClosed(testTime)){
+              continue;
+            }
             const price = courtGroup.getPrice(testTime, endTime);
             
             if (price === null) {

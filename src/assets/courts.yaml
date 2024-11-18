@@ -363,3 +363,146 @@
           "su:7-20": '40'
           "st:7-20": '40'
           "hl:7-20": '40'
+- name: Fittenis
+  id: fittenis
+  address: Macedońska 11, 51-113 Wrocław
+  googleMapsLink: https://maps.app.goo.gl/kpP8x1QKB6R3Lt6v8
+  website: https://teniswroclaw.com.plhttps://teniswroclaw.com.pl
+  courts:
+    - surface: clay
+      type: tent 
+      light: yes
+      heating: no
+      courts: ['1','2']
+      prices:
+        - from: '2024-11-01'
+          to: '2025-05-01'
+          schedule:        
+            "su:6-23": '100'
+            "st:6-23": '100'
+            "hl:6-23": '100'
+            "*:6-15": '100' 
+            "*:15-23": '140'
+    - surface: clay 
+      type: outdoor
+      light: no
+      heating: no
+      courts: ['3','4']
+      prices:
+        - from: '2024-01-01'
+          to: '2024-12-31'
+          schedule:        
+            "*:6-15": '50' 
+            "*:15-22": '60'
+            "su:6-23": '60'
+            "st:6-23": '60'
+            "hl:6-23": '60'
+   
+- name: AWF Hala Tenisowa
+  id: awf hala tenisowa
+  address: 51-612 WROCŁAW, dolnośląskie
+  googleMapsLink: https://maps.app.goo.gl/MYnpGY1QLNvShmqS8
+  website: http://www.halatenisowaawf.pl
+  courts:
+  - surface: hard
+    type: indoor 
+    courts: ['1' , '2' , '3']
+    prices:
+      - from: '2024-11-01'
+        to: '2025-05-01'
+        schedule:
+          "su:7-20": '110'
+          "st:7-21": '110'
+          "*:7-15": '100' 
+          "*:15-21": '140'
+          "*:21-23": '130'
+- name: Topacz
+  id: topacz
+  address: Główna 12d, 55-040 KobierzyceGłówna 12d, 55-040 Kobierzyce
+  googleMapsLink: https://maps.app.goo.gl/QB1ryMXQcvCaqgFLA
+  website: https://www.js-tenis.pl/oferta/
+  courts:
+  - surface: clay // #ziemny
+    type: outdoor // # no specification
+    courts: ['1' , '2' , '3' , '4']    
+    prices:
+      - from: '2024-11-01'
+        to: '2025-05-01'
+        schedule:
+          "*:7-15": '130' 
+          "*:15-23": '160'
+          "su:7-15": '140'
+          "su:15-23": '130'
+          "st:7-15": '140'
+          "st:15-23": '130'
+  - surface: clay
+    type: outdoor
+    light: yes
+    courts: [ '5' , '6']
+    prices:
+      - from: '2024-11-01'
+        to: '2025-05-01'
+        schedule:
+- name: Omega sport
+  id: omega-sport
+  address: Granitowa 4, 55-080 Smolecv
+  googleMapsLink: https://maps.app.goo.gl/ts2aZsTmmZRsKejg7
+  website: https://www.smolecsport.pl/oferta/tenis/wynajem-kortu.html
+  courts:
+  - surface: hard 
+    type: indoor    
+    courts: ['1' , '2' , '3']    
+    prices:
+      - from: '2024-05-01' 
+        to: '2024-10-01'
+        schedule:
+          "*:0-16": 35
+          "*:16-24": 55
+          "su:0-24": 45
+          "st:0-24": 45        
+      - from: '2024-10-01' 
+        to: '2025-04-30'
+        schedule: 
+          "*:0-15": '95' 
+          "*:15-20": '130'
+          "*:20-24": '110'
+          "su:8-23": '95' 
+          "st:8-23": '95' 
+            
+  - surface: clay
+    type: outdoor
+    courts: ['4' , '5']    
+    prices: &omega_prices
+      - from: '2024-05-01' 
+        to: '2024-10-01'        
+        schedule: 
+          "*:0-16": '30'
+          "*:16-23": '40'
+          "st:0-24": '45'
+          "su:0-24": '45'
+      - from: '2024-10-01' 
+        to: '2025-05-01'
+        schedule: 
+      
+  - surface: hard
+    courts: ['6']    
+    type: outdoor
+    prices:
+      *omega_prices
+- name: Centrum Tenisowe Kłokoczyce
+  id: centrum tenisowe kłokoczyce
+  address: Kłokoczycka 5, 51-376 Wrocław
+  googleMapsLink: https://maps.app.goo.gl/2Qc652uw7wsLiHC89
+  website: https://app.tenis4u.pl/#/court/263
+  courts:
+  - surface: clay 
+    type: indoor    
+    courts: ['1' , '2' , '3' , '4']    
+    prices:
+      - from: '2024-10-01'
+        to: '2025-05-01'
+        schedule:         
+          "*:8-16": 139 
+          "*:16-22": 160
+          "su:8-21": 128
+          "st:8-21": 128

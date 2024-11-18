@@ -1,0 +1,20 @@
+- name: Omega sport
+  id: omega-sport
+  address: Granitowa 4, 55-080 Smolecv
+  googleMapsLink: https://maps.app.goo.gl/ts2aZsTmmZRsKejg7
+  website: https://www.smolecsport.pl/oferta/tenis/wynajem-kortu.html
+  courts:                
+  - surface: hard
+    courts: ['6']    
+    type: outdoor
+    prices:
+      - from: '2024-05-01' 
+        to: '2024-10-01'        
+        schedule: 
+          "*:0-16": '30'
+          "*:16-24": '40'
+          "st:0-24": '45'
+          "su:0-24": '45'
+      - from: '2024-10-01' 
+        to: '2025-05-01'
+        schedule:      

@@ -84,6 +84,26 @@ describe('CourtPricing', () => {
       const result = system.clubs[0].courtGroups[1].getPrice('2024-09-30T07:00:00', '2024-09-30T08:00:00');
       expect(result).to.equal(80);
     });
+
+    it('should not fail validation', () => {
+      const fileContents = fs.readFileSync('src/tests/regression.yaml', 'utf8');
+      const data = yaml.load(fileContents);
+      const courtPricingSystem = new CourtPricingSystem(data);
+      const res = courtPricingSystem.validate();
+      if (!res.isValid) {
+        console.error('Validation failed with the following errors:');
+        const totalErrors = res.errors.length;
+        res.errors.slice(0, 10).forEach((error, index) => {
+          console.error(`${index + 1}. ${error}`);
+        });
+        if (totalErrors > 10) {
+          console.error(`... and ${totalErrors - 10} more errors`);
+        }
+      }
+
+      expect(res.isValid).to.be.true;
+        
+    });
   });
 
   describe('validate()', () => {
@@ -238,13 +258,18 @@ describe('RealDataValidation', () => {
     const courtPricingSystem = new CourtPricingSystem(data);
   
     const res = courtPricingSystem.validate();
-    expect(res.isValid).to.equal(true, "should return true");
-    // show errors 
-    if (!res) {
-      console.log("Validation errors:", courtPricingSystem.errors);
-      }
+    if (!res.isValid) {
+      console.error('Validation failed with the following errors:');
+      res.errors.forEach((error, index) => {
+        console.error(`${index + 1}. ${error}`);
+      });
+      throw new Error(`YAML validation failed with ${res.errors.length} errors`);
+    }
+    
+    expect(res.isValid).to.be.true;
   });
 });
+
 
 
 // describe('Debug',()=>{
