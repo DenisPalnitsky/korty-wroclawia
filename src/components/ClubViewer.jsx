@@ -11,8 +11,7 @@ import {
   Link,
   Tooltip,
   CardContent,
-  Grid,
-  Paper,
+  Grid2,
 } from '@mui/material';
 import TennisCourt from './TennisCourt';
 import { getCourtColor } from '../lib/consts';
@@ -88,7 +87,7 @@ const ClubViewer = ({ pricingSystem, isMobile }) => {
           <Box sx={{
             display: 'flex',
             justifyContent: isMobile ? 'center' : 'space-between',
-            gap: 1,            
+            gap: 1,
           }}>
             <Typography align={isMobile ? 'center' : 'left'}>
               Start: {format(getDates().startTime, 'p')} | {formatDistanceStrict(getDates().startTime, getDates().endTime)}
@@ -117,7 +116,7 @@ const ClubViewer = ({ pricingSystem, isMobile }) => {
 
           <CardContent sx={{ p: isMobile ? 1 : 2 }}>
             {club.courtGroups.map((courtGroup, groupIndex) => (
-              <Grid container spacing={2} id="court-group-box" key={groupIndex}
+              <Grid2 container spacing={2} key={groupIndex}
                 sx={{
                   border: 3,
                   padding: 1,
@@ -131,16 +130,16 @@ const ClubViewer = ({ pricingSystem, isMobile }) => {
                   borderTop: 'none',
                   borderBottom: 'none',
                 }}>
-                <Grid item xs={isMobile ? 12 : 3} id="group-info">
+                <Grid2 size={isMobile ? 12 : 3}>
                   <Typography variant="body1" sx={{ mb: 1 }}>
                     Court type: {courtGroup.type}
                   </Typography>
                   <Typography variant="body1" sx={{ mb: 1 }}>
                     Surface: {courtGroup.surface}
                   </Typography>
-                </Grid>
+                </Grid2>
 
-                <Grid item xs={isMobile ? 12 : 2} sx={{
+                <Grid2 size={isMobile ? 12 : 2} sx={{
                   display: 'flex',
                   justifyContent: 'center',
                   alignItems: 'center',
@@ -152,13 +151,13 @@ const ClubViewer = ({ pricingSystem, isMobile }) => {
                       borderRadius: 1,
                       bgcolor: 'primary.main',
                       color: 'white',
-                      width: isMobile ? '100%' : '120px',  // Adjust width for mobile
+                      width: isMobile ? '100%' : '120px',
                       padding: isMobile ? '8px' : '8px 16px',
                       textAlign: 'center',
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
-                      minHeight: '40px', // Fixed height
+                      minHeight: '40px',
                       '&:hover': {
                         bgcolor: 'primary.dark',
                       },
@@ -166,18 +165,18 @@ const ClubViewer = ({ pricingSystem, isMobile }) => {
                   >
                     Price: {courtGroup.getPrice(getDates().startTime, getDates().endTime)} PLN
                   </Typography>
-                </Grid>
+                </Grid2>
 
-                <Grid item xs={isMobile ? 12 : 'grow'}>
+                <Grid2 size={isMobile ? 12 : 'auto'} flexGrow={1}>
                   <Typography variant="body1">
                     Price Range Week Day: {courtGroup.getMaxMinPriceForWeekday()?.minPrice - courtGroup.getMaxMinPriceForWeekday()?.maxPrice} PLN
                   </Typography>
                   <Typography variant="body1">
                     Price Range For Weekend: {courtGroup.getMaxMinPriceForWeekend()?.minPrice - courtGroup.getMaxMinPriceForWeekend()?.maxPrice} PLN
                   </Typography>
-                </Grid>
+                </Grid2>
 
-                <Grid container item xs={isMobile ? 12 : 'auto'} spacing={1}
+                <Grid2 container size={isMobile ? 12 : 'auto'} spacing={1}
                   sx={{
                     display: 'flex',
                     flexWrap: 'wrap',
@@ -188,18 +187,13 @@ const ClubViewer = ({ pricingSystem, isMobile }) => {
                     width: 'auto',
                     justifyContent: 'flex-end',
                     alignItems: 'center'
-                  }}
-                  id="court-tiles">
+                  }}>
                   {courtGroup.courts.map((court) => {
                     const price = courtGroup.getPrice(getDates().startTime, getDates().endTime);
                     return (
                       <Tooltip
                         key={court.id}
-                        title={
-                          price
-                            ? `Court ${court.id}: ${price} PLN`
-                            : 'Price not available'
-                        }
+                        title={price ? `Court ${court.id}: ${price} PLN` : 'Price not available'}
                       >
                         <TennisCourt surface={court.surface} courtName={court.id}>
                           {court.id}
@@ -207,10 +201,9 @@ const ClubViewer = ({ pricingSystem, isMobile }) => {
                       </Tooltip>
                     );
                   })}
-                </Grid>
-              </Grid>
+                </Grid2>
+              </Grid2>
             ))}
-
           </CardContent>
         </Card>
       ))}
