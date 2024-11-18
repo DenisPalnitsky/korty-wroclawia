@@ -16,7 +16,6 @@ import {
 import TennisCourt from './TennisCourt';
 import { getCourtColor } from '../lib/consts';
 import { formatDistanceStrict, format } from 'date-fns';
-import { Label } from '@mui/icons-material';
 
 
 const marks = Array.from({ length: 49 }, (_, i) => {
