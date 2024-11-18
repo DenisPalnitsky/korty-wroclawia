@@ -91,14 +91,8 @@ describe('CourtPricing', () => {
       const courtPricingSystem = new CourtPricingSystem(data);
       const res = courtPricingSystem.validate();
       if (!res.isValid) {
-        console.error('Validation failed with the following errors:');
-        const totalErrors = res.errors.length;
-        res.errors.slice(0, 10).forEach((error, index) => {
-          console.error(`${index + 1}. ${error}`);
-        });
-        if (totalErrors > 10) {
-          console.error(`... and ${totalErrors - 10} more errors`);
-        }
+        console.error('Validation failed with the following errors:');        
+        console.error(res.errors);
       }
 
       expect(res.isValid).to.be.true;
@@ -212,7 +206,7 @@ describe('CourtPricing', () => {
       expect(result.isValid).to.be.true;
       expect(result.errors).to.have.lengthOf(0);
       if (!result.isValid) {
-        console.log("Validation errors:", system.errors);
+        console.log("Validation errors:", system.errors.take(10));
       }
     });
   
@@ -260,10 +254,7 @@ describe('RealDataValidation', () => {
     const res = courtPricingSystem.validate();
     if (!res.isValid) {
       console.error('Validation failed with the following errors:');
-      res.errors.forEach((error, index) => {
-        console.error(`${index + 1}. ${error}`);
-      });
-      throw new Error(`YAML validation failed with ${res.errors.length} errors`);
+      console.error(res.errors);
     }
     
     expect(res.isValid).to.be.true;

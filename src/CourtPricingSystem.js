@@ -22,13 +22,26 @@ class PricePeriod {
     this.to = new Date(prices.to);
     this.to.setHours(0,0,0,0);
 
-    if (prices.schedule === undefined || (prices.schedule && prices.schedule.length === 0)) {
-      this.isClosed = true;
-    }else{
-      this.isClosed = false;
-    }
     this.schedule = prices.schedule;
   }
+
+  isClosed() {
+    if (this.schedule === undefined || this.schedule === null || (this.schedule && this.schedule.length === 0)) {
+      return  true;
+    }
+    
+    return false;
+  }
+
+  static createEmpty() {
+    const emptyPrices = {
+      from: new Date(0),
+      to: new Date(0),
+      schedule: undefined
+    };
+    return new PricePeriod(emptyPrices);
+  }
+ 
 }
 
 class CourtGroup {
@@ -49,7 +62,7 @@ class CourtGroup {
     return hour >= start || hour < end;
   }
 
-  findActivePricing(date) {
+  getPricePeriod(date) {
     const targetDate = new Date(date);
 
     for (const pricePeriod of this.prices) {
@@ -57,12 +70,10 @@ class CourtGroup {
       const toDate = pricePeriod.to;
 
       if (targetDate >= fromDate && targetDate <= toDate) {
-        return {
-          pricing: pricePeriod.schedule
-        };
+        return pricePeriod;
       }
     }
-    return null;
+    return PricePeriod.createEmpty();
   }
 
   findApplicableRate(pricing, date) {
@@ -104,11 +115,11 @@ class CourtGroup {
   }
 
   getMaxMinPrice(date) {
-    const activePricing = this.findActivePricing(date);
+    const activePricing = this.getPricePeriod(date);
 
-    if (!activePricing || !activePricing.pricing) return null;
+    if (activePricing.isClosed()) return null;
 
-    const prices = Object.values(activePricing.pricing).map(price => parseInt(price));
+    const prices = Object.values(activePricing.schedule).map(price => parseInt(price));
     return {
       minPrice: Math.min(...prices),
       maxPrice: Math.max(...prices)
@@ -140,15 +151,16 @@ class CourtGroup {
     const end = new Date(endTime);
 
     // Find active pricing for the date
-    const activePricing = this.findActivePricing(start);
-    if (!activePricing || !activePricing.pricing) return null;
+    const activePricing = this.getPricePeriod(start);
+    if (activePricing.isClosed()) 
+      return null;
 
     // Calculate total price for each hour
     let totalPrice = 0;
     let currentTime = new Date(start);
 
     while (currentTime < end) {
-      const hourPrice = this.findApplicableRate(activePricing.pricing, currentTime);
+      const hourPrice = this.findApplicableRate(activePricing.schedule, currentTime);
       if (hourPrice === null) return null;
 
       // Calculate how much of the hour is used (in hours)
@@ -163,11 +175,10 @@ class CourtGroup {
     return totalPrice;
   }
 
-  isClosed(startTime ){
-    const start = new Date(startTime);
-    const activePricing = this.findActivePricing(start);
-    if (!activePricing || !activePricing.pricing) return true;
-    return false;
+  isClosed(startTime){
+    const start = new Date(startTime);        
+    const activePricing = this.getPricePeriod(start);    
+    return activePricing.isClosed();
   }
 }
 
@@ -270,7 +281,7 @@ class CourtPricingSystem {
         courtGroup.prices.sort((a, b) => new Date(a.from) - new Date(b.from));
 
         for (let i = 0; i < courtGroup.prices.length-1; i++) {
-          if (courtGroup.prices[i].isClosed){
+          if (courtGroup.prices[i].isClosed()){
             continue;
           }
 
