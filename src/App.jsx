@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from 'react';
+import { useState, useMemo } from 'react';
 import ClubViewer from './components/ClubViewer';
 import CourtPricingSystem from './CourtPricingSystem';
 import courtsData from './assets/courts.yaml';
