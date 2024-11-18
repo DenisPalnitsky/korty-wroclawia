@@ -10,7 +10,7 @@ import {
   Typography,
   Link,
   Tooltip,
-  CardContent,  
+  CardContent,
   Grid,
   Paper,
 } from '@mui/material';
@@ -21,7 +21,7 @@ import { Label } from '@mui/icons-material';
 
 
 const marks = Array.from({ length: 49 }, (_, i) => {
-  const hour = Math.floor(i / 2);  
+  const hour = Math.floor(i / 2);
   return {
     value: i,
     label: i % 4 === 0 ? `${hour.toString().padStart(1, '0')}:00` : ''
@@ -32,12 +32,12 @@ const ClubViewer = ({ pricingSystem, isMobile }) => {
   const [selectedDate, setSelectedDate] = React.useState(new Date().toISOString().split('T')[0]);
   const [timeRange, setTimeRange] = React.useState([18, 22]);
 
-  const clubs = pricingSystem.list();  
+  const clubs = pricingSystem.list();
 
   const getDates = () => {
     const [year, month, day] = selectedDate.split('-').map(Number);
-    var startTime = new Date(year, month - 1, day, timeRange[0]/2, (timeRange[0]%2)*30, 0);
-    var endTime = new Date(year, month - 1, day, timeRange[1]/2, (timeRange[1]%2)*30, 0);
+    var startTime = new Date(year, month - 1, day, timeRange[0] / 2, (timeRange[0] % 2) * 30, 0);
+    var endTime = new Date(year, month - 1, day, timeRange[1] / 2, (timeRange[1] % 2) * 30, 0);
     if (startTime > endTime) {
       const t = startTime;
       startTime = endTime;
@@ -45,7 +45,7 @@ const ClubViewer = ({ pricingSystem, isMobile }) => {
     }
 
     return { startTime, endTime };
-  };  
+  };
 
   const formatTimeForSlider = (value) => {
     const hours = Math.floor(value / 2);
@@ -63,38 +63,39 @@ const ClubViewer = ({ pricingSystem, isMobile }) => {
         mb: 3
       }}>
 
-      <TextField
-        type="date"
-        label="Select Date"
-        value={selectedDate}
-        onChange={(e) => setSelectedDate(e.target.value)}
-        sx={{ minWidth: '160px' }}
-      />
+        <TextField
+          type="date"
+          label="Select Date"
+          value={selectedDate}
+          onChange={(e) => setSelectedDate(e.target.value)}
+          sx={{ minWidth: '160px' }}
+        />
 
-      
-        <Box sx={{display: 'flex', width: "100%", gap: 2, visibility: isMobile ?  "visible" : "hidden" }}>
+
+        <Box id="slider-box" sx={{ display: 'flex', width: "100%", gap: 2, flexDirection: isMobile ? 'column' : 'row', }}>
           <Slider
             value={timeRange}
-            onChange={(_, newValue) => { setTimeRange(newValue);}}
+            onChange={(_, newValue) => { setTimeRange(newValue); }}
             valueLabelDisplay="auto"
             marks={marks}
             min={0}
             max={48}
             step={1}
             valueLabelFormat={formatTimeForSlider}
-            sx={{ width:'75%' }} />
-    
+            sx={{ width: isMobile ? '100%' : '75%' }} />
+
 
           <Box sx={{
-              display: 'flex',
-              justifyContent: 'space-between',
-              flexDirection: 'row',
-              gap: 1
-            }}>
-            <Typography>Start: {format(getDates().startTime, 'p')} | {formatDistanceStrict(getDates().startTime, getDates().endTime)} </Typography>
+            display: 'flex',
+            justifyContent: isMobile ? 'center' : 'space-between',
+            gap: 1,            
+          }}>
+            <Typography align={isMobile ? 'center' : 'left'}>
+              Start: {format(getDates().startTime, 'p')} | {formatDistanceStrict(getDates().startTime, getDates().endTime)}
+            </Typography>
           </Box>
 
-        </Box>        
+        </Box>
 
       </Box>
 
