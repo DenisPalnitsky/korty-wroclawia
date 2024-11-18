@@ -130,9 +130,21 @@ const ClubViewer = ({ pricingSystem, isMobile }) => {
                   borderBottom: 'none',
                 }}>
                 <Grid2 size={isMobile ? 12 : 3}>
-                  <Typography variant="body1" sx={{ mb: 1 }}>
-                    Court type: {courtGroup.surface} | {courtGroup.type} 
-                  </Typography>
+
+                  {isMobile ? (
+                    <Typography variant="body1" sx={{ mb: 1 }}>
+                     Court type: {`${courtGroup.surface} | ${courtGroup.type} `}
+                    </Typography>
+                  ) : (
+                    <>
+                      <Typography variant="body1" sx={{ mb: 1 }}>
+                        Court type: {courtGroup.type}
+                      </Typography>
+                      <Typography variant="body1" sx={{ mb: 1 }}>
+                        Surface: {courtGroup.surface}
+                      </Typography>
+                    </>
+                  )}
                 </Grid2>
 
                 <Grid2 size={isMobile ? 12 : 2} sx={{
