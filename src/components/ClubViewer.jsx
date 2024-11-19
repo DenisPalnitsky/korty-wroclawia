@@ -16,6 +16,7 @@ import {
 import TennisCourt from './TennisCourt';
 import { getCourtColor } from '../lib/consts';
 import { formatDistanceStrict, format } from 'date-fns';
+import CourtGroupRow from './CourtGroupRow';
 
 
 const marks = Array.from({ length: 49 }, (_, i) => {
@@ -115,102 +116,14 @@ const ClubViewer = ({ pricingSystem, isMobile }) => {
 
           <CardContent sx={{ p: isMobile ? 1 : 2 }}>
             {club.courtGroups.map((courtGroup, groupIndex) => (
-              <Grid2 container spacing={2} key={groupIndex}
-                sx={{
-                  border: 3,
-                  padding: 1,
-                  mb: 1,
-                  display: 'flex',
-                  alignItems: 'flex-start',
-                  borderRadius: 1,
-                  borderColor: getCourtColor(courtGroup.surface),
-                  borderLeft: `5px solid ${getCourtColor(courtGroup.surface)}`,
-                  borderRight: 'none',
-                  borderTop: 'none',
-                  borderBottom: 'none',
-                }}>
-                <Grid2 size={isMobile ? 12 : 3}>
+              <CourtGroupRow 
+                key={groupIndex} 
+                groupIndex={groupIndex} 
+                courtGroup={courtGroup}
+                isMobile={isMobile}
+                startTime={getDates().startTime} 
+                endTime={getDates().endTime} />
 
-                  {isMobile ? (
-                    <Typography variant="body1" sx={{ mb: 1 }}>
-                     Court type: {`${courtGroup.surface} | ${courtGroup.type} `}
-                    </Typography>
-                  ) : (
-                    <>
-                      <Typography variant="body1" sx={{ mb: 1 }}>
-                        Court type: {courtGroup.type}
-                      </Typography>
-                      <Typography variant="body1" sx={{ mb: 1 }}>
-                        Surface: {courtGroup.surface}
-                      </Typography>
-                    </>
-                  )}
-                </Grid2>
-
-                <Grid2 size={isMobile ? 12 : 2} sx={{
-                  display: 'flex',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  height: '100%'
-                }}>
-                  <Typography
-                    variant="subtitle1"
-                    sx={{
-                      borderRadius: 1,
-                      bgcolor: 'primary.main',
-                      color: 'white',
-                      width: isMobile ? '100%' : '120px',
-                      padding: isMobile ? '8px' : '8px 16px',
-                      textAlign: 'center',
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center',
-                      minHeight: '40px',
-                      '&:hover': {
-                        bgcolor: 'primary.dark',
-                      },
-                    }}
-                  >
-                    Price: {courtGroup.getPrice(getDates().startTime, getDates().endTime)} PLN
-                  </Typography>
-                </Grid2>
-
-                <Grid2 size={isMobile ? 12 : 'auto'} flexGrow={1}>
-                  <Typography variant="body1">
-                    Price Range Week Day: {courtGroup.getMaxMinPriceForWeekday()?.minPrice - courtGroup.getMaxMinPriceForWeekday()?.maxPrice} PLN
-                  </Typography>
-                  <Typography variant="body1">
-                    Price Range For Weekend: {courtGroup.getMaxMinPriceForWeekend()?.minPrice - courtGroup.getMaxMinPriceForWeekend()?.maxPrice} PLN
-                  </Typography>
-                </Grid2>
-
-                <Grid2 container size={isMobile ? 12 : 'auto'} spacing={1}
-                  sx={{
-                    display: 'flex',
-                    flexWrap: 'wrap',
-                    gap: 1,
-                    marginLeft: 'auto',
-                    marginRight: isMobile ? 0 : 1,
-                    padding: 1,
-                    width: 'auto',
-                    justifyContent: 'flex-end',
-                    alignItems: 'center'
-                  }}>
-                  {courtGroup.courts.map((court) => {
-                    const price = courtGroup.getPrice(getDates().startTime, getDates().endTime);
-                    return (
-                      <Tooltip
-                        key={court.id}
-                        title={price ? `Court ${court.id}: ${price} PLN` : 'Price not available'}
-                      >
-                        <TennisCourt surface={court.surface} courtName={court.id}>
-                          {court.id}
-                        </TennisCourt>
-                      </Tooltip>
-                    );
-                  })}
-                </Grid2>
-              </Grid2>
             ))}
           </CardContent>
         </Card>

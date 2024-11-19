@@ -4,9 +4,12 @@ import PropTypes from 'prop-types';
 import { getCourtColor } from '../lib/consts';
 
 
-const TennisCourt = forwardRef(({ surface = 'clay', courtName, ...props }, ref) => {
-  
-  
+const TennisCourt = forwardRef(({ surface = 'clay', courtName, scale, ...props }, ref) => {
+  console.log('TennisCourt', surface, courtName, scale);
+  if (!scale) {
+    scale = 1;
+  }
+
   return (
     <Box
       ref={ref}
@@ -14,6 +17,7 @@ const TennisCourt = forwardRef(({ surface = 'clay', courtName, ...props }, ref) 
         display: 'inline-block',
         border: '1px solid transparent',
         transition: 'border-color 0.3s ease',
+        borderRadius: '1',
         '&:hover': {
            scale: 1.1,
         },
@@ -22,8 +26,8 @@ const TennisCourt = forwardRef(({ surface = 'clay', courtName, ...props }, ref) 
     >
       <svg
         viewBox="0 0 60 80"
-        width={60*0.5}
-        height={80*0.5}
+        width={30*scale}
+        height={40*scale}
         style={{ backgroundColor: getCourtColor(surface) }}
       >
         <g stroke="white" strokeWidth="2" fill="none" transform="translate(6,8) scale(0.8)">
@@ -53,7 +57,7 @@ const TennisCourt = forwardRef(({ surface = 'clay', courtName, ...props }, ref) 
         width="60%"
         height="60%"
         fill={getCourtColor(surface)}
-        stroke="none"
+        stroke="none"        
       />
 
         {/* Court number text */}
@@ -79,6 +83,7 @@ const TennisCourt = forwardRef(({ surface = 'clay', courtName, ...props }, ref) 
 TennisCourt.propTypes = {
   surface: PropTypes.string.isRequired,
   courtName: PropTypes.string.isRequired,
+  scale: PropTypes.number,
 };
 
 TennisCourt.displayName = 'TennisCourt';
