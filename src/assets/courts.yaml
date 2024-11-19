@@ -60,8 +60,20 @@
           "st:7-23": '45'
           "hl:7-23": '45'
   - surface: clay
-    type: hala pneum
+    type: tent
     courts: ['1', '2']    
+    prices:      
+      - from: '2024-10-01'
+        to: '2025-05-01'
+        schedule:
+          "*:7-15": '110'
+          "*:15-23": '170'
+          "st:7-23": '120'
+          "su:7-23": '120'
+          "hl:7-23": '120'
+  - surface: artificial-grass
+    type: baloon
+    courts: ['5']    
     prices:      
       - from: '2024-10-01'
         to: '2025-05-01'
@@ -295,7 +307,7 @@
   googleMapsLink: https://maps.app.goo.gl/zPKhWBUSApd4LKMX7
   website: www.kosmosarena.pl
   courts:
-  - surface: carpet 
+  - surface: artificial-grass 
     type: baloon
     courts: ['1', '2']    
     prices:      
@@ -320,7 +332,7 @@
           "su:8-23": '60'
           "st:8-23": '60'          
           
-  - surface: carpet? 
+  - surface: artificial-grass 
     type: outdoor
     courts: ['3']    
     prices:      
