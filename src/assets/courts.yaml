@@ -502,7 +502,7 @@
     prices:
       *omega_prices
 - name: Centrum Tenisowe Kłokoczyce
-  id: centrum tenisowe kłokoczyce
+  id: klokoczyce
   address: Kłokoczycka 5, 51-376 Wrocław
   googleMapsLink: https://maps.app.goo.gl/2Qc652uw7wsLiHC89
   website: https://app.tenis4u.pl/#/court/263
