@@ -256,6 +256,9 @@ class CourtPricingSystem {
   validate() {
     const errors = [];
 
+    // data completeness
+    this.validateMissingData(errors);
+
     // no gaps in the schedule
     this.validateDateGaps(errors);
 
@@ -265,6 +268,51 @@ class CourtPricingSystem {
       isValid: errors.length === 0,
       errors: errors
     };
+  }
+
+  validateMissingData(errors){
+    for (const club of this.clubs) {
+
+
+      if (club.name === undefined || club.name.length < 5){
+        errors.push(`Club ${club.id} name is missing or too short`);
+      }
+
+      if (club.address === undefined || club.address.length < 5){
+        errors.push(`Club ${club.id} address is missing or too short`);
+      }
+
+      // check if google maps link is valid
+      try {
+        if (club.googleMapsLink === undefined || club.googleMapsLink.length < 5){
+          errors.push(`Club ${club.id} googleMapsLink is missing or too short`);
+        }else{
+          const url = new URL(club.googleMapsLink); 
+          if (url.protocol !== 'https:' || url.hostname !== 'maps.app.goo.gl'){
+            errors.push(`Club ${club.id} googleMapsLink is not a valid google maps link`);
+          }
+        }
+      } catch (error) {
+        errors.push(`Club ${club.id} googleMapsLink is not a valid google maps link`);
+      }
+      
+      // check if website is valid
+      try {
+        if (club.website === undefined){
+          errors.push(`Club ${club.id} website is missing`);
+        }
+        const url = new URL(club.website); 
+        if (url.protocol !== 'http:' && url.protocol !== 'https:'){
+          errors.push(`Club ${club.id} website is not a valid URL`);
+        }
+      } catch (error) {
+        errors.push(`Club ${club.id} website is not a valid URL`);
+      }
+
+      if (club.id === undefined || club.id.length < 3){
+        errors.push(`Club ${club.id} is missing or too short`);
+      }
+    }
   }
 
   

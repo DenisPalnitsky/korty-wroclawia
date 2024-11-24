@@ -86,8 +86,8 @@
 
 - name: Spartan Pułtuska
   id: spartan-pultuska
-  address: Pułtuska 13, Wrocław, Poland
-  googleMapsLink: https://g.co/kgs/WV8e8kt
+  address: Pułtuska 13, 53-116 Wrocław
+  googleMapsLink: https://maps.app.goo.gl/jPBjrkbjsFR7GB9s8
   website: https://spartan.wroc.pl/pultuska/tenis
   partnerCards: ['multisport-plus', 'multisport-classic', 'medicover', 'fit-profit', 'pzu-sport']
   courts:
@@ -326,7 +326,7 @@
   id: kosmos-arena
   address: ul.Mieroszowska 2 (róg Kosmonautów) 54-034 WROCŁAW, dolnośląskie
   googleMapsLink: https://maps.app.goo.gl/zPKhWBUSApd4LKMX7
-  website: www.kosmosarena.pl
+  website: https://kosmosarena.pl/
   courts:
   - surface: artificial-grass 
     type: baloon
@@ -370,7 +370,7 @@
   id: gem
   address: Józefa Mianowskiego 2B, 51-605 Wrocław
   googleMapsLink: https://maps.app.goo.gl/rnYYGhw3bookeDak9
-  website: www.gemhotel.pl/pl/obiekty-sportowe/hala-tenisowa-i-korty
+  website: https://gemhotel.pl/obiekty-sportowe/hala-tenisowa-i-korty/
   partnerCards: ['multisport-plus', 'multisport-classic']
   courts:
   - surface: hard 
@@ -591,9 +591,9 @@
 
 - name: Lotnicza 
   id: lotnicza
-  address: 
-  googleMapsLink: 
-  website: 
+  address: Lotnicza 72, 54-155 Wrocław
+  googleMapsLink: https://maps.app.goo.gl/ZrJuUfh5uuiSEX3XA
+  website: http://www.lotniczatennisclub.pl/
   partnerCards: ['multisport-plus', 'multisport-classic']
   courts:
     - surface: clay
@@ -621,8 +621,8 @@
 - name: Centrum Sportowe Morskie Oko
   id: morskie-oko
   address: Fryderyka Chopina 27, 51-609 Wrocław
-  googleMapsLink: 
-  website: https://www.morskieoko.pl
+  googleMapsLink: https://maps.app.goo.gl/7d4TMJ2sEEQnRBne6
+  website: http://www.kortymorskieoko.pl/
   partnerCards: ['multisport-plus', 'multisport-classic']
   courts:
     - surface: clay
