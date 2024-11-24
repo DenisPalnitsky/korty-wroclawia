@@ -518,3 +518,49 @@
           "*:16-22": 160
           "su:8-21": 128
           "st:8-21": 128
+- name: Olimpijski Club
+  id: olimpijski club
+  address: al. Ignacego Jana Paderewskiego 35, 51-612 Wrocław
+  googleMapsLink: https://maps.app.goo.gl/kRtYtYA4FH1PApEPA
+  website: https://olimpijskiclub.pl
+  courts:
+  - surface: clay  
+    type: outdoor
+    courts: ['1' , '2' , '3', '4', '5', '6', '7', '8']   
+    light: yes
+    prices:
+      - from: '2024-05-01'
+        to: '2024-11-01'
+        schedule:
+          "*:6-15": '50' 
+          "*:11-15": '45'
+          "*:15-23": '60'
+          "su:6-23": '55' 
+          "st:6-23": '55'  
+          'hl:6-23': '55'
+  - surface: clay  
+    type: outdoor
+    courts: ['C']
+    light: yes   
+    prices:
+      - from: '2024-05-01'
+        to: '2024-11-01'
+        schedule:
+          "*:6-15": '55' 
+          "*:11-15": '50'
+          "*:15-23": '66'
+          "su:6-23": '60' 
+          "st:6-23": '60'  
+          'hl:6-23': '60'
+  - surface: clay  
+    type: tent
+    courts: ['9' , '10' , '11']    
+    prices:
+    - from: '2024-11-01'
+      to: '2025-05-01'
+      schedule:        
+        "*:6-15": '133'
+        "*:15-23": '163'
+        "su:6-23": '138' 
+        "st:6-23": '138'  
+        'hl:6-23': '138'
