@@ -44,7 +44,7 @@
   address: Powstańców Śląskich 211A, 53-020 Wrocław
   googleMapsLink: https://maps.app.goo.gl/BM8n6n7zNntvJRXZ8
   website: http://www.krzyckapark.pl/
-  partnerCards: ['multisport']
+  partnerCards: ['multisport-classic', 'multisport-plus']
   courts:
   - surface: clay
     type: outdoor
@@ -89,6 +89,7 @@
   address: Pułtuska 13, Wrocław, Poland
   googleMapsLink: https://g.co/kgs/WV8e8kt
   website: https://spartan.wroc.pl/pultuska/tenis
+  partnerCards: ['multisport-plus', 'multisport-classic', 'medicover', 'fit-profit', 'pzu-sport']
   courts:
   - surface: clay
     type: outdoor
@@ -128,6 +129,7 @@
   address: ul. Lubińska 53 53-623 Wrocław
   googleMapsLink: https://maps.app.goo.gl/2bpBtoohqyhVU96SA
   website: https://spartan.wroc.pl/lubinska/tenis
+  partnerCards: ['multisport-plus', 'multisport-classic', 'medicover', 'fit-profit', 'pzu-sport']
   courts:
   - surface: clay
     type: outdoor
@@ -171,6 +173,7 @@
   address: ul. Spiska 1 50-562 Wrocław
   googleMapsLink: https://maps.app.goo.gl/BRhyRcCt6Vd7koyC8
   website: https://spartan.wroc.pl/spiska/tenis
+  partnerCards: ['multisport-plus', 'multisport-classic', 'medicover', 'fit-profit', 'pzu-sport']
   courts:
   - surface: clay
     type: outdoor
@@ -204,6 +207,23 @@
           "st:14-22": '110'
           "hl:14-22": '110'
           
+- name: Spartan Krajewskiego 
+  id: spartan-krajewskiego
+  address: Rafala Krajewskiego, 50-996 Wrocław
+  googleMapsLink: https://maps.app.goo.gl/GWpJacJpfEjyxWsR6
+  website: https://spartan.wroc.pl/krajewskiego/
+  partnerCards: ['multisport-plus', 'multisport-classic', 'medicover', 'fit-profit', 'pzu-sport']
+  courts:
+  - surface: hard  
+    type: outdoor
+    courts: ['1']
+    prices: 
+      - from: 2024-11-01
+        to: 2025-05-01
+        schedule:
+
+
+
 - name: Redeco
   id: redeco
   address: al. Generała Józefa Hallera 81A, 53-325 Wrocław
@@ -266,7 +286,7 @@
   address: ul. Kominiarska 42, 51-180 Wrocław
   googleMapsLink: https://maps.app.goo.gl/6fn5UrsWGKmejWQLA
   website: http://winnerstennisclub.pl
-  partnerCards: ['multisport']
+  partnerCards: ['multisport-plus', 'multisport-classic']
   courts:
   - surface: clay 
     type: baloon
@@ -292,6 +312,7 @@
   address: Rabarbarowa 7 56-400 OLEŚNICA, dolnośląskie
   googleMapsLink: https://maps.app.goo.gl/5WGKjGSHppaXjnh77
   website: https://www.twojtenis.pl/pl/kluby/olesnicki_klub_tenisowy/info.html
+  partnerCards: ['multisport']
   courts:
   - surface: clay 
     type: outdoor
@@ -350,6 +371,7 @@
   address: Józefa Mianowskiego 2B, 51-605 Wrocław
   googleMapsLink: https://maps.app.goo.gl/rnYYGhw3bookeDak9
   website: www.gemhotel.pl/pl/obiekty-sportowe/hala-tenisowa-i-korty
+  partnerCards: ['multisport-plus', 'multisport-classic']
   courts:
   - surface: hard 
     type: indoor
@@ -380,6 +402,7 @@
   address: Macedońska 11, 51-113 Wrocław
   googleMapsLink: https://maps.app.goo.gl/kpP8x1QKB6R3Lt6v8
   website: https://teniswroclaw.com.plhttps://teniswroclaw.com.pl
+  partnerCards: ['multisport']
   courts:
     - surface: clay
       type: tent 
@@ -415,6 +438,7 @@
   address: 51-612 WROCŁAW, dolnośląskie
   googleMapsLink: https://maps.app.goo.gl/MYnpGY1QLNvShmqS8
   website: http://www.halatenisowaawf.pl
+  partnerCards: ['multisport-plus', 'multisport-classic']
   courts:
   - surface: hard
     type: indoor 
@@ -433,6 +457,7 @@
   address: Główna 12d, 55-040 KobierzyceGłówna 12d, 55-040 Kobierzyce
   googleMapsLink: https://maps.app.goo.gl/QB1ryMXQcvCaqgFLA
   website: https://www.js-tenis.pl/oferta/
+  partnerCards: ['multisport']
   courts:
   - surface: clay // #ziemny
     type: outdoor // # no specification
@@ -479,8 +504,7 @@
           "*:15-20": '130'
           "*:20-24": '110'
           "su:8-23": '95' 
-          "st:8-23": '95' 
-            
+          "st:8-23": '95'             
   - surface: clay
     type: outdoor
     courts: ['4' , '5']    
@@ -494,8 +518,7 @@
           "su:0-24": '45'
       - from: '2024-10-01' 
         to: '2025-05-01'
-        schedule: 
-      
+        schedule:       
   - surface: hard
     courts: ['6']    
     type: outdoor
@@ -523,6 +546,7 @@
   address: al. Ignacego Jana Paderewskiego 35, 51-612 Wrocław
   googleMapsLink: https://maps.app.goo.gl/kRtYtYA4FH1PApEPA
   website: https://olimpijskiclub.pl
+  partnerCards: ['multisport-plus', 'multisport-classic']
   courts:
   - surface: clay  
     type: outdoor
@@ -544,7 +568,7 @@
     light: yes   
     prices:
       - from: '2024-05-01'
-        to: '2024-11-01'
+        to: '2024-10-01'
         schedule:
           "*:6-15": '55' 
           "*:11-15": '50'
@@ -556,7 +580,7 @@
     type: tent
     courts: ['9' , '10' , '11']    
     prices:
-    - from: '2024-11-01'
+    - from: '2024-10-01'
       to: '2025-05-01'
       schedule:        
         "*:6-15": '133'
@@ -564,3 +588,70 @@
         "su:6-23": '138' 
         "st:6-23": '138'  
         'hl:6-23': '138'
+
+- name: Lotnicza 
+  id: lotnicza
+  address: 
+  googleMapsLink: 
+  website: 
+  partnerCards: ['multisport-plus', 'multisport-classic']
+  courts:
+    - surface: clay
+      type: indoor
+      courts: ['1', '2', '3', '4']
+      prices:
+        - from: '2024-10-01'
+          to: '2025-05-01'
+          schedule: &lotnicza_prices
+            "*:7-16": 130
+            "*:16-23": 170
+            st:6-23: 135
+            su:6-23: 135
+            hl:6-23: 135
+    - surface: clay
+      type: baloon
+      courts: ['5', '6']
+      prices:
+        - from: '2024-10-01'
+          to: '2025-05-01'
+          schedule:
+           *lotnicza_prices
+
+
+- name: Centrum Sportowe Morskie Oko
+  id: morskie-oko
+  address: Fryderyka Chopina 27, 51-609 Wrocław
+  googleMapsLink: 
+  website: https://www.morskieoko.pl
+  partnerCards: ['multisport-plus', 'multisport-classic']
+  courts:
+    - surface: clay
+      type: baloon
+      courts: ['1', '2', '3']
+      prices:
+        - from: '2024-10-01'
+          to: '2025-05-01'
+          schedule:
+            "*:6-17": '120'            
+            "*:17-23": '150'            
+            st:6-15: '120'
+            su:6-15: '120'
+            hl:6-15: '120'
+            st:15-23: '60'
+            su:15-23: '60'
+            hl:15-23: '60'            
+    - surface: clay
+      type: outdoor
+      courts: ['1', '2', '3', '4']
+      prices:
+        - from: '2024-10-01'
+          to: '2025-05-01'
+          schedule:
+    - surface: grass
+      type: outdoor
+      courts: ['5', '6']
+      prices:
+        - from: '2024-10-01'
+          to: '2025-05-01'
+          schedule:
+ 
