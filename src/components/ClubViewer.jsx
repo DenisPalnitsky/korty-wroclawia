@@ -8,13 +8,8 @@ import {
   TextField,
   Box,
   Typography,
-  Link,
-  Tooltip,
-  CardContent,
-  Grid2,
+  Link, CardContent
 } from '@mui/material';
-import TennisCourt from './TennisCourt';
-import { getCourtColor } from '../lib/consts';
 import { formatDistanceStrict, format } from 'date-fns';
 import CourtGroupRow from './CourtGroupRow';
 

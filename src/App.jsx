@@ -6,6 +6,7 @@ import { ThemeProvider, Container, Typography, createTheme, IconButton, Box, use
 import Brightness4Icon from '@mui/icons-material/Brightness4';
 import Brightness7Icon from '@mui/icons-material/Brightness7';
 import { TennisPallet } from './lib/consts';
+import Footer from './components/Footer';
 
 function App() {
   const [mode, setMode] = useState('light');
@@ -139,6 +140,7 @@ function App() {
           </IconButton>
         </Box>
         <ClubViewer pricingSystem={system} isMobile={isMobile} />
+        <Footer />
       </Container>
     </ThemeProvider>
   );

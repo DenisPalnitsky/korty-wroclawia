@@ -4,8 +4,7 @@ import PropTypes from 'prop-types';
 import { getCourtColor } from '../lib/consts';
 
 
-const TennisCourt = forwardRef(({ surface = 'clay', courtName, scale, ...props }, ref) => {
-  console.log('TennisCourt', surface, courtName, scale);
+const TennisCourt = forwardRef(({ surface = 'clay', courtName, scale, ...props }, ref) => {  
   if (!scale) {
     scale = 1;
   }
