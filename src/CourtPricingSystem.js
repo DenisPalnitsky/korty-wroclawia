@@ -1,3 +1,34 @@
+import Holidays from 'date-holidays';
+
+const HL = new Holidays("PL");
+const holidaysMap = getHolidays ();
+
+function formatDate(date) {
+  return date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
+}
+
+function getHolidays () {
+  const currentYear = new Date().getFullYear();
+  const m = new Map();
+    
+  const holidays = [
+    ...HL.getHolidays(currentYear - 1),
+    ...HL.getHolidays(currentYear),
+    ...HL.getHolidays(currentYear + 1)
+  ];
+  for (const holiday of holidays) {
+    const dt = formatDate(holiday.start);
+    m.set(dt, true);
+  }
+
+  return m;
+}
+
+function isHoliday(date) {
+  return holidaysMap.has(formatDate(date));
+}
+
+
 const DAY_NAMES = ['su', 'mo', 'tu', 'we', 'th', 'fr', 'st', 'hl'];
 
 class Court {
@@ -19,7 +50,6 @@ class Court {
 
 class PricePeriod {  
  
-
   constructor(prices){    
     // this should correspond to indexes returned by Date.getDay()    
     this.from = new Date(prices.from);
@@ -102,8 +132,12 @@ class PricePeriod {
     return false;
   }
 
-  getHalfHourRate(date) {
-    const day = DAY_NAMES[date.getDay()];
+  getHalfHourRate(date) {    
+    let day = DAY_NAMES[date.getDay()];    
+    if (isHoliday(date)) {
+      day = 'hl';
+    }
+
     const hour = date.getHours();
     const minutes = date.getMinutes();
     if (minutes == 30) {

@@ -4,9 +4,6 @@ import  CourtPricingSystem, { PricePeriod }  from '../CourtPricingSystem.js';
 import fs from 'fs';
 import yaml from 'js-yaml';
 
-
-
-
 describe('CourtPricing', () => {
 
   const fileContents = fs.readFileSync('src/tests/courts_test.yaml', 'utf8');
@@ -300,6 +297,7 @@ describe('Price Range Tests', () => {
     });
   });
 
+
   it('should return correct price ranges for weekend', () => {
     const date = new Date('2024-11-04T10:00:00');
     const weekendPrices = courtPricingSystem.clubs[0].courtGroups[1].getMinMaxPriceForWeekday(date);
@@ -367,6 +365,11 @@ describe('Test pricing period', () => {
     date = new Date('2024-11-30T21:00:00'); // Saturday
     price = pricePeriod.getHalfHourRate(date);
     expect(price).to.equal(75);
+
+    
+    date = new Date('2024-11-11T10:00:00'); // Holiday, Independence Day
+    price = pricePeriod.getHalfHourRate(date);
+    expect(price).to.equal(100);        
 
   });
   
