@@ -100,8 +100,7 @@ describe('CourtPricing', () => {
     });
   });
 
-  describe('validate()', function() {
-    this.timeout(20000); // 20 seconds
+  describe('validate()', () => {
     it('should detect gaps between pricing periods', () => {
       const system = new CourtPricingSystem({
         id: 'test-club',
@@ -261,8 +260,7 @@ describe('CourtPricing', () => {
 
 });
 
-describe('RealDataValidation', function () {
-  this.timeout(40000); // 20 seconds
+describe('RealDataValidation', () => {
   it('validation of assets/courts.yaml', () => {
     const fileContents = fs.readFileSync('src/assets/courts.yaml', 'utf8');
     const data = yaml.load(fileContents);
