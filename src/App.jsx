@@ -1,6 +1,6 @@
 import { useState, useMemo } from 'react';
 import ClubViewer from './components/ClubViewer';
-import CourtPricingSystem from './CourtPricingSystem';
+import { CourtPricingSystem } from './CourtPricingSystem';
 import courtsData from './assets/courts.yaml';
 import { ThemeProvider, Container, Typography, createTheme, IconButton, Box, useTheme, useMediaQuery } from '@mui/material';
 import Brightness4Icon from '@mui/icons-material/Brightness4';

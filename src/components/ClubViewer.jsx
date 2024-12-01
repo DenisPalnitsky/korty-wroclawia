@@ -12,6 +12,7 @@ import {
 } from '@mui/material';
 import { formatDistanceStrict, format } from 'date-fns';
 import CourtGroupRow from './CourtGroupRow';
+import CourtPricingSystem from '../CourtPricingSystem';
 
 
 const marks = Array.from({ length: 49 }, (_, i) => {
@@ -96,27 +97,45 @@ const ClubViewer = ({ pricingSystem, isMobile }) => {
       {clubs.map((club) => (
         <Card key={club.id} sx={{ mb: 1, border: 0 }}>
           <CardHeader
-            title={club.name}
-            subheader={
-              <Link
-                href={club.googleMapsLink}
-                target="_blank"
-                rel="noopener noreferrer"
-                sx={{ display: 'block', mb: 1 }}
-              >
-                {club.address}
-              </Link>
+            title={
+              <Box sx={{
+                display: 'flex',
+                alignItems: isMobile ? 'flex-start' : 'center',
+                flexDirection: isMobile ? 'column' : 'row',
+                gap: isMobile ? 0.5 : 2,
+                width: '100%'
+              }}>
+                <Link
+                  href={club.website}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {club.name}
+                </Link>
+                <Link
+                  href={club.googleMapsLink}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  sx={{
+                    color: 'text.secondary',
+                    fontSize: '0.8em',
+                    fontWeight: 400,
+                    marginLeft: isMobile ? 0 : 'auto'
+                  }}
+                >
+                  {club.address}
+                </Link>
+              </Box>
             }
           />
-         
           <CardContent sx={{ p: isMobile ? 1 : 2 }}>
             {club.courtGroups.map((courtGroup, groupIndex) => (
-              <CourtGroupRow 
-                key={groupIndex} 
-                groupIndex={groupIndex} 
+              <CourtGroupRow
+                key={groupIndex}
+                groupIndex={groupIndex}
                 courtGroup={courtGroup}
                 isMobile={isMobile}
-                startTime={getDates().startTime} 
+                startTime={getDates().startTime}
                 endTime={getDates().endTime} />
 
             ))}
@@ -128,9 +147,7 @@ const ClubViewer = ({ pricingSystem, isMobile }) => {
 };
 
 ClubViewer.propTypes = {
-  pricingSystem: PropTypes.shape({
-    list: PropTypes.func.isRequired,
-  }).isRequired,
+pricingSystem:PropTypes.instanceOf(CourtPricingSystem).isRequired,
   isMobile: PropTypes.bool.isRequired,
 };
 

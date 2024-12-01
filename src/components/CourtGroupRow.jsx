@@ -4,7 +4,7 @@ import {
     Typography,
 } from '@mui/material';
 import PropTypes from 'prop-types';
-import CourtGroup from '../CourtPricingSystem';
+import { CourtGroup } from '../CourtPricingSystem';
 import { getCourtColor, getCourtColorDark } from '../lib/consts';
 import TennisCourt from './TennisCourt';
 
@@ -93,10 +93,10 @@ const CourtGroupRow = ({ courtGroup, groupIndex, isMobile, startTime, endTime })
 
             <Grid2 id="court-avg-prices-grid" size={ isMobile ? 12 : 'auto'} hidden={isClosed} flexGrow={1}>
                 <Typography variant="body1">
-                    Price Range Week Day: {courtGroup.getMaxMinPriceForWeekday()?.minPrice - courtGroup.getMaxMinPriceForWeekday()?.maxPrice} PLN
+                    Price Range Week Day: {courtGroup.getMinMaxPriceForWeekday(startTime)?.minPrice - courtGroup.getMinMaxPriceForWeekday(startTime)?.maxPrice} PLN
                 </Typography>
                 <Typography variant="body1">
-                    Price Range For Weekend: {courtGroup.getMaxMinPriceForWeekend()?.minPrice - courtGroup.getMaxMinPriceForWeekend()?.maxPrice} PLN
+                    Price Range For Weekend: {courtGroup.getMinMaxPriceForWeekend(startTime)?.minPrice - courtGroup.getMinMaxPriceForWeekend(startTime)?.maxPrice} PLN
                 </Typography>
             </Grid2>
 
@@ -119,7 +119,7 @@ const CourtGroupRow = ({ courtGroup, groupIndex, isMobile, startTime, endTime })
                             key={court.id}
                             title={price ? `Court ${court.id}: ${price} PLN` : 'Price not available'}
                         >
-                            <TennisCourt surface={court.surface} courtName={court.id} scale={isClosed ? "0.5" : "1" }>
+                            <TennisCourt surface={court.surface} courtName={court.id} scale={isClosed ? 0.5 : 1 }>
                                 {court.id}
                             </TennisCourt>
                         </Tooltip>
