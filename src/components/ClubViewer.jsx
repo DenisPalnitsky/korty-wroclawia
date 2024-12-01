@@ -12,6 +12,7 @@ import {
 } from '@mui/material';
 import { formatDistanceStrict, format } from 'date-fns';
 import CourtGroupRow from './CourtGroupRow';
+import CourtPricingSystem from '../CourtPricingSystem';
 
 
 const marks = Array.from({ length: 49 }, (_, i) => {
@@ -146,9 +147,7 @@ const ClubViewer = ({ pricingSystem, isMobile }) => {
 };
 
 ClubViewer.propTypes = {
-  pricingSystem: PropTypes.shape({
-    list: PropTypes.func.isRequired,
-  }).isRequired,
+pricingSystem:PropTypes.instanceOf(CourtPricingSystem).isRequired,
   isMobile: PropTypes.bool.isRequired,
 };
 

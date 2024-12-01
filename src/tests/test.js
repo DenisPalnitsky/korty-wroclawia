@@ -1,6 +1,6 @@
 /* eslint-env mocha */
 import { expect } from 'chai';
-import  CourtPricingSystem  from '../CourtPricingSystem.js';
+import  CourtPricingSystem, { PricePeriod }  from '../CourtPricingSystem.js';
 import fs from 'fs';
 import yaml from 'js-yaml';
 
@@ -276,7 +276,120 @@ describe('RealDataValidation', () => {
   });
 });
 
+describe('Price Range Tests', () => {
+  const fileContents = fs.readFileSync('src/tests/courts_test.yaml', 'utf8');
+  const data = yaml.load(fileContents);
+  const courtPricingSystem = new CourtPricingSystem(data);
+  
 
+  it('should return correct price ranges for weekday', () => {   
+    const date = new Date('2024-05-04T10:00:00');
+    const weekdayPrices = courtPricingSystem.clubs[0].courtGroups[0].getMinMaxPriceForWeekday(date);
+    expect(weekdayPrices).to.deep.equal({
+      minPrice: 60,
+      maxPrice: 110
+    });
+  });
+
+  it('should return correct price ranges for weekend', () => {
+    const date = new Date('2024-05-04T10:00:00');
+    const weekendPrices = courtPricingSystem.clubs[0].courtGroups[0].getMinMaxPriceForWeekend(date);
+    expect(weekendPrices).to.deep.equal({
+      minPrice: 50,
+      maxPrice: 110
+    });
+  });
+
+  it('should return correct price ranges for weekend', () => {
+    const date = new Date('2024-11-04T10:00:00');
+    const weekendPrices = courtPricingSystem.clubs[0].courtGroups[1].getMinMaxPriceForWeekday(date);
+    expect(weekendPrices).to.deep.equal({
+      minPrice: 130,
+      maxPrice: 160
+    });
+  });
+
+  it('should return null for closed periods', () => {
+    const date = new Date('2024-04-04T10:00:00');
+    const weekdayPrices = courtPricingSystem.clubs[0].courtGroups[0].getMinMaxPriceForWeekday(date);
+    const weekendPrices = courtPricingSystem.clubs[0].courtGroups[0].getMinMaxPriceForWeekend(date);
+    
+    expect(weekdayPrices).to.be.null;
+    expect(weekendPrices).to.be.null;
+  });
+});
+
+describe('Test pricing period', () => {
+
+  it('should return correct price for a given date and time', () => {
+    const data = {
+      from: '2024-01-01',
+      to: '2024-12-31',
+      schedule: {
+        "*:7-15": "50",
+        "*:15-22": "100",
+        "st:7-22": "150",
+        "su:7-22": "160",
+        "hl:7-22": "200",
+        "!:22-7": "10"
+      }
+    };
+    const pricePeriod = new PricePeriod(data);
+
+    let date = new Date('2024-12-04T10:00:00'); // Wednesday
+    let price = pricePeriod.getHalfHourRate(date);
+    expect(price).to.equal(25);
+
+    date = new Date('2024-12-04T15:00:00'); // Wednesday
+    price = pricePeriod.getHalfHourRate(date);
+    expect(price).to.equal(50);
+
+    date = new Date('2024-12-04T22:00:00'); // Wednesday
+    price = pricePeriod.getHalfHourRate(date);
+    expect(price).to.equal(5);
+
+    date = new Date('2024-12-04T03:00:00'); // Wednesday
+    price = pricePeriod.getHalfHourRate(date);
+    expect(price).to.equal(5);
+
+    date = new Date('2024-12-04T07:00:00'); // Wednesday
+    price = pricePeriod.getHalfHourRate(date);
+    expect(price).to.equal(25);
+
+    date = new Date('2024-12-04T07:30:00'); // Wednesday
+    price = pricePeriod.getHalfHourRate(date);
+    expect(price).to.equal(25);
+
+    date = new Date('2024-12-01T07:00:00'); // Sunday
+    price = pricePeriod.getHalfHourRate(date);
+    expect(price).to.equal(80);
+
+    date = new Date('2024-11-30T21:00:00'); // Saturday
+    price = pricePeriod.getHalfHourRate(date);
+    expect(price).to.equal(75);
+
+  });
+  
+  it('should return closed if there is no price for timerange', () => {
+    const data = {
+      from: '2024-01-01',
+      to: '2024-12-31',
+      schedule: {
+        "*:7-15": "50",
+        "*:15-22": "100",
+        "st:7-22": "150",
+        "su:7-22": "160",
+        "hl:7-22": "200",        
+      }
+    };
+    const pricePeriod = new PricePeriod(data);
+    
+    let date = new Date('2024-05-04T23:00:00'); // Thursday
+    let price = pricePeriod.getHalfHourRate(date);
+    expect(price).null;
+  })
+
+});
 
 // describe('Debug',()=>{
 //   const getDatesForYear = (year) => {

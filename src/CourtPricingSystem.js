@@ -1,3 +1,5 @@
+const DAY_NAMES = ['su', 'mo', 'tu', 'we', 'th', 'fr', 'st', 'hl'];
+
 class Court {
   constructor(courtId, surface, type, courtGroup) {
     this.id = courtId;
@@ -16,13 +18,80 @@ class Court {
 }
 
 class PricePeriod {  
-  constructor(prices){
+ 
+
+  constructor(prices){    
+    // this should correspond to indexes returned by Date.getDay()    
     this.from = new Date(prices.from);
     this.from.setHours(0,0,0,0);
     this.to = new Date(prices.to);
     this.to.setHours(0,0,0,0);
 
     this.schedule = prices.schedule;
+    this.dayMap = this.createPricingMap(this.schedule);    
+  }
+
+  mergeTimeMaps(existingMap, newMap) {
+    const merged = new Map(existingMap);
+    newMap.forEach((value, key) => merged.set(key, value));
+    return merged;
+  }
+
+
+  createPricingMap(schedule){
+    
+    const hmap = { };
+    for (const day of DAY_NAMES) {
+      hmap[day] = new Map();
+    }
+
+    if (schedule === undefined || schedule === null) {
+      return hmap;
+    }
+ 
+    // Check universal rules (!)
+    for (const [rule, price] of Object.entries(schedule)) {
+      const [ruleDay, timeRange] = rule.split(':');
+      const intPrice = parseInt(price);
+
+      // Default rule for all days
+      if (ruleDay === '*') {
+        for (const day in hmap) {          
+          hmap[day] = this.mergeTimeMaps(hmap[day], this.getTimeInRange(timeRange,intPrice));
+        }      
+      }      
+    
+      // Specific days rule
+      if (DAY_NAMES.includes(ruleDay)) {
+        hmap[ruleDay] = this.mergeTimeMaps(hmap[ruleDay], this.getTimeInRange(timeRange,intPrice));
+      }              
+
+      // Master rule overrides all other rules
+      if (ruleDay === '!' ) {
+        for (const day of DAY_NAMES) {          
+          hmap[day] = this.mergeTimeMaps(hmap[day], this.getTimeInRange(timeRange,intPrice));
+        }      
+      }
+    }
+
+    return hmap;
+  }
+
+  getTimeInRange(timeRange, price) {
+    const [start, end] = timeRange.split('-').map(Number);
+    const res = new Map();
+    
+    let i = start;
+    while (i != end) {
+        if (i === 24) {
+            i = 0;
+        }
+        res.set(i*100, price/2);
+        res.set(i*100 + 50, price/2);
+        i++;
+    }
+
+    return res;
   }
 
   isClosed() {
@@ -33,6 +102,48 @@ class PricePeriod {
     return false;
   }
 
+  getHalfHourRate(date) {
+    const day = DAY_NAMES[date.getDay()];
+    const hour = date.getHours();
+    const minutes = date.getMinutes();
+    if (minutes == 30) {
+      return this.dayMap[day].get(hour * 100 + 50);
+    }
+
+    return this.dayMap[day].get(hour * 100) || null;
+  }
+
+  getMinMaxPriceForWeekday() {
+   return this.getMinMaxForRange(['mo', 'tu', 'we', 'th', 'fr']);
+  }
+
+  getMinMaxPriceForWeekend() {
+    return this.getMinMaxForRange(['su', 'st', 'hl']);
+  }
+
+  getMinMaxForRange(days){
+    if (this.dayMap === undefined || this.dayMap === null) 
+      return null;
+    let min = Number.MAX_SAFE_INTEGER;
+    let max = 0;
+
+    for (const day of days){          
+      const values = [...this.dayMap[day].values()];
+      if (Math.min(...values) < min) {
+        min = Math.min(...values);
+      }
+      
+      if (Math.max(...values) > max) {
+        max = Math.max(...values);
+      }
+    }
+    min = min*2;
+    max = max*2;
+    return { minPrice: min , maxPrice: max };
+  }
+
+
+
   static createEmpty() {
     const emptyPrices = {
       from: new Date(0),
@@ -41,7 +152,6 @@ class PricePeriod {
     };
     return new PricePeriod(emptyPrices);
   }
- 
 }
 
 class CourtGroup {
@@ -74,104 +184,54 @@ class CourtGroup {
       }
     }
     return PricePeriod.createEmpty();
-  }
+  }  
 
-  findApplicableRate(pricing, date) {
-    if (!pricing) return null;
-
-    const weekday = date.getDay();
-    const dayMap = {
-      1: 'mo', 2: 'tu', 3: 'we', 4: 'th', 5: 'fr', 6: 'st', 0: 'su'
-    };
-    const dayName = dayMap[weekday];
-    const hour = date.getHours();
-
-    // Check universal rules (!)
-    for (const [rule, price] of Object.entries(pricing)) {
-      const [ruleDay, timeRange] = rule.split(':');
-      if (ruleDay === '!' && this.isTimeInRange(hour, timeRange)) {
-        return parseInt(price);
-      }
-    }
-
-    // Check specific day rules first
-    for (const [rule, price] of Object.entries(pricing)) {
-      const [ruleDay, timeRange] = rule.split(':');
-      if (ruleDay === dayName && this.isTimeInRange(hour, timeRange)) {
-        return parseInt(price);
-      }
-    }
-
-    // Check wildcard rules (*)
-    for (const [rule, price] of Object.entries(pricing)) {
-      const [ruleDay, timeRange] = rule.split(':');
-      if (ruleDay === '*' &&
-        this.isTimeInRange(hour, timeRange)) {
-        return parseInt(price);
-      }
-    }
-
-    return null;
-  }
-
-  getMaxMinPrice(date) {
-    const activePricing = this.getPricePeriod(date);
-
-    if (activePricing.isClosed()) return null;
-
-    const prices = Object.values(activePricing.schedule).map(price => parseInt(price));
-    return {
-      minPrice: Math.min(...prices),
-      maxPrice: Math.max(...prices)
-    };
-  }
 
   // finds next monday from current date and returns the min and max price for the week
-  getMaxMinPriceForWeekday() {
-    const date = new Date();
-    const day = date.getDay();
-    const diff = 1 + (7 + 1 - day) % 7;
-    date.setDate(date.getDate() + diff);
-    const minMaxPrice = this.getMaxMinPrice(date);
-    return minMaxPrice;
+  getMinMaxPriceForWeekday(date) {        
+    const dt = new Date(date); 
+    const pp = this.getPricePeriod(dt);
+    if (pp === null || pp.isClosed()) 
+      return null;
+
+    return pp.getMinMaxPriceForWeekday();
   }
 
   // finds next saturday from current date and returns the min and max price for the week
-  getMaxMinPriceForWeekend() {
-    const date = new Date();
-    const day = date.getDay();
-    const diff = 6 + (7 + 6 - day) % 7;
-    date.setDate(date.getDate() + diff);
-    const minMaxPrice = this.getMaxMinPrice(date);
-    return minMaxPrice;
+  getMinMaxPriceForWeekend(date) {    
+    const dt = new Date(date); 
+    const pp = this.getPricePeriod(dt);
+    if (pp === null || pp.isClosed()) 
+      return null;
+    return pp.getMinMaxPriceForWeekend();
   }
 
   getPrice(startTime, endTime) {
     const start = new Date(startTime);
     const end = new Date(endTime);
 
-    // Find active pricing for the date
-    const activePricing = this.getPricePeriod(start);
-    if (activePricing.isClosed()) 
-      return null;
-
+   
     // Calculate total price for each hour
     let totalPrice = 0;
     let currentTime = new Date(start);
 
+    const activePricing = this.getPricePeriod(start);
+     if (activePricing.isClosed()) 
+       return null;
+
+    if (!activePricing) return null;
+    
     while (currentTime < end) {
-      const hourPrice = this.findApplicableRate(activePricing.schedule, currentTime);
-      if (hourPrice === null) return null;
+      const halfHourPrice = activePricing.getHalfHourRate(currentTime);
 
-      // Calculate how much of the hour is used (in hours)
-      const hourEnd = new Date(currentTime.getTime() + 60 * 60 * 1000);
-      const slotEnd = new Date(Math.min(hourEnd.getTime(), end.getTime()));
-      const duration = (slotEnd - currentTime) / (60 * 60 * 1000);
+      if (halfHourPrice === null) return null;
 
-      totalPrice += hourPrice * duration;
-      currentTime = hourEnd;
+      
+      totalPrice += halfHourPrice;
+
+      currentTime.setMinutes(currentTime.getMinutes() + 30);
     }
-
+    
     return totalPrice;
   }
 
@@ -420,3 +480,4 @@ class CourtPricingSystem {
 }
 
 export default CourtPricingSystem;
+export { Court, PricePeriod, CourtGroup, Club, CourtPricingSystem };
