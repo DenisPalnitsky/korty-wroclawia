@@ -31,6 +31,16 @@ function isHoliday(date) {
 
 const DAY_NAMES = ['su', 'mo', 'tu', 'we', 'th', 'fr', 'st', 'hl'];
 
+function parsePolandDate(dateString) {
+  // Create date object in local timezone
+  const date = new Date(dateString);
+  
+  // Convert to Poland timezone (UTC+1 or UTC+2 depending on DST)
+  return new Date(date.toLocaleString('en-US', { 
+    timeZone: 'Europe/Warsaw'
+  }));
+}
+
 class Court {
   constructor(courtId, surface, type, courtGroup) {
     this.id = courtId;
@@ -52,9 +62,9 @@ class PricePeriod {
  
   constructor(prices){    
     // this should correspond to indexes returned by Date.getDay()    
-    this.from = new Date(prices.from);
+    this.from = parsePolandDate(prices.from);
     this.from.setHours(0,0,0,0);
-    this.to = new Date(prices.to);
+    this.to = parsePolandDate(prices.to);
     this.to.setHours(0,0,0,0);
 
     this.schedule = prices.schedule;
@@ -207,7 +217,7 @@ class CourtGroup {
   }
 
   getPricePeriod(date) {
-    const targetDate = new Date(date);
+    const targetDate = parsePolandDate(date);
 
     for (const pricePeriod of this.prices) {
       const fromDate = pricePeriod.from;
@@ -223,7 +233,7 @@ class CourtGroup {
 
   // finds next monday from current date and returns the min and max price for the week
   getMinMaxPriceForWeekday(date) {        
-    const dt = new Date(date); 
+    const dt = parsePolandDate(date); 
     const pp = this.getPricePeriod(dt);
     if (pp === null || pp.isClosed()) 
       return null;
@@ -233,7 +243,7 @@ class CourtGroup {
 
   // finds next saturday from current date and returns the min and max price for the week
   getMinMaxPriceForWeekend(date) {    
-    const dt = new Date(date); 
+    const dt = parsePolandDate(date); 
     const pp = this.getPricePeriod(dt);
     if (pp === null || pp.isClosed()) 
       return null;
@@ -241,13 +251,13 @@ class CourtGroup {
   }
 
   getPrice(startTime, endTime) {
-    const start = new Date(startTime);
-    const end = new Date(endTime);
+    const start = parsePolandDate(startTime);
+    const end = parsePolandDate(endTime);
 
    
     // Calculate total price for each hour
     let totalPrice = 0;
-    let currentTime = new Date(start);
+    let currentTime = parsePolandDate(start);
 
     const activePricing = this.getPricePeriod(start);
      if (activePricing.isClosed()) 
@@ -270,7 +280,7 @@ class CourtGroup {
   }
 
   isClosed(startTime){
-    const start = new Date(startTime);        
+    const start = parsePolandDate(startTime);        
     const activePricing = this.getPricePeriod(start);    
     return activePricing.isClosed();
   }
@@ -289,7 +299,7 @@ class Club {
   }
 
 
-  getMaxMinPrice(date = new Date()) {
+  getMaxMinPrice(date) {
     const result = [];
 
     for (const courtGroup of this.courtGroups) {
@@ -420,7 +430,7 @@ class CourtPricingSystem {
         }
 
         // Sort periods by from date
-        courtGroup.prices.sort((a, b) => new Date(a.from) - new Date(b.from));
+        courtGroup.prices.sort((a, b) => parsePolandDate(a.from) - parsePolandDate(b.from));
 
         for (let i = 0; i < courtGroup.prices.length-1; i++) {
           if (courtGroup.prices[i].isClosed()){
@@ -430,8 +440,8 @@ class CourtPricingSystem {
           const current = courtGroup.prices[i];
           const next = courtGroup.prices[i + 1];
 
-          const currentEnd = new Date(current.to);
-          const nextStart = new Date(next.from);
+          const currentEnd = parsePolandDate(current.to);
+          const nextStart = parsePolandDate(next.from);
 
           // Check for gap
           if (nextStart > currentEnd) {
@@ -466,7 +476,7 @@ class CourtPricingSystem {
       const end = new Date(year + 1, 0, 1);
       
       for (let d = start; d < end; d.setDate(d.getDate() + 1)) {
-        dates.push(new Date(d));
+        dates.push(parsePolandDate(d));
       }
       return dates;
     };
@@ -477,8 +487,8 @@ class CourtPricingSystem {
     for (const club of this.clubs) {
       for (const courtGroup of club.courtGroups) {
         // Get min/max dates from pricing periods
-        const minDate = new Date(Math.min(...courtGroup.prices.map(p => new Date(p.from))));
-        const maxDate = new Date(Math.max(...courtGroup.prices.map(p => new Date(p.to))));
+        const minDate = parsePolandDate(Math.min(...courtGroup.prices.map(p => parsePolandDate(p.from))));
+        const maxDate = parsePolandDate(Math.max(...courtGroup.prices.map(p => parsePolandDate(p.to))));
   
         // Filter dates within pricing period range
         const relevantDates = year2024.filter(date => 
@@ -487,10 +497,10 @@ class CourtPricingSystem {
   
         for (const date of relevantDates) {
           for (const hour of hours) {
-            const testTime = new Date(date);
+            const testTime = parsePolandDate(date);
             testTime.setHours(hour, 0, 0, 0);
             
-            const endTime = new Date(testTime);
+            const endTime = parsePolandDate(testTime);
             endTime.setHours(hour + 1);
   
             if (courtGroup.isClosed(testTime)){
