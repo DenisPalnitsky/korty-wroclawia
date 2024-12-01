@@ -93,10 +93,10 @@ const CourtGroupRow = ({ courtGroup, groupIndex, isMobile, startTime, endTime })
 
             <Grid2 id="court-avg-prices-grid" size={ isMobile ? 12 : 'auto'} hidden={isClosed} flexGrow={1}>
                 <Typography variant="body1">
-                    Price Range Week Day: {courtGroup.getMinMaxPriceForWeekday(startTime)?.minPrice - courtGroup.getMinMaxPriceForWeekday(startTime)?.maxPrice} PLN
+                    Price Range Week Day: {courtGroup.getMinMaxPriceForWeekday(startTime)?.minPrice + " - " + courtGroup.getMinMaxPriceForWeekday(startTime)?.maxPrice} PLN
                 </Typography>
                 <Typography variant="body1">
-                    Price Range For Weekend: {courtGroup.getMinMaxPriceForWeekend(startTime)?.minPrice - courtGroup.getMinMaxPriceForWeekend(startTime)?.maxPrice} PLN
+                    Price Range For Weekend: {courtGroup.getMinMaxPriceForWeekend(startTime)?.minPrice + " - " + courtGroup.getMinMaxPriceForWeekend(startTime)?.maxPrice} PLN
                 </Typography>
             </Grid2>
 
