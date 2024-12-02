@@ -7,8 +7,10 @@ import PropTypes from 'prop-types';
 import { CourtGroup } from '../CourtPricingSystem';
 import { getCourtColor, getCourtColorDark } from '../lib/consts';
 import TennisCourt from './TennisCourt';
+import { useTranslation } from 'react-i18next';
 
 const CourtGroupRow = ({ courtGroup, groupIndex, isMobile, startTime, endTime }) => {
+    const { t } = useTranslation();
     const isClosed =  courtGroup.isClosed(startTime);
 
     return (
@@ -28,15 +30,15 @@ const CourtGroupRow = ({ courtGroup, groupIndex, isMobile, startTime, endTime })
             <Grid2 id="court-type-grid" size={ isMobile ? 12 : 3 }>
                 { isMobile || isClosed ? (
                     <Typography variant="body1" sx={{ mb: 1 }}>
-                        Court type: {`${courtGroup.surface} | ${courtGroup.type} `}
+                        {t('Court type')}: {`${courtGroup.surface} | ${courtGroup.type} `}
                     </Typography>
                 ) : (
                     <>
                         <Typography variant="body1" sx={{ mb: 1 }}>
-                            Court type: {courtGroup.type}
+                            {t('Court type')}: {courtGroup.type}
                         </Typography>
                         <Typography variant="body1" sx={{ mb: 1 }}>
-                            Surface: {courtGroup.surface}
+                            {t('Surface')}: {courtGroup.surface}
                         </Typography>
                     </>
                 )}
@@ -67,7 +69,7 @@ const CourtGroupRow = ({ courtGroup, groupIndex, isMobile, startTime, endTime })
                                 bgcolor: getCourtColorDark(courtGroup.surface),
                             },
                         }}>
-                   Price: {courtGroup.getPrice(startTime, endTime)} PLN                    
+                   {t('Price')}: {courtGroup.getPrice(startTime, endTime)} PLN                    
                    </Typography> ) : ( 
                     
                     <Typography
@@ -86,17 +88,17 @@ const CourtGroupRow = ({ courtGroup, groupIndex, isMobile, startTime, endTime })
                             '&:hover': {
                                 bgcolor: getCourtColorDark(courtGroup.surface),
                             },
-                        }}>Closed</Typography> 
+                        }}>{t('Closed')}</Typography> 
                         )}
               
             </Grid2>
 
             <Grid2 id="court-avg-prices-grid" size={ isMobile ? 12 : 'auto'} hidden={isClosed} flexGrow={1}>
                 <Typography variant="body1">
-                    Price Range Week Day: {courtGroup.getMinMaxPriceForWeekday(startTime)?.minPrice + " - " + courtGroup.getMinMaxPriceForWeekday(startTime)?.maxPrice} PLN
+                    {t('Price range on weekdays')}: {courtGroup.getMinMaxPriceForWeekday(startTime)?.minPrice + " - " + courtGroup.getMinMaxPriceForWeekday(startTime)?.maxPrice} PLN
                 </Typography>
                 <Typography variant="body1">
-                    Price Range For Weekend: {courtGroup.getMinMaxPriceForWeekend(startTime)?.minPrice + " - " + courtGroup.getMinMaxPriceForWeekend(startTime)?.maxPrice} PLN
+                    {t('Price range on weekends')}: {courtGroup.getMinMaxPriceForWeekend(startTime)?.minPrice + " - " + courtGroup.getMinMaxPriceForWeekend(startTime)?.maxPrice} PLN
                 </Typography>
             </Grid2>
 
@@ -117,7 +119,7 @@ const CourtGroupRow = ({ courtGroup, groupIndex, isMobile, startTime, endTime })
                     return (
                         <Tooltip
                             key={court.id}
-                            title={price ? `Court ${court.id}: ${price} PLN` : 'Price not available'}
+                            title={price ? `${t('Court')} ${court.id}: ${price} PLN` : t('Price not available')}
                         >
                             <TennisCourt surface={court.surface} courtName={court.id} scale={isClosed ? 0.5 : 1 }>
                                 {court.id}

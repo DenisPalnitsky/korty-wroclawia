@@ -1,4 +1,3 @@
-// components/ClubViewer.js
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
@@ -13,7 +12,7 @@ import {
 import { formatDistanceStrict, format } from 'date-fns';
 import CourtGroupRow from './CourtGroupRow';
 import CourtPricingSystem from '../CourtPricingSystem';
-
+import { useTranslation } from 'react-i18next';
 
 const marks = Array.from({ length: 49 }, (_, i) => {
   const hour = Math.floor(i / 2);
@@ -24,6 +23,7 @@ const marks = Array.from({ length: 49 }, (_, i) => {
 });
 
 const ClubViewer = ({ pricingSystem, isMobile }) => {
+  const { t } = useTranslation();
   const [selectedDate, setSelectedDate] = React.useState(new Date().toISOString().split('T')[0]);
   const [timeRange, setTimeRange] = React.useState([18, 22]);
 
@@ -60,7 +60,7 @@ const ClubViewer = ({ pricingSystem, isMobile }) => {
 
         <TextField
           type="date"
-          label="Select Date"
+          label={t('Select Date')}
           value={selectedDate}
           onChange={(e) => setSelectedDate(e.target.value)}
           sx={{ minWidth: '160px' }}
@@ -86,7 +86,7 @@ const ClubViewer = ({ pricingSystem, isMobile }) => {
             gap: 1,
           }}>
             <Typography align={isMobile ? 'center' : 'left'}>
-              Start: {format(getDates().startTime, 'p')} | {formatDistanceStrict(getDates().startTime, getDates().endTime)}
+              {t('Start')}: {format(getDates().startTime, 'p')} | {formatDistanceStrict(getDates().startTime, getDates().endTime)}
             </Typography>
           </Box>
 

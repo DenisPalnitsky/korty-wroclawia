@@ -7,8 +7,10 @@ import Brightness4Icon from '@mui/icons-material/Brightness4';
 import Brightness7Icon from '@mui/icons-material/Brightness7';
 import { TennisPallet } from './lib/consts';
 import Footer from './components/Footer';
+import { useTranslation } from 'react-i18next';
 
 function App() {
+  const { t } = useTranslation();
   const [mode, setMode] = useState('light');
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
@@ -128,13 +130,14 @@ function App() {
         }}>
           
           <Typography variant="h3">
-            Courts of Wroclaw
+            {t('Courts of Wroclaw')}
           </Typography>
           
           <IconButton 
             onClick={() => setMode(mode === 'light' ? 'dark' : 'light')}
             color="inherit"
             sx={{ justifySelf: 'right' }}        
+            title={t('Change mode')}
           >
             {mode === 'light' ? <Brightness4Icon /> : <Brightness7Icon sx={{ color: 'white' }} />}
           </IconButton>

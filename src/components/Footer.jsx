@@ -1,8 +1,11 @@
 import { Box, Link, Button } from '@mui/material';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import BugReportIcon from '@mui/icons-material/BugReport';
+import { useTranslation } from 'react-i18next';
 
 const Footer = () => {
+  const { t } = useTranslation();
+
   return (
     <Box
       component="footer"
@@ -35,7 +38,7 @@ const Footer = () => {
             }
           }}
         >
-          Report Problem
+          {t('Report Problem')}
         </Button>
       </Box>
 
