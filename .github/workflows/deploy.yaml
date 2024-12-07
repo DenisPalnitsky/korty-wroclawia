@@ -37,7 +37,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '18'
+          node-version: '21'
 
       - name: Install dependencies
         run: npm install
@@ -46,7 +46,7 @@ jobs:
         run: npm run build
 
       - name: Test
-        run: npm test
+        run: TZ=Europe/Warsaw  npm test
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
