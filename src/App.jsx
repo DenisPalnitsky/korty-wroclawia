@@ -126,10 +126,10 @@ function App() {
       }}>
         <Box sx={{ 
           display: 'flex', 
-          justifyContent: 'center', 
+          justifyContent: 'space-between',
           alignItems: 'center',
           mb: 3,
-          flexDirection: 'row', // Align items vertically
+          width: '100%',
         }}>
           
           <Typography variant="h3">
@@ -139,7 +139,6 @@ function App() {
           <IconButton 
             onClick={() => setMode(mode === 'light' ? 'dark' : 'light')}
             color="inherit"
-            sx={{ justifySelf: 'right' }}        
             title={t('Change mode')}
           >
             {mode === 'light' ? <Brightness4Icon /> : <Brightness7Icon sx={{ color: 'white' }} />}
