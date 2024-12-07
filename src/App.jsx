@@ -14,6 +14,7 @@ function App() {
   const [mode, setMode] = useState('light');
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+  
 
   const appTheme = useMemo(() => createTheme({
     palette: {
@@ -112,6 +113,8 @@ function App() {
   }), [mode, isMobile]);
 
   const system = new CourtPricingSystem(courtsData);
+
+
 
   return (
     <ThemeProvider theme={appTheme}>

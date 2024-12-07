@@ -9,6 +9,7 @@ const resources = {
       "Select Date": "Wybierz Datę",
       "Report Problem": "Zgłoś Problem",
       "Court type": "Typ kortu",
+      "Surface": "Nawierzchnia",
       "Court": "Kort",
       "Change mode": "Zmień tryb",
       "Start": "Początek",
