@@ -18,7 +18,8 @@ const resources = {
       "Closed": "Zamknięte",
       "Price range on weekdays": "Zakres cen w dni robocze",
       "Price range on weekends": "Zakres cen w weekend",
-      "Show Closed Courts": "Pokaż zamknięte korty"
+      "Show Closed Courts": "Pokaż zamknięte korty",
+      "hour": "godzina"
     }
   },  
   en: {
@@ -37,7 +38,16 @@ i18n
     lng: 'pl',
     fallbackLng: 'en',
     interpolation: {
-      escapeValue: false
+      escapeValue: false,
+      format: (value, format, lng) => {
+        if (format === 'currency') {
+          return new Intl.NumberFormat(lng, {
+            style: 'currency',
+            currency: 'PLN'
+          }).format(value);
+        }
+        return value;
+      }
     }
   });
 

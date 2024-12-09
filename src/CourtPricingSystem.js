@@ -243,6 +243,7 @@ class CourtGroup {
   getPrice(startTime, endTime) {
     const start = new Date(startTime);
     const end = new Date(endTime);
+    console.log(`getPrice ${start} ${end}`);
 
    
     // Calculate total price for each hour

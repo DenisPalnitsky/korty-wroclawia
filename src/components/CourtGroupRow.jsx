@@ -2,6 +2,7 @@ import {
     Grid2,
     Tooltip,
     Typography,
+    Box
 } from '@mui/material';
 import PropTypes from 'prop-types';
 import { CourtGroup } from '../CourtPricingSystem';
@@ -57,25 +58,31 @@ const CourtGroupRow = ({ courtGroup, groupIndex, isMobile, startTime, endTime, s
 
                 {!isClosed ? (   
                     
-                    <Typography
-                        variant="subtitle1"
-                        sx={{
-                            borderRadius: 1,
-                            bgcolor: getCourtColor(courtGroup.surface),
-                            color: 'white',
-                            width: isMobile ? '100%' : '120px',
-                            padding: isMobile ? 'auto' : '8px 16px',
-                            textAlign: 'center',
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            minHeight: '40px',
-                            '&:hover': {
-                                bgcolor: getCourtColorDark(courtGroup.surface),
-                            },
-                        }}>
-                   {courtGroup.getPrice(startTime, endTime)} PLN                    
-                   </Typography> ) : ( 
+                <Box
+                    sx={{
+                        borderRadius: 1,
+                        bgcolor: getCourtColor(courtGroup.surface),                        
+                        width: isMobile ? '100%' : '120px',
+                        padding: isMobile ? 'auto' : '8px 16px',
+                        textAlign: 'center',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        minHeight: '40px',
+                        '&:hover': {
+                            bgcolor: getCourtColorDark(courtGroup.surface),
+                        },
+                    }}
+                >
+                    <Typography variant="body1" sx={{ color: 'white' }}>
+                        {courtGroup.getPrice(startTime, endTime)} zl
+                    </Typography>
+                    <Typography variant="subtitle2" sx={{ fontSize: '0.75rem', color: 'lightgray', }}>
+                         {courtGroup.getPrice(startTime, new Date(startTime.getTime() + 60 * 60 * 1000))} zl/{t('hour')}
+                    </Typography>
+
+                </Box>) : ( 
                     
                     <Typography
                         variant="subtitle1"
@@ -100,10 +107,10 @@ const CourtGroupRow = ({ courtGroup, groupIndex, isMobile, startTime, endTime, s
 
             <Grid2 id="court-avg-prices-grid" size={ isMobile ? 12 : 'auto'} hidden={isClosed} flexGrow={1}>
                 <Typography variant="body1">
-                    {t('Price range on weekdays')}: {courtGroup.getMinMaxPriceForWeekday(startTime)?.minPrice + " - " + courtGroup.getMinMaxPriceForWeekday(startTime)?.maxPrice} PLN
+                    {t('Price range on weekdays')}: {courtGroup.getMinMaxPriceForWeekday(startTime)?.minPrice + " - " + courtGroup.getMinMaxPriceForWeekday(startTime)?.maxPrice} zl
                 </Typography>
                 <Typography variant="body1">
-                    {t('Price range on weekends')}: {courtGroup.getMinMaxPriceForWeekend(startTime)?.minPrice + " - " + courtGroup.getMinMaxPriceForWeekend(startTime)?.maxPrice} PLN
+                    {t('Price range on weekends')}: {courtGroup.getMinMaxPriceForWeekend(startTime)?.minPrice + " - " + courtGroup.getMinMaxPriceForWeekend(startTime)?.maxPrice} zl
                 </Typography>
             </Grid2>
 
