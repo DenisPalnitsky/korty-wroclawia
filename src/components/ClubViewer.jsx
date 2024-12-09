@@ -84,7 +84,7 @@ const ClubViewer = ({ pricingSystem, isMobile }) => {
           <Box sx={{
             display: 'flex',
             justifyContent: 'center',
-            ml: 2,            
+            ml: isMobile ? 0 : 2,            
             width: isMobile ? '100%' : '20%',        
             border: '1px solid',
             borderColor: 'divider',
