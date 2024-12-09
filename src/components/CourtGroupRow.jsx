@@ -9,9 +9,13 @@ import { getCourtColor, getCourtColorDark } from '../lib/consts';
 import TennisCourt from './TennisCourt';
 import { useTranslation } from 'react-i18next';
 
-const CourtGroupRow = ({ courtGroup, groupIndex, isMobile, startTime, endTime }) => {
+const CourtGroupRow = ({ courtGroup, groupIndex, isMobile, startTime, endTime, showClosedCourts }) => {
     const { t } = useTranslation();
     const isClosed =  courtGroup.isClosed(startTime);
+
+    if (isClosed && !showClosedCourts) {
+        return null;
+    }
 
     return (
         <Grid2 id="CourtGroupRow-main" container spacing={2} key={groupIndex}
@@ -52,6 +56,7 @@ const CourtGroupRow = ({ courtGroup, groupIndex, isMobile, startTime, endTime })
             }}>
 
                 {!isClosed ? (   
+                    
                     <Typography
                         variant="subtitle1"
                         sx={{
@@ -69,7 +74,7 @@ const CourtGroupRow = ({ courtGroup, groupIndex, isMobile, startTime, endTime })
                                 bgcolor: getCourtColorDark(courtGroup.surface),
                             },
                         }}>
-                   {t('Price')}: {courtGroup.getPrice(startTime, endTime)} PLN                    
+                   {courtGroup.getPrice(startTime, endTime)} PLN                    
                    </Typography> ) : ( 
                     
                     <Typography
@@ -137,7 +142,8 @@ CourtGroupRow.propTypes = {
     groupIndex: PropTypes.number.isRequired,
     isMobile: PropTypes.bool.isRequired,
     startTime: PropTypes.instanceOf(Date).isRequired,
-    endTime: PropTypes.instanceOf(Date).isRequired
+    endTime: PropTypes.instanceOf(Date).isRequired,
+    showClosedCourts: PropTypes.bool.isRequired,
 };
 
 export default CourtGroupRow;

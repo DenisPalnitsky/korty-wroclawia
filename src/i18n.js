@@ -17,28 +17,18 @@ const resources = {
       "Price": "Cena",
       "Closed": "Zamknięte",
       "Price range on weekdays": "Zakres cen w dni robocze",
-      "Price range on weekends": "Zakres cen w weekend"
+      "Price range on weekends": "Zakres cen w weekend",
+      "Show Closed Courts": "Pokaż zamknięte korty"
     }
-  },
+  },  
   en: {
-    translation: {
-      "Project Name": "Project Name",
-      "Courts of Wroclaw": "Courts of Wroclaw",
-      "Select Date": "Select Date",
-      "Report Problem": "Report Problem",
-      "Court type": "Court type",
-      "Surface": "Surface",
-      "Court": "Court",
-      "Change mode": "Change mode",
-      "Start": "Start {{val, datetime}}",
-      "Duration": "Duration",
-      "Price": "Price",
-      "Closed": "Closed",
-      "Price range on weekdays": "Price range on weekdays",
-      "Price range on weekends": "Price range on weekends"
-    }
+    translation: {} // Ensure this is initialized
   }
 };
+
+Object.keys(resources.pl.translation).forEach(key => {
+  resources.en.translation[key] = key;
+});
 
 i18n
   .use(initReactI18next)

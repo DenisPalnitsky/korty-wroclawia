@@ -7,9 +7,9 @@ import {
   TextField,
   Box,
   Typography,
-  Link, CardContent
+  Link, CardContent, Switch, FormControlLabel
 } from '@mui/material';
-import { formatDistanceStrict, format, intervalToDuration,formatDuration} from 'date-fns';
+import { formatDistanceStrict, intervalToDuration,formatDuration} from 'date-fns';
 import { pl } from 'date-fns/locale';
 import CourtGroupRow from './CourtGroupRow';
 import CourtPricingSystem from '../CourtPricingSystem';
@@ -27,6 +27,7 @@ const ClubViewer = ({ pricingSystem, isMobile }) => {
   const { t } = useTranslation();
   const [selectedDate, setSelectedDate] = React.useState(new Date().toISOString().split('T')[0]);
   const [timeRange, setTimeRange] = React.useState([18, 22]);
+  const [showClosedCourts, setShowClosedCourts] = React.useState(false);
 
   const clubs = pricingSystem.list();
 
@@ -51,7 +52,7 @@ const ClubViewer = ({ pricingSystem, isMobile }) => {
 
   return (
     <Box sx={{ p: isMobile ? 0 : 3 }}>
-      <Box sx={{
+      <Box id="date-slider-box" sx={{
         display: 'flex',
         flexDirection: isMobile ? 'column' : 'row',
         gap: isMobile ? 2 : 4,
@@ -115,9 +116,27 @@ const ClubViewer = ({ pricingSystem, isMobile }) => {
                 
               </Typography>
           </Box>
+       
 
         </Box>
 
+      </Box>
+      <Box>
+      <FormControlLabel
+            control={
+              <Switch
+                checked={showClosedCourts}
+                onChange={() => setShowClosedCourts(!showClosedCourts)}
+                color="primary"
+                size="small"              
+              />
+            }
+            label={
+              <Typography variant="body2">
+                {t('Show Closed Courts')}
+              </Typography>
+            }
+          />
       </Box>
 
       {clubs.map((club) => (
@@ -162,8 +181,9 @@ const ClubViewer = ({ pricingSystem, isMobile }) => {
                 courtGroup={courtGroup}
                 isMobile={isMobile}
                 startTime={getDates().startTime}
-                endTime={getDates().endTime} />
-
+                endTime={getDates().endTime}
+                showClosedCourts={showClosedCourts}
+              />
             ))}
           </CardContent>
         </Card>
