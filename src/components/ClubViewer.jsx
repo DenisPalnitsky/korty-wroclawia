@@ -7,7 +7,7 @@ import {
   TextField,
   Box,
   Typography,
-  Link, CardContent
+  Link, CardContent, InputLabel
 } from '@mui/material';
 import { formatDistanceStrict, format } from 'date-fns';
 import CourtGroupRow from './CourtGroupRow';
@@ -82,12 +82,24 @@ const ClubViewer = ({ pricingSystem, isMobile }) => {
 
           <Box sx={{
             display: 'flex',
-            justifyContent: isMobile ? 'center' : 'space-between',
-            gap: 1,
+            justifyContent: 'center',
+            ml: 2,            
+            width: isMobile ? '100%' : '20%',        
+            border: '1px solid',
+            borderColor: 'divider',
+            borderRadius: 1,  
           }}>
-            <Typography align={isMobile ? 'center' : 'left'}>
-              {t('Start')}: {format(getDates().startTime, 'p')} | {formatDistanceStrict(getDates().startTime, getDates().endTime)}
-            </Typography>
+
+              <Typography  variant='body2' sx={{ p: 0.5 }} >
+                {t('Start')}: {format(getDates().startTime, 'p')} 
+                {isMobile ? ' | ' : <br />}
+                {(() => {
+                  const totalMinutes = Math.abs((getDates().endTime - getDates().startTime) / (1000 * 60));
+                  const hours = Math.floor(totalMinutes / 60);
+                  const minutes = totalMinutes % 60;
+                  return `${hours > 0 ? `${hours} hour${hours > 1 ? 's' : ''} ` : ''}${minutes > 0 ? `${minutes} minute${minutes > 1 ? 's' : ''}` : ''}`.trim();
+                })()}
+              </Typography>
           </Box>
 
         </Box>
