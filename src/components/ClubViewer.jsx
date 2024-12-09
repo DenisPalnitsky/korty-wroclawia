@@ -7,9 +7,10 @@ import {
   TextField,
   Box,
   Typography,
-  Link, CardContent, InputLabel
+  Link, CardContent
 } from '@mui/material';
-import { formatDistanceStrict, format } from 'date-fns';
+import { formatDistanceStrict, format, intervalToDuration,formatDuration} from 'date-fns';
+import { pl } from 'date-fns/locale';
 import CourtGroupRow from './CourtGroupRow';
 import CourtPricingSystem from '../CourtPricingSystem';
 import { useTranslation } from 'react-i18next';
@@ -90,15 +91,28 @@ const ClubViewer = ({ pricingSystem, isMobile }) => {
             borderRadius: 1,  
           }}>
 
-              <Typography  variant='body2' sx={{ p: 0.5 }} >
-                {t('Start')}: {format(getDates().startTime, 'p')} 
+              <Typography  variant='body2' sx={{ p: 0.5,  }} align='center' >
+                {t('Start', {val:getDates().startTime, formatParams:{       
+                  val:{           
+                    hour: "numeric",
+                    minute: "numeric",                                                                            
+                  }
+                }})}
                 {isMobile ? ' | ' : <br />}
                 {(() => {
-                  const totalMinutes = Math.abs((getDates().endTime - getDates().startTime) / (1000 * 60));
-                  const hours = Math.floor(totalMinutes / 60);
-                  const minutes = totalMinutes % 60;
-                  return `${hours > 0 ? `${hours} hour${hours > 1 ? 's' : ''} ` : ''}${minutes > 0 ? `${minutes} minute${minutes > 1 ? 's' : ''}` : ''}`.trim();
+                  const endDate = getDates().endTime;
+                  const startDate = getDates().startTime;                  
+                  const minutes = (endDate - startDate)/ 1000 / 60;
+
+
+                  if (minutes%60 === 0) {
+                    return formatDistanceStrict(startDate, endDate, { locale: pl }) 
+                  }else{
+                    const duration = intervalToDuration({ start: startDate, end: endDate });
+                    return formatDuration(duration, { locale: pl });
+                  }                                    
                 })()}
+                
               </Typography>
           </Box>
 
