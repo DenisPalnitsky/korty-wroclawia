@@ -93,12 +93,7 @@ const ClubViewer = ({ pricingSystem, isMobile }) => {
           }}>
 
               <Typography  variant='body2' sx={{ p: 0.5,  }} align='center' >
-                {t('Start', {val:getDates().startTime, formatParams:{       
-                  val:{           
-                    hour: "numeric",
-                    minute: "numeric",                                                                            
-                  }
-                }})}
+                {t('Start') + ' ' + getDates().startTime.toLocaleTimeString('pl', { hour: '2-digit', minute: '2-digit' })}
                 {isMobile ? ' | ' : <br />}
                 {(() => {
                   const endDate = getDates().endTime;

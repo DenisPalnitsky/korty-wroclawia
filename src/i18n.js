@@ -12,7 +12,7 @@ const resources = {
       "Surface": "Nawierzchnia",
       "Court": "Kort",
       "Change mode": "Zmień tryb",
-      "Start": "Początek {{val, datetime}}",
+      "Start": "Początek",
       "Duration": "Czas trwania",
       "Price": "Cena",
       "Closed": "Zamknięte",
@@ -43,7 +43,7 @@ i18n
         if (format === 'currency') {
           return new Intl.NumberFormat(lng, {
             style: 'currency',
-            currency: 'PLN'
+            currency: 'zl'
           }).format(value);
         }
         return value;
