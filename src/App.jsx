@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import ClubViewer from './components/ClubViewer';
 import { CourtPricingSystem } from './CourtPricingSystem';
 import courtsData from './assets/courts.yaml';
@@ -8,6 +8,7 @@ import Brightness7Icon from '@mui/icons-material/Brightness7';
 import { TennisPallet } from './lib/consts';
 import Footer from './components/Footer';
 import { useTranslation } from 'react-i18next';
+import ReactGA from 'react-ga4';
 
 function App() {
   const { t } = useTranslation();
@@ -114,6 +115,9 @@ function App() {
 
   const system = new CourtPricingSystem(courtsData);
 
+  useEffect(() => {
+    ReactGA.send({ hitType: "pageview", page: window.location.pathname + window.location.search });
+  }, []);
 
 
   return (
