@@ -19,7 +19,8 @@ const resources = {
       "Price range on weekdays": "Zakres cen w dni robocze",
       "Price range on weekends": "Zakres cen w weekend",
       "Show Closed Courts": "Pokaż zamknięte korty",
-      "hour": "godzina"
+      "hour": "godzina",
+      "No heating": "Bez ogrzewania"
     }
   },  
   en: {

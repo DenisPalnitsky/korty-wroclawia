@@ -48,7 +48,7 @@
   courts:
   - surface: clay
     type: outdoor
-    light: yes
+    light: true
     courts: ['3', '4']    
     prices:         
       - from: '2024-05-01'
@@ -93,7 +93,7 @@
   courts:
   - surface: clay
     type: outdoor
-    light: yes
+    light: true
     courts: ['1', '2' , '3' ,'4', 'C' , '5' , '6']    
     prices:      
       - from: 2024-05-01
@@ -178,7 +178,7 @@
   - surface: clay
     type: outdoor
     courts: ['5', '6' , '7' , '8']
-    light: no
+    light: false
     prices:      
       - from: '2023-11-01'
         to: '2024-05-01'
@@ -269,8 +269,8 @@
   courts:
   - surface: clay 
     type: baloon
-    light: no
-    heating: no
+    light: false
+    heating: false
     courts: ['1', '2']    
     prices:
       - from: '2024-11-01'
@@ -290,8 +290,7 @@
   courts:
   - surface: clay 
     type: baloon
-    courts: ['1', '2' , '3']
-    heating: yes    
+    courts: ['1', '2' , '3']    
     prices:      
       - from: '2024-11-01'
         to: '2025-05-01'
@@ -406,8 +405,8 @@
   courts:
     - surface: clay
       type: tent 
-      light: yes
-      heating: no
+      light: true
+      heating: false
       courts: ['1','2']
       prices:
         - from: '2024-11-01'
@@ -420,8 +419,8 @@
             "*:15-23": '140'
     - surface: clay 
       type: outdoor
-      light: no
-      heating: no
+      light: false
+      heating: false
       courts: ['3','4']
       prices:
         - from: '2024-01-01'
@@ -474,7 +473,7 @@
           "st:15-23": '130'
   - surface: clay
     type: outdoor
-    light: yes
+    light: true
     courts: [ '5' , '6']
     prices:
       - from: '2024-11-01'
@@ -551,7 +550,7 @@
   - surface: clay  
     type: outdoor
     courts: ['1' , '2' , '3', '4', '5', '6', '7', '8']   
-    light: yes
+    light: true
     prices:
       - from: '2024-05-01'
         to: '2024-11-01'
@@ -565,7 +564,7 @@
   - surface: clay  
     type: outdoor
     courts: ['C']
-    light: yes   
+    light: true   
     prices:
       - from: '2024-05-01'
         to: '2024-10-01'

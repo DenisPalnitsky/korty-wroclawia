@@ -9,6 +9,8 @@ import { CourtGroup } from '../CourtPricingSystem';
 import { getCourtColor, getCourtColorDark } from '../lib/consts';
 import TennisCourt from './TennisCourt';
 import { useTranslation } from 'react-i18next';
+import AcUnitIcon from '@mui/icons-material/AcUnit';
+import BrightnessHighIcon from '@mui/icons-material/BrightnessHigh';
 
 const CourtGroupRow = ({ courtGroup, groupIndex, isMobile, startTime, endTime, showClosedCourts }) => {
     const { t } = useTranslation();
@@ -41,14 +43,18 @@ const CourtGroupRow = ({ courtGroup, groupIndex, isMobile, startTime, endTime, s
                     <>
                         <Typography variant="body1" sx={{ mb: 1 }}>
                             {t('Court type')}: {courtGroup.type}
-                        </Typography>
+                        </Typography>                                                
+
                         <Typography variant="body1" sx={{ mb: 1 }}>
                             {t('Surface')}: {courtGroup.surface}
                         </Typography>
                     </>
                 )}
+                                                   
             </Grid2>
 
+
+            
             <Grid2 id="court-price-grid" size={isMobile ? 12 : 2} sx={{
                 display: 'flex',
                 justifyContent: 'center',
@@ -56,8 +62,7 @@ const CourtGroupRow = ({ courtGroup, groupIndex, isMobile, startTime, endTime, s
                 height: '100%'
             }}>
 
-                {!isClosed ? (   
-                    
+                {!isClosed ? (                       
                 <Box
                     sx={{
                         borderRadius: 1,
@@ -73,6 +78,7 @@ const CourtGroupRow = ({ courtGroup, groupIndex, isMobile, startTime, endTime, s
                         '&:hover': {
                             bgcolor: getCourtColorDark(courtGroup.surface),
                         },
+                        position: 'relative',
                     }}
                 >
                     <Typography variant="body1" sx={{ color: 'white' }}>
@@ -81,6 +87,19 @@ const CourtGroupRow = ({ courtGroup, groupIndex, isMobile, startTime, endTime, s
                     <Typography variant="subtitle2" sx={{ fontSize: '0.75rem', color: 'lightgray', }}>
                          {courtGroup.getPrice(startTime, new Date(startTime.getTime() + 60 * 60 * 1000))} zl/{t('hour')}
                     </Typography>
+
+                    {(courtGroup.heating === false && 
+                        (new Date().getMonth() >= 10 || // November (0-based months)
+                        new Date().getMonth() <= 4)) && ( // May
+                            <Tooltip title={t('No heating')} >
+                            <AcUnitIcon sx={{ color: '#68DBF2', 
+                                position: 'absolute',
+                                top: '5px',
+                                left: '5px', }} fontSize='small' /> 
+                            </Tooltip>
+                        )
+                    }
+
 
                 </Box>) : ( 
                     

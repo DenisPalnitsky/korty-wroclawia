@@ -189,11 +189,18 @@ class PricePeriod {
 }
 
 class CourtGroup {
-  constructor(surface, type, courtIds, prices) {
+  constructor(groupData, club) {
+    const { surface, type, courts, prices, ...rest } = groupData;
+    this.club = club;
     this.surface = surface;
-    this.type = type;
-    this.courts = courtIds.map(id => new Court(id, surface, type, this));
+    this.type = type;    
+    this.courts = courts.map(id => new Court(id, surface, type, this));
     this.prices = prices.map(price => new PricePeriod(price));
+    
+    // Copy all remaining properties
+    Object.assign(this, rest);
+
+    console.log(`Club ${this.club.name} Heating ${this.heating}`)
   }
 
 
@@ -243,8 +250,6 @@ class CourtGroup {
   getPrice(startTime, endTime) {
     const start = new Date(startTime);
     const end = new Date(endTime);
-    console.log(`getPrice ${start} ${end}`);
-
    
     // Calculate total price for each hour
     let totalPrice = 0;
@@ -285,7 +290,7 @@ class Club {
     this.googleMapsLink = googleMapsLink;
     this.website = website;
     this.courtGroups = courts.map(group =>
-      new CourtGroup(group.surface, group.type, group.courts, group.prices)
+      new CourtGroup(group, this)
     );
   }
 
