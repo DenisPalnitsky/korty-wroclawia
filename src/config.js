@@ -1,0 +1,3 @@
+const GA_TRACKING_ID = 'YOUR_GA_TRACKING_ID';
+
+export { GA_TRACKING_ID };
