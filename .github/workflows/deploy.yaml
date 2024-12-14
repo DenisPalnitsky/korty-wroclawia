@@ -44,8 +44,6 @@ jobs:
 
       - name: Build
         run: npm run build
-        env:
-          GA_TRACKING_ID: ${{ secrets.GA_TRACKING_ID }}
 
       - name: Test
         run: TZ=Europe/Warsaw  npm test
