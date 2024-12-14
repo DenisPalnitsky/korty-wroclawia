@@ -132,13 +132,23 @@ function App() {
     return () => window.removeEventListener('popstate', handleLocationChange);
   }, []);
 
+  useEffect(() => {
+    document.body.style.backgroundColor = mode === 'light' ? '#FFFFFF' : '#121212';
+    
+    return () => {
+      document.body.style.backgroundColor = '';
+    };
+  }, [mode]);
+
   return (
     <ThemeProvider theme={appTheme}>
       <Container maxWidth="lg" sx={{
         minHeight: '100vh',
         bgcolor: 'background.default',
         pt: isMobile ? 1 : 3,
-        pb: 6, // Add bottom padding for mobile
+        pb: 6,
+        display: 'flex',
+        flexDirection: 'column',
       }}>
         <Box sx={{
           display: 'flex',
