@@ -2,7 +2,11 @@ import {
     Grid2,
     Tooltip,
     Typography,
-    Box
+    Box,
+    Table,
+    TableBody,
+    TableCell,
+    TableRow
 } from '@mui/material';
 import PropTypes from 'prop-types';
 import { CourtGroup } from '../CourtPricingSystem';
@@ -10,7 +14,6 @@ import { getCourtColor, getCourtColorDark } from '../lib/consts';
 import TennisCourt from './TennisCourt';
 import { useTranslation } from 'react-i18next';
 import AcUnitIcon from '@mui/icons-material/AcUnit';
-import BrightnessHighIcon from '@mui/icons-material/BrightnessHigh';
 
 const CourtGroupRow = ({ courtGroup, groupIndex, isMobile, startTime, endTime, showClosedCourts }) => {
     const { t } = useTranslation();
@@ -36,16 +39,16 @@ const CourtGroupRow = ({ courtGroup, groupIndex, isMobile, startTime, endTime, s
             
             <Grid2 id="court-type-grid" size={ isMobile ? 12 : 3 }>
                 { isMobile || isClosed ? (
-                    <Typography variant="body1" sx={{ mb: 1 }}>
+                    <Typography variant="body2" sx={{ mb: 1 }}>
                         {t('Court type')}: {`${courtGroup.surface} | ${courtGroup.type} `}
                     </Typography>
                 ) : (
                     <>
-                        <Typography variant="body1" sx={{ mb: 1 }}>
+                        <Typography variant="body2" sx={{ mb: 1 }}>
                             {t('Court type')}: {courtGroup.type}
                         </Typography>                                                
 
-                        <Typography variant="body1" sx={{ mb: 1 }}>
+                        <Typography variant="body2" sx={{ mb: 1 }}>
                             {t('Surface')}: {courtGroup.surface}
                         </Typography>
                     </>
@@ -124,13 +127,44 @@ const CourtGroupRow = ({ courtGroup, groupIndex, isMobile, startTime, endTime, s
               
             </Grid2>
 
-            <Grid2 id="court-avg-prices-grid" size={ isMobile ? 12 : 'auto'} hidden={isClosed} flexGrow={1}>
-                <Typography variant="body1">
-                    {t('Price range on weekdays')}: {courtGroup.getMinMaxPriceForWeekday(startTime)?.minPrice + " - " + courtGroup.getMinMaxPriceForWeekday(startTime)?.maxPrice} zl
-                </Typography>
-                <Typography variant="body1">
-                    {t('Price range on weekends')}: {courtGroup.getMinMaxPriceForWeekend(startTime)?.minPrice + " - " + courtGroup.getMinMaxPriceForWeekend(startTime)?.maxPrice} zl
-                </Typography>
+            <Grid2 id="court-avg-prices-grid" size={isMobile ? 12 : 'auto'} hidden={isClosed} flexGrow={1}>
+                <Box sx={{ 
+                    display: 'flex',
+                    alignItems: 'center',
+                    ml: 3,
+                    py: 0.5,
+                    px: 2,
+                }}>
+                    <Table sx={{ 
+                        width: 'auto',
+                        '& td': { 
+                            border: 'none',
+                            padding: '2px 0',
+                            whiteSpace: 'nowrap',
+                            fontSize: '0.875rem',
+                            color: 'text.secondary'
+                        },
+                        '& td:first-of-type': {
+                            paddingRight: 3
+                        }
+                    }}>
+                        <TableBody>
+                            <TableRow>
+                                <TableCell rowSpan={2}>
+                                    {t('Price range')}
+                                </TableCell>
+                                <TableCell>
+                                    {t('weekdays')}: {courtGroup.getMinMaxPriceForWeekday(startTime)?.minPrice} - {courtGroup.getMinMaxPriceForWeekday(startTime)?.maxPrice} zł
+                                </TableCell>
+                            </TableRow>
+                            <TableRow>
+                                <TableCell>
+                                    {t('weekends')}: {courtGroup.getMinMaxPriceForWeekend(startTime)?.minPrice} - {courtGroup.getMinMaxPriceForWeekend(startTime)?.maxPrice} zł
+                                </TableCell>
+                            </TableRow>
+                        </TableBody>
+                    </Table>
+                </Box>
             </Grid2>
 
             <Grid2 id="courts-tiles-grid" container size={ isMobile ? 12 : 'auto'} spacing={1}

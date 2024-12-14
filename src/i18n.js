@@ -16,8 +16,9 @@ const resources = {
       "Duration": "Czas trwania",
       "Price": "Cena",
       "Closed": "Zamknięte",
-      "Price range on weekdays": "Zakres cen w dni robocze",
-      "Price range on weekends": "Zakres cen w weekend",
+      "Price range": "Zakres cen",
+      "weekends": "weekendy",
+      "weekdays": "tydzień",
       "Show Closed Courts": "Pokaż zamknięte korty",
       "hour": "godzina",
       "No heating": "Bez ogrzewania"
