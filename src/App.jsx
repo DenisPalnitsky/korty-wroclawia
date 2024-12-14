@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useEffect } from 'react';
 import ClubViewer from './components/ClubViewer';
 import { CourtPricingSystem } from './CourtPricingSystem';
 import courtsData from './assets/courts.yaml';
@@ -8,13 +8,14 @@ import Brightness7Icon from '@mui/icons-material/Brightness7';
 import { TennisPallet } from './lib/consts';
 import Footer from './components/Footer';
 import { useTranslation } from 'react-i18next';
+import ReactGA from 'react-ga4';
 
 function App() {
   const { t } = useTranslation();
   const [mode, setMode] = useState('light');
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
-  
+
 
   const appTheme = useMemo(() => createTheme({
     palette: {
@@ -114,29 +115,54 @@ function App() {
 
   const system = new CourtPricingSystem(courtsData);
 
+  // Google Analytics
+  useEffect(() => {
+    const handleLocationChange = () => {
+      ReactGA.send({
+        hitType: "pageview",
+        page: window.location.pathname + window.location.search
+      });
+    };
 
+    // Track initial pageview
+    handleLocationChange();
+
+    // Listen for location changes
+    window.addEventListener('popstate', handleLocationChange);
+    return () => window.removeEventListener('popstate', handleLocationChange);
+  }, []);
+
+  useEffect(() => {
+    document.body.style.backgroundColor = mode === 'light' ? '#FFFFFF' : '#121212';
+    
+    return () => {
+      document.body.style.backgroundColor = '';
+    };
+  }, [mode]);
 
   return (
     <ThemeProvider theme={appTheme}>
-      <Container maxWidth="lg" sx={{ 
+      <Container maxWidth="lg" sx={{
         minHeight: '100vh',
         bgcolor: 'background.default',
         pt: isMobile ? 1 : 3,
-        pb: 6, // Add bottom padding for mobile
+        pb: 6,
+        display: 'flex',
+        flexDirection: 'column',
       }}>
-        <Box sx={{ 
-          display: 'flex', 
+        <Box sx={{
+          display: 'flex',
           justifyContent: 'space-between',
           alignItems: 'center',
           mb: 3,
           width: '100%',
         }}>
-          
+
           <Typography variant="h3">
             {t('Courts of Wroclaw')}
           </Typography>
-          
-          <IconButton 
+
+          <IconButton
             onClick={() => setMode(mode === 'light' ? 'dark' : 'light')}
             color="inherit"
             title={t('Change mode')}
