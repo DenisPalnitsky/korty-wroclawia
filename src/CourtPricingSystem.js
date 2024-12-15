@@ -198,9 +198,7 @@ class CourtGroup {
     this.prices = prices.map(price => new PricePeriod(price));
     
     // Copy all remaining properties
-    Object.assign(this, rest);
-
-    console.log(`Club ${this.club.name} Heating ${this.heating}`)
+    Object.assign(this, rest);    
   }
 
 
@@ -317,6 +315,8 @@ class Club {
 
     return result;
   }
+
+  
 }
 
 class CourtPricingSystem {
@@ -350,6 +350,7 @@ class CourtPricingSystem {
     for (const club of this.clubs) {
       result.push(club);
     }
+    
     return result;
   }
 
@@ -518,6 +519,9 @@ class CourtPricingSystem {
   }
 
 }
+
+
+
 
 export default CourtPricingSystem;
 export { Court, PricePeriod, CourtGroup, Club, CourtPricingSystem };
