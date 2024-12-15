@@ -7,7 +7,7 @@ import {
   TextField,
   Box,
   Typography,
-  Link, CardContent, Switch, FormControlLabel
+  Link, CardContent, Switch, FormControlLabel, Select, MenuItem, FormControl, InputLabel
 } from '@mui/material';
 import { formatDistanceStrict, intervalToDuration,formatDuration} from 'date-fns';
 import { pl } from 'date-fns/locale';
@@ -28,6 +28,7 @@ const ClubViewer = ({ pricingSystem, isMobile }) => {
   const [selectedDate, setSelectedDate] = React.useState(new Date().toISOString().split('T')[0]);
   const [timeRange, setTimeRange] = React.useState([18, 22]);
   const [showClosedCourts, setShowClosedCourts] = React.useState(false);
+  const [sortOption, setSortOption] = React.useState('name');
 
   const clubs = pricingSystem.list();
 
@@ -50,6 +51,19 @@ const ClubViewer = ({ pricingSystem, isMobile }) => {
     return `${hours.toString().padStart(2, '0')}:${minutes}`;
   };
 
+  const sortClubs = (clubs) => {
+    if (sortOption === 'name') {
+      return clubs.sort((a, b) => a.name.localeCompare(b.name));
+    } else if (sortOption === 'price') {
+      return clubs.sort((a, b) => {
+        const aMinPrice = Math.min(...a.courtGroups.map(group => group.getMinMaxPriceForWeekday(new Date()).minPrice));
+        const bMinPrice = Math.min(...b.courtGroups.map(group => group.getMinMaxPriceForWeekday(new Date()).minPrice));
+        return aMinPrice - bMinPrice;
+      });
+    }
+    return clubs;
+  };
+
   return (
     <Box sx={{ p: isMobile ? 0 : 3 }}>
       <Box id="date-slider-box" sx={{
@@ -68,6 +82,16 @@ const ClubViewer = ({ pricingSystem, isMobile }) => {
           sx={{ minWidth: '160px' }}
         />
 
+        <FormControl sx={{ minWidth: 120 }}>
+          <InputLabel>{t('Sort By')}</InputLabel>
+          <Select
+            value={sortOption}
+            onChange={(e) => setSortOption(e.target.value)}
+          >
+            <MenuItem value="name">{t('By Name')}</MenuItem>
+            <MenuItem value="price">{t('By Price')}</MenuItem>
+          </Select>
+        </FormControl>
 
         <Box id="slider-box" sx={{ display: 'flex', width: "100%", gap: 2, flexDirection: isMobile ? 'column' : 'row', }}>
           <Slider
@@ -134,7 +158,7 @@ const ClubViewer = ({ pricingSystem, isMobile }) => {
           />
       </Box>
 
-      {clubs.map((club) => (
+      {sortClubs(clubs).map((club) => (
         <Card key={club.id} sx={{ mb: 1, border: 0 }}>
           <CardHeader
             title={
