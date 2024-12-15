@@ -7,13 +7,15 @@ import {
   TextField,
   Box,
   Typography,
-  Link, CardContent, Switch, FormControlLabel
+  Link, CardContent, Switch, FormControlLabel,
+  Grid2
 } from '@mui/material';
 import { formatDistanceStrict, intervalToDuration,formatDuration} from 'date-fns';
 import { pl } from 'date-fns/locale';
 import CourtGroupRow from './CourtGroupRow';
 import CourtPricingSystem from '../CourtPricingSystem';
 import { useTranslation } from 'react-i18next';
+import OrderBySelector from './OrderBySelector';
 
 const marks = Array.from({ length: 49 }, (_, i) => {
   const hour = Math.floor(i / 2);
@@ -23,13 +25,55 @@ const marks = Array.from({ length: 49 }, (_, i) => {
   };
 });
 
+
+
+function orderByPrice(clubs, startTime, endTime) {
+  return clubs.sort((a, b) => {
+    const minPrice = (club, startTime, endTime) => {
+      let ma = Number.MAX_SAFE_INTEGER;
+      //console.log(`Getting price for ${club.name}. Courts ${club.courtGroups.length}`);
+      club.courtGroups.forEach(c => {
+        if (!c.isClosed(startTime)){       
+          const p = c.getPrice(startTime, endTime);
+          //console.log(`Prices for ${c.type} ${c.surface} is ${p}`);
+          if (p < ma) {
+            ma = p;
+          }
+        }      
+      });
+      return ma;
+    }    
+    
+    const aPrices = minPrice(a, startTime, endTime);
+    const bPrices = minPrice(b, startTime, endTime);    
+
+    return aPrices - bPrices;
+  });
+}
+
+function orderByName(clubs) {
+  return clubs.sort((a, b) => a.name.localeCompare(b.name));  
+}
+
+
+
+
 const ClubViewer = ({ pricingSystem, isMobile }) => {
   const { t } = useTranslation();
   const [selectedDate, setSelectedDate] = React.useState(new Date().toISOString().split('T')[0]);
   const [timeRange, setTimeRange] = React.useState([18, 22]);
   const [showClosedCourts, setShowClosedCourts] = React.useState(false);
-
-  const clubs = pricingSystem.list();
+  const [clubs, setClubs] = React.useState(orderByName(pricingSystem.list()));
+  const [order, setOrder] = React.useState('club');
+  
+  const setOrderedClubs = (ord, startTime, endTime) => {
+    console.log(`Ordering by ${ord}, start ${startTime}, end ${endTime}`);
+    if (ord === 'price') {
+      setClubs(orderByPrice (pricingSystem.list(), startTime, endTime));
+    }else {
+      setClubs(orderByName(pricingSystem.list()));   
+    }
+  }
 
   const getDates = () => {
     const [year, month, day] = selectedDate.split('-').map(Number);
@@ -50,6 +94,11 @@ const ClubViewer = ({ pricingSystem, isMobile }) => {
     return `${hours.toString().padStart(2, '0')}:${minutes}`;
   };
 
+  const handleOrderChange = (newOrder) => {      
+    setOrder(newOrder);      
+    setOrderedClubs(newOrder, getDates().startTime, getDates().endTime);
+  };
+
   return (
     <Box sx={{ p: isMobile ? 0 : 3 }}>
       <Box id="date-slider-box" sx={{
@@ -64,7 +113,9 @@ const ClubViewer = ({ pricingSystem, isMobile }) => {
           type="date"
           label={t('Select Date')}
           value={selectedDate}
-          onChange={(e) => setSelectedDate(e.target.value)}
+          onChange={(e) => { 
+            setSelectedDate(e.target.value);
+            setOrderedClubs(order, getDates().startTime, getDates().endTime);          }}
           sx={{ minWidth: '160px' }}
         />
 
@@ -72,7 +123,7 @@ const ClubViewer = ({ pricingSystem, isMobile }) => {
         <Box id="slider-box" sx={{ display: 'flex', width: "100%", gap: 2, flexDirection: isMobile ? 'column' : 'row', }}>
           <Slider
             value={timeRange}
-            onChange={(_, newValue) => { setTimeRange(newValue); }}
+            onChange={(_, newValue) => { setTimeRange(newValue); setOrderedClubs(order, getDates().startTime, getDates().endTime); }}
             valueLabelDisplay="auto"
             marks={marks}
             min={0}
@@ -116,7 +167,9 @@ const ClubViewer = ({ pricingSystem, isMobile }) => {
         </Box>
 
       </Box>
-      <Box>
+            
+
+      <Grid2 container size={{ xs: 6, md: 8 }}>
       <FormControlLabel
             control={
               <Switch
@@ -132,7 +185,9 @@ const ClubViewer = ({ pricingSystem, isMobile }) => {
               </Typography>
             }
           />
-      </Box>
+
+      <OrderBySelector onOrderChange={handleOrderChange} />
+      </Grid2>
 
       {clubs.map((club) => (
         <Card key={club.id} sx={{ mb: 1, border: 0 }}>
