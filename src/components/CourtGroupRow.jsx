@@ -40,16 +40,16 @@ const CourtGroupRow = ({ courtGroup, groupIndex, isMobile, startTime, endTime, s
             <Grid2 id="court-type-grid" size={ isMobile ? 12 : 3 }>
                 { isMobile || isClosed ? (
                     <Typography variant="body2" sx={{ mb: 1 }}>
-                        {t('Court type')}: {`${courtGroup.surface} | ${courtGroup.type} `}
+                        {t('Court type')}: {`${t(courtGroup.surface)} | ${t(courtGroup.type)} `}
                     </Typography>
                 ) : (
                     <>
                         <Typography variant="body2" sx={{ mb: 1 }}>
-                            {t('Court type')}: {courtGroup.type}
+                            {t('Court type')}: {t(courtGroup.type)}
                         </Typography>                                                
 
                         <Typography variant="body2" sx={{ mb: 1 }}>
-                            {t('Surface')}: {courtGroup.surface}
+                            {t('Surface')}: {t(courtGroup.surface)}
                         </Typography>
                     </>
                 )}
