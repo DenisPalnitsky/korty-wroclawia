@@ -16,6 +16,8 @@ import CourtGroupRow from './CourtGroupRow';
 import CourtPricingSystem from '../CourtPricingSystem';
 import { useTranslation } from 'react-i18next';
 import OrderBySelector from './OrderBySelector';
+import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
+import AdapterDateFns from '@mui/x-date-pickers/AdapterDateFns';
 
 const marks = Array.from({ length: 49 }, (_, i) => {
   const hour = Math.floor(i / 2);
@@ -109,15 +111,17 @@ const ClubViewer = ({ pricingSystem, isMobile }) => {
         mb: 3
       }}>
 
-        <TextField
-          type="date"
-          label={t('Select Date')}
-          value={selectedDate}
-          onChange={(e) => { 
-            setSelectedDate(e.target.value);
-            setOrderedClubs(order, getDates().startTime, getDates().endTime);          }}
-          sx={{ minWidth: '160px' }}
-        />
+        <LocalizationProvider dateAdapter={AdapterDateFns} locale={pl}>
+          <DatePicker
+            label={t('Select Date')}
+            value={selectedDate}
+            onChange={(newValue) => {
+              setSelectedDate(newValue);
+              setOrderedClubs(order, getDates().startTime, getDates().endTime);
+            }}
+            renderInput={(params) => <TextField {...params} sx={{ minWidth: '160px' }} />}
+          />
+        </LocalizationProvider>
 
 
         <Box id="slider-box" sx={{ display: 'flex', width: "100%", gap: 2, flexDirection: isMobile ? 'column' : 'row', }}>
