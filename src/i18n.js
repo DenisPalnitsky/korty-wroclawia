@@ -27,7 +27,7 @@ const resources = {
       "tent": "namiot",
       "baloon": "balon",
       "hard": "twarda",
-      "clay": "ziemna",
+      "clay": "mączka ceglana",
       "grass": "trawa",
       "carpet": "dywan",
       "artificial-grass": "sztuczna trawa",
