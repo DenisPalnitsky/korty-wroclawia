@@ -30,7 +30,9 @@ const resources = {
       "clay": "ziemna",
       "grass": "trawa",
       "carpet": "dywan",
-      "artificial-grass": "sztuczna trawa"
+      "artificial-grass": "sztuczna trawa",
+      "Order by price": "Order by price",
+      "Order by club name": "Sortuj według nazwy klubu"
     }
   },  
   en: {
