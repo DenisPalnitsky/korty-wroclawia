@@ -21,7 +21,16 @@ const resources = {
       "weekdays": "tydzień",
       "Show Closed Courts": "Pokaż zamknięte korty",
       "hour": "godzina",
-      "No heating": "Bez ogrzewania"
+      "No heating": "Bez ogrzewania",
+      "indoor": "wewnętrzny",
+      "outdoor": "zewnętrzny",
+      "tent": "namiot",
+      "baloon": "balon",
+      "hard": "twarda",
+      "clay": "ziemna",
+      "grass": "trawa",
+      "carpet": "dywan",
+      "artificial-grass": "sztuczna trawa"
     }
   },  
   en: {
