@@ -31,7 +31,7 @@ const resources = {
       "grass": "trawa",
       "carpet": "dywan",
       "artificial-grass": "sztuczna trawa",
-      "Order by price": "Order by price",
+      "Order by price": "Sortuj według ceny",
       "Order by club name": "Sortuj według nazwy klubu"
     }
   },  
