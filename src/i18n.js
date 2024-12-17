@@ -7,7 +7,7 @@ const resources = {
       "Project Name": "Nazwa Projektu",
       "Courts of Wroclaw": "Korty Wrocławia",
       "Select Date": "Wybierz Datę",
-      "Report Problem": "Zgłoś Problem",
+      "Report Problem": "Zgłoś problem lub przekaż opinię",
       "Court type": "Typ kortu",
       "Surface": "Nawierzchnia",
       "Court": "Kort",

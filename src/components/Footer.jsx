@@ -1,7 +1,8 @@
 import { Box, Link, Button } from '@mui/material';
 import GitHubIcon from '@mui/icons-material/GitHub';
-import BugReportIcon from '@mui/icons-material/BugReport';
 import { useTranslation } from 'react-i18next';
+import ThumbDownAltIcon from '@mui/icons-material/ThumbDownAlt';
+import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
 
 const Footer = () => {
   const { t } = useTranslation();
@@ -23,10 +24,11 @@ const Footer = () => {
     >
       <Box>
         <Button
-          href="https://github.com/denispalnitsky/korty-wroclawia/issues/new"
+          href="https://forms.gle/AAz9NTmnSYhfxGRJ9"
           target="_blank"
           rel="noopener noreferrer"
-          startIcon={<BugReportIcon />}
+          startIcon={<ThumbDownAltIcon />}
+          endIcon={<ThumbUpAltIcon />}
           variant="outlined"
           size="small"
           sx={{
