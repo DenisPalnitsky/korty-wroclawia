@@ -1,34 +1,37 @@
-# New Project Boilerplate
+# Korty Wrocławia
 
-Vite is easy, but my memory is terrible and I kept having to google setting up vite, tailwind and gh-pages deploy. Hence the exceptionally creative title: "new-project"
+Korty Wrocławia is a web application that provides information about tennis courts in Wrocław, Poland. The application allows users to view details about various tennis clubs, including court types, surfaces, prices, and availability. Users can also sort and filter the courts based on their preferences.
 
-Skeleton boilerplate for a react project with Vite, Tailwind and gh-pages deploy.
+## Features
 
-Use below if you need animation package.
+- View detailed information about tennis courts in Wrocław
+- Filter courts by type, surface, and availability
+- Sort courts by price or club name
+- View court prices for specific dates and times
+- Integration with Google Maps for easy navigation to the clubs
+- Multilingual support (Polish and English)
 
-Run this in terminal: npm install -D tailwindcss-animated
+## Running the Project Locally
 
-Replace the plugins in tailwind.config.js with the following plugins: [require("tailwindcss-animated")],
+To run the project locally, follow these steps:
 
-There is a nice configurator for it here: https://www.tailwindcss-animated.com/configurator.html
+1. **Clone the repository:**
+   ```sh
+   git clone https://github.com/DenisPalnitsky/korty-wroclawia.git
+   cd korty-wroclawia
+   ```
 
-To get started
+2. **Install dependencies:**
+   ```sh
+   npm install
+   ```
 
-Rename the new-project-main folder to your desired title.
-In terminal, cd to its directory.
-In terminal, run "npm install".
-Next, run "npm run dev"
+3. **Run the development server:**
+   ```sh
+   npm run dev
+   ```
 
-When ready to deploy:
-Run git init if you haven't already.
 
-Create your github repo.
-Add the origin in terminal via the github instructions.
+## License
 
-EX:
-git remote add origin git@github.com:robotsWhoFeelLove/new-project.git
-git branch -M main
-git push -u origin main
-
-In package.json update the homepage to: "homepage": ".<your-repo-name/>",
-In terminal run "npm run deploy"
+This project is licensed under the MIT License.
