@@ -423,7 +423,7 @@
       courts: ['3','4']
       prices:
         - from: '2024-01-01'
-          to: '2024-12-31'
+          to: '2024-11-01'
           schedule:        
             "*:6-15": '50' 
             "*:15-22": '60'
@@ -457,8 +457,8 @@
   website: https://www.js-tenis.pl/oferta/
   partnerCards: ['multisport']
   courts:
-  - surface: clay // #ziemny
-    type: outdoor // # no specification
+  - surface: clay
+    type: tent
     courts: ['1' , '2' , '3' , '4']    
     prices:
       - from: '2024-11-01'

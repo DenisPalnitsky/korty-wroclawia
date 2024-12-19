@@ -22,7 +22,7 @@ const resources = {
       "Show Closed Courts": "Pokaż zamknięte korty",
       "hour": "godzina",
       "No heating": "Bez ogrzewania",
-      "indoor": "wewnętrzny",
+      "indoor": "hala",
       "outdoor": "zewnętrzny",
       "tent": "namiot",
       "baloon": "balon",
