@@ -180,8 +180,11 @@ const ClubViewer = ({ pricingSystem, isMobile }) => {
       </Box>
             
 
-      <Grid2 container size={{ xs: 6, md: 8 }}>
-      <FormControlLabel
+      <Grid2 container size={{  md: 8 }}>
+  
+        <OrderBySelector onOrderChange={handleOrderChange} />
+
+        <FormControlLabel
             control={
               <Switch
                 checked={showClosedCourts}
@@ -192,12 +195,10 @@ const ClubViewer = ({ pricingSystem, isMobile }) => {
             }
             label={
               <Typography variant="body2">
-                {t('Show Closed Courts')}
+                {t('Show Closed')}
               </Typography>
             }
           />
-
-      <OrderBySelector onOrderChange={handleOrderChange} />
       </Grid2>
 
       {clubs.map((club) => (

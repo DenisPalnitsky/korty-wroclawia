@@ -21,7 +21,7 @@ const resources = {
       "Price range": "Zakres cen",
       "weekends": "weekendy",
       "weekdays": "tydzień",
-      "Show Closed Courts": "Pokaż zamknięte korty",
+      "Show Closed": "Pokaż zamknięte",
       "hour": "godzina",
       "No heating": "Bez ogrzewania",
       "indoor": "hala",
@@ -34,7 +34,7 @@ const resources = {
       "carpet": "dywan",
       "artificial-grass": "sztuczna trawa",
       "Order by price": "Sortuj według ceny",
-      "Order by club name": "Sortuj według nazwy klubu"
+      "Order by club": "Sortuj według nazwy"
     }
   },  
   en: {

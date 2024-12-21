@@ -317,7 +317,7 @@
     type: outdoor
     courts: ['1', '2' , '3']    
     prices:
-      - from: '2025-01-01'
+      - from: '2025-05-01'
         to: '2025-11-01'
         schedule:         
           "!:6-22": '30'

@@ -19,7 +19,7 @@ export default function OrderBySelector({ onOrderChange }) {
   };
 
   return (
-    <FormControl sx={{ m: 0, minWidth: 150, }} size="small">
+    <FormControl sx={{ m: 0, mr:1, minWidth: 150, }} size="small">
       {/* <InputLabel id="order-by-input">{t("Sort by")}</InputLabel> */}
       <Select
         labelId="order-by-select"
@@ -27,7 +27,7 @@ export default function OrderBySelector({ onOrderChange }) {
         value={order}        
         sx={{ boxShadow: 'none', '.MuiOutlinedInput-notchedOutline': { border: 0 }, }}
         onChange={handleChange}>        
-        <MenuItem value={'club'}>  <Typography variant="body2"> {t('Order by club name')}</Typography> </MenuItem>        
+        <MenuItem value={'club'}>  <Typography variant="body2"> {t('Order by club')}</Typography> </MenuItem>        
         <MenuItem value={'price'}> <Typography variant="body2">{t('Order by price')}</Typography></MenuItem>
       </Select>
     </FormControl>
