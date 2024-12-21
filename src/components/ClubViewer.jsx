@@ -11,13 +11,13 @@ import {
   Grid2
 } from '@mui/material';
 import { formatDistanceStrict, intervalToDuration,formatDuration} from 'date-fns';
-import { pl } from 'date-fns/locale';
 import CourtGroupRow from './CourtGroupRow';
 import CourtPricingSystem from '../CourtPricingSystem';
 import { useTranslation } from 'react-i18next';
 import OrderBySelector from './OrderBySelector';
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
-import AdapterDateFns from '@mui/x-date-pickers/AdapterDateFns';
+import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFnsV3';
+
 
 const marks = Array.from({ length: 49 }, (_, i) => {
   const hour = Math.floor(i / 2);
@@ -61,15 +61,19 @@ function orderByName(clubs) {
 
 
 const ClubViewer = ({ pricingSystem, isMobile }) => {
-  const { t } = useTranslation();
-  const [selectedDate, setSelectedDate] = React.useState(new Date().toISOString().split('T')[0]);
+  const { t, i18n } = useTranslation();  
+  
+  const tomorrow = new Date();
+  tomorrow.setDate(tomorrow.getDate() + 1);
+  tomorrow.setHours(0, 0, 0, 0);
+
+  const [selectedDate, setSelectedDate] = React.useState(tomorrow);
   const [timeRange, setTimeRange] = React.useState([18, 22]);
   const [showClosedCourts, setShowClosedCourts] = React.useState(false);
   const [clubs, setClubs] = React.useState(orderByName(pricingSystem.list()));
   const [order, setOrder] = React.useState('club');
   
-  const setOrderedClubs = (ord, startTime, endTime) => {
-    console.log(`Ordering by ${ord}, start ${startTime}, end ${endTime}`);
+  const setOrderedClubs = (ord, startTime, endTime) => {    
     if (ord === 'price') {
       setClubs(orderByPrice (pricingSystem.list(), startTime, endTime));
     }else {
@@ -78,7 +82,10 @@ const ClubViewer = ({ pricingSystem, isMobile }) => {
   }
 
   const getDates = () => {
-    const [year, month, day] = selectedDate.split('-').map(Number);
+    const year = selectedDate.getFullYear();
+    const month = selectedDate.getMonth()+1; // Note: month is 0-based
+    const day = selectedDate.getDate();
+    
     var startTime = new Date(year, month - 1, day, timeRange[0] / 2, (timeRange[0] % 2) * 30, 0);
     var endTime = new Date(year, month - 1, day, timeRange[1] / 2, (timeRange[1] % 2) * 30, 0);
     if (startTime > endTime) {
@@ -99,7 +106,7 @@ const ClubViewer = ({ pricingSystem, isMobile }) => {
   const handleOrderChange = (newOrder) => {      
     setOrder(newOrder);      
     setOrderedClubs(newOrder, getDates().startTime, getDates().endTime);
-  };
+  };  
 
   return (
     <Box sx={{ p: isMobile ? 0 : 3 }}>
@@ -111,18 +118,18 @@ const ClubViewer = ({ pricingSystem, isMobile }) => {
         mb: 3
       }}>
 
-        <LocalizationProvider dateAdapter={AdapterDateFns} locale={pl}>
+        
+        <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={i18n.getDateFnsLocale()} >
           <DatePicker
-            label={t('Select Date')}
-            value={selectedDate}
-            onChange={(newValue) => {
-              setSelectedDate(newValue);
-              setOrderedClubs(order, getDates().startTime, getDates().endTime);
-            }}
-            renderInput={(params) => <TextField {...params} sx={{ minWidth: '160px' }} />}
-          />
+              label={t('Select Date')}
+              value={new Date(selectedDate)}
+              onChange={(newValue) => {
+                setSelectedDate(newValue);
+                setOrderedClubs(order, getDates().startTime, getDates().endTime);
+              }}
+              renderInput={(params) => <TextField {...params} sx={{ minWidth: '160px' }} />}
+            />        
         </LocalizationProvider>
-
 
         <Box id="slider-box" sx={{ display: 'flex', width: "100%", gap: 2, flexDirection: isMobile ? 'column' : 'row', }}>
           <Slider
@@ -148,7 +155,7 @@ const ClubViewer = ({ pricingSystem, isMobile }) => {
           }}>
 
               <Typography  variant='body2' sx={{ p: 0.5,  }} align='center' >
-                {t('Start') + ' ' + getDates().startTime.toLocaleTimeString('pl', { hour: '2-digit', minute: '2-digit' })}
+                {t('Start') + ' ' + getDates().startTime.toLocaleTimeString(i18n.language, { hour: '2-digit', minute: '2-digit' })}
                 {isMobile ? ' | ' : <br />}
                 {(() => {
                   const endDate = getDates().endTime;
@@ -157,10 +164,10 @@ const ClubViewer = ({ pricingSystem, isMobile }) => {
 
 
                   if (minutes%60 === 0) {
-                    return formatDistanceStrict(startDate, endDate, { locale: pl }) 
+                    return formatDistanceStrict(startDate, endDate, { locale: i18n.getDateFnsLocale() }) 
                   }else{
                     const duration = intervalToDuration({ start: startDate, end: endDate });
-                    return formatDuration(duration, { locale: pl });
+                    return formatDuration(duration, { locale: i18n.getDateFnsLocale() });
                   }                                    
                 })()}
                 

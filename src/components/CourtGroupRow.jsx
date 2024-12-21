@@ -17,6 +17,7 @@ import AcUnitIcon from '@mui/icons-material/AcUnit';
 
 const CourtGroupRow = ({ courtGroup, groupIndex, isMobile, startTime, endTime, showClosedCourts }) => {
     const { t } = useTranslation();
+
     const isClosed =  courtGroup.isClosed(startTime);
 
     if (isClosed && !showClosedCourts) {
