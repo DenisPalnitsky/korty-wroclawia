@@ -1,5 +1,7 @@
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
+import { pl, enUS } from 'date-fns/locale';
+
 
 const resources = {
   pl: {
@@ -43,6 +45,15 @@ const resources = {
 Object.keys(resources.pl.translation).forEach(key => {
   resources.en.translation[key] = key;
 });
+
+const dateFnsLocales = {
+  pl,
+  en: enUS
+};
+
+i18n.getDateFnsLocale = () => {
+  return dateFnsLocales[i18n.language] || dateFnsLocales.en;
+};
 
 i18n
   .use(initReactI18next)
