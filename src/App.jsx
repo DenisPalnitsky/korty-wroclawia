@@ -2,20 +2,21 @@ import { useState, useMemo, useEffect } from 'react';
 import ClubViewer from './components/ClubViewer';
 import { CourtPricingSystem } from './CourtPricingSystem';
 import courtsData from './assets/courts.yaml';
-import { ThemeProvider, Container, Typography, createTheme, IconButton, Box, useTheme, useMediaQuery } from '@mui/material';
+import { ThemeProvider, Container, Typography, createTheme, IconButton, Box, useTheme, useMediaQuery, Tabs, Tab } from '@mui/material';
 import Brightness4Icon from '@mui/icons-material/Brightness4';
 import Brightness7Icon from '@mui/icons-material/Brightness7';
 import { TennisPallet } from './lib/consts';
 import Footer from './components/Footer';
 import { useTranslation } from 'react-i18next';
 import ReactGA from 'react-ga4';
+import MapTab from './components/MapTab';
 
 function App() {
   const { t } = useTranslation();
   const [mode, setMode] = useState('light');
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
-
+  const [tabIndex, setTabIndex] = useState(0);
 
   const appTheme = useMemo(() => createTheme({
     palette: {
@@ -140,6 +141,10 @@ function App() {
     };
   }, [mode]);
 
+  const handleTabChange = (event, newValue) => {
+    setTabIndex(newValue);
+  };
+
   return (
     <ThemeProvider theme={appTheme}>
       <Container maxWidth="lg" sx={{
@@ -170,7 +175,12 @@ function App() {
             {mode === 'light' ? <Brightness4Icon /> : <Brightness7Icon sx={{ color: 'white' }} />}
           </IconButton>
         </Box>
-        <ClubViewer pricingSystem={system} isMobile={isMobile} />
+        <Tabs value={tabIndex} onChange={handleTabChange} centered>
+          <Tab label="Courts" />
+          <Tab label="Map" />
+        </Tabs>
+        {tabIndex === 0 && <ClubViewer pricingSystem={system} isMobile={isMobile} />}
+        {tabIndex === 1 && <MapTab />}
         <Footer />
       </Container>
     </ThemeProvider>

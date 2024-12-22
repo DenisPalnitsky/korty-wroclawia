@@ -10,6 +10,7 @@ Korty Wrocławia is a web application that provides information about tennis cou
 - View court prices for specific dates and times
 - Integration with Google Maps for easy navigation to the clubs
 - Multilingual support (Polish and English)
+- Map tab to view all courts and prices on Google Maps
 
 ## Running the Project Locally
 
@@ -26,11 +27,18 @@ To run the project locally, follow these steps:
    npm install
    ```
 
-3. **Run the development server:**
+3. **Set up Google Maps API Key:**
+   - Obtain a Google Maps API key from the [Google Cloud Console](https://console.cloud.google.com/).
+   - Create a `.env` file in the root directory of the project.
+   - Add the following line to the `.env` file:
+     ```
+     REACT_APP_GOOGLE_MAPS_API_KEY=YOUR_GOOGLE_MAPS_API_KEY
+     ```
+
+4. **Run the development server:**
    ```sh
    npm run dev
    ```
-
 
 ## License
 
