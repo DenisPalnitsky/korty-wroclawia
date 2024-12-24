@@ -34,7 +34,11 @@ const resources = {
       "carpet": "dywan",
       "artificial-grass": "sztuczna trawa",
       "Order by price": "Sortuj według ceny",
-      "Order by club": "Sortuj według nazwy"
+      "Order by club": "Sortuj według nazwy",
+      "Something went wrong": "Coś poszło nie tak",
+      "We're sorry, but something went wrong. Please try again later.": "Przepraszamy, ale coś poszło nie tak. Proszę spróbować ponownie później.",
+      "Reload Page": "Przeładuj stronę",
+      "Report this problem": "Zgłoś problem"
     }
   },  
   en: {
