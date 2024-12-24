@@ -24,6 +24,8 @@ const CourtGroupRow = ({ courtGroup, groupIndex, isMobile, startTime, endTime, s
         return null;
     }
 
+    throw new Error('DEBIG ERROR');
+
     return (
         <Grid2 id="CourtGroupRow-main" container spacing={2} key={groupIndex}
             sx={{                
