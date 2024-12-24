@@ -11,7 +11,7 @@
     "preview": "vite preview",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist",
-    "test": "mocha --require @babel/register --require @babel/preset-react --extensions js,jsx 'src/tests/**/*.js' 'src/tests/**/*.jsx'",
+    "test": "mocha --require @babel/register --extensions js,jsx src/tests/test.js",
     "build-holidays": "holidays2json --pick PL --min"
   },
   "dependencies": {
@@ -42,6 +42,7 @@
     "@types/react-dom": "^18.2.17",
     "@vitejs/plugin-react": "^4.2.1",
     "autoprefixer": "^10.4.16",
+    "babel-jest": "^29.0.0",
     "chai": "^5.1.2",
     "eslint": "^8.55.0",
     "eslint-plugin-react": "^7.33.2",

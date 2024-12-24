@@ -10,8 +10,6 @@ import Footer from './components/Footer';
 import { useTranslation } from 'react-i18next';
 import ReactGA from 'react-ga4';
 import MapTab from './components/MapTab';
-import ErrorBoundary from './components/ErrorBoundary';
-
 
 function App() {
   const { t } = useTranslation();
@@ -149,27 +147,25 @@ function App() {
 
   return (
     <ThemeProvider theme={appTheme}>
-      <ErrorBoundary>
-        <Container maxWidth="lg" sx={{
-          minHeight: '100vh',
-          bgcolor: 'background.default',
-          pt: isMobile ? 1 : 3,
-          pb: 6,
+      <Container maxWidth="lg" sx={{
+        minHeight: '100vh',
+        bgcolor: 'background.default',
+        pt: isMobile ? 1 : 3,
+        pb: 6,
+        display: 'flex',
+        flexDirection: 'column',
+      }}>
+        <Box sx={{
           display: 'flex',
-          flexDirection: 'column',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          mb: 3,
+          width: '100%',
         }}>
-          <Box sx={{
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            mb: 3,
-            width: '100%',
-          }}>
 
-            <Typography variant="h3">
-              {t('Courts of Wroclaw')}
-            </Typography>
-
+          <Typography variant="h3">
+            {t('Courts of Wroclaw')}
+          </Typography>
 
           <IconButton
             onClick={() => setMode(mode === 'light' ? 'dark' : 'light')}
@@ -187,8 +183,6 @@ function App() {
         {tabIndex === 1 && <MapTab />}
         <Footer />
       </Container>
-
-      </ErrorBoundary>
     </ThemeProvider>
   );
 }
