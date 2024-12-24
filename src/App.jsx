@@ -9,6 +9,7 @@ import { TennisPallet } from './lib/consts';
 import Footer from './components/Footer';
 import { useTranslation } from 'react-i18next';
 import ReactGA from 'react-ga4';
+import ErrorBoundary from './components/ErrorBoundary';
 
 function App() {
   const { t } = useTranslation();
@@ -142,37 +143,39 @@ function App() {
 
   return (
     <ThemeProvider theme={appTheme}>
-      <Container maxWidth="lg" sx={{
-        minHeight: '100vh',
-        bgcolor: 'background.default',
-        pt: isMobile ? 1 : 3,
-        pb: 6,
-        display: 'flex',
-        flexDirection: 'column',
-      }}>
-        <Box sx={{
+      <ErrorBoundary>
+        <Container maxWidth="lg" sx={{
+          minHeight: '100vh',
+          bgcolor: 'background.default',
+          pt: isMobile ? 1 : 3,
+          pb: 6,
           display: 'flex',
-          justifyContent: 'space-between',
-          alignItems: 'center',
-          mb: 3,
-          width: '100%',
+          flexDirection: 'column',
         }}>
+          <Box sx={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            mb: 3,
+            width: '100%',
+          }}>
 
-          <Typography variant="h3">
-            {t('Courts of Wroclaw')}
-          </Typography>
+            <Typography variant="h3">
+              {t('Courts of Wroclaw')}
+            </Typography>
 
-          <IconButton
-            onClick={() => setMode(mode === 'light' ? 'dark' : 'light')}
-            color="inherit"
-            title={t('Change mode')}
-          >
-            {mode === 'light' ? <Brightness4Icon /> : <Brightness7Icon sx={{ color: 'white' }} />}
-          </IconButton>
-        </Box>
-        <ClubViewer pricingSystem={system} isMobile={isMobile} />
-        <Footer />
-      </Container>
+            <IconButton
+              onClick={() => setMode(mode === 'light' ? 'dark' : 'light')}
+              color="inherit"
+              title={t('Change mode')}
+            >
+              {mode === 'light' ? <Brightness4Icon /> : <Brightness7Icon sx={{ color: 'white' }} />}
+            </IconButton>
+          </Box>
+          <ClubViewer pricingSystem={system} isMobile={isMobile} />
+          <Footer />
+        </Container>
+      </ErrorBoundary>
     </ThemeProvider>
   );
 }
