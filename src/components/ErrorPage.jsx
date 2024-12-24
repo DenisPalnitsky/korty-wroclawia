@@ -1,6 +1,5 @@
 import { useTranslation } from 'react-i18next';
 import { Button, Box, Typography } from '@mui/material';
-import ThumbDownAltIcon from '@mui/icons-material/ThumbDownAlt';
 import BugReportIcon from '@mui/icons-material/BugReport';
 import ReplayIcon from '@mui/icons-material/Replay';
 import ErrorOutlineIcon from '@mui/icons-material/ErrorOutline';
