@@ -224,6 +224,8 @@ const ClubViewer = ({ pricingSystem, isMobile }) => {
         
       </Grid2>
 
+`      <Box id="cubs-list-container">
+      
       {view === 'list' ? (
         clubs.map((club) => (
           <Card key={club.id} sx={{ mb: 1, border: 0 }}>
@@ -275,8 +277,12 @@ const ClubViewer = ({ pricingSystem, isMobile }) => {
           </Card>
         ))
       ) : (
-        <MapTab />
+        <MapTab  />
       )}
+
+      </Box>`
+
+
     </Box>
   );
 };

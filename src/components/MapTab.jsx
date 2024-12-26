@@ -5,13 +5,11 @@ const MapTab = () => {
   return (
       <APIProvider apiKey={GOOGLE_MAPS_API_KEY}>
         <Map
-          style={{width: '100vw', height: '100vh'}}
-          defaultCenter={{lat: 22.54992, lng: 0}}
-          defaultZoom={3}
+          style={{ width: '100%', height: 'calc(100vh - 64px)'}}
+          defaultCenter={{ lat: 51.1093, lng: 17.0386 }}
+          defaultZoom={12}
           gestureHandling={'greedy'}
-          disableDefaultUI={true}
-        
-        
+          disableDefaultUI={true}                
         />
     </APIProvider>
   );
