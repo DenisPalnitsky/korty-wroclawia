@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import {
   Card,
@@ -8,16 +8,18 @@ import {
   Box,
   Typography,
   Link, CardContent, Switch, FormControlLabel,
-  Grid2
+  Grid2, ButtonGroup, Button
 } from '@mui/material';
-import { formatDistanceStrict, intervalToDuration,formatDuration} from 'date-fns';
+import { formatDistanceStrict, intervalToDuration, formatDuration } from 'date-fns';
 import CourtGroupRow from './CourtGroupRow';
 import CourtPricingSystem from '../CourtPricingSystem';
 import { useTranslation } from 'react-i18next';
 import OrderBySelector from './OrderBySelector';
 import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFnsV3';
-
+import MapTab from './MapTab';
+import ListIcon from '@mui/icons-material/List';
+import MapIcon from '@mui/icons-material/Map';
 
 const marks = Array.from({ length: 49 }, (_, i) => {
   const hour = Math.floor(i / 2);
@@ -26,8 +28,6 @@ const marks = Array.from({ length: 49 }, (_, i) => {
     label: i % 4 === 0 ? `${hour.toString().padStart(1, '0')}:00` : ''
   };
 });
-
-
 
 function orderByPrice(clubs, startTime, endTime) {
   return clubs.sort((a, b) => {
@@ -57,12 +57,10 @@ function orderByName(clubs) {
   return clubs.sort((a, b) => a.name.localeCompare(b.name));  
 }
 
-
-
-
 const ClubViewer = ({ pricingSystem, isMobile }) => {
   const { t, i18n } = useTranslation();  
-  
+  const [view, setView] = useState('list');
+
   const tomorrow = new Date();
   tomorrow.setDate(tomorrow.getDate() + 1);
   tomorrow.setHours(0, 0, 0, 0);
@@ -127,7 +125,7 @@ const ClubViewer = ({ pricingSystem, isMobile }) => {
                 setSelectedDate(newValue);
                 setOrderedClubs(order, getDates().startTime, getDates().endTime);
               }}
-              renderInput={(params) => <TextField {...params} sx={{ minWidth: '160px' }} />}
+              textField={(params) => <TextField {...params} sx={{ minWidth: '160px' }} />}
             />        
         </LocalizationProvider>
 
@@ -180,11 +178,13 @@ const ClubViewer = ({ pricingSystem, isMobile }) => {
       </Box>
             
 
-      <Grid2 container size={{  md: 8 }}>
+      <Grid2 id="list-controls" container >
   
         <OrderBySelector onOrderChange={handleOrderChange} />
 
-        <FormControlLabel
+
+        {!isMobile && (
+          <FormControlLabel
             control={
               <Switch
                 checked={showClosedCourts}
@@ -199,57 +199,84 @@ const ClubViewer = ({ pricingSystem, isMobile }) => {
               </Typography>
             }
           />
+        )}
+
+        <Box sx={{ flexGrow: 1 }} />
+
+        <ButtonGroup variant="outlined" size="small" aria-label="outlined primary button group">
+          <Button 
+            onClick={() => setView('list')} 
+            variant={view === 'list' ? 'contained' : 'outlined'}
+            startIcon={<ListIcon />}
+            sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+          >
+            {!isMobile && t('List')}
+          </Button>
+          <Button 
+            onClick={() => setView('map')} 
+            variant={view === 'map' ? 'contained' : 'outlined'}
+            startIcon={<MapIcon />}
+            sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+          >
+            {!isMobile && t('Map')}
+          </Button>
+        </ButtonGroup>
+        
       </Grid2>
 
-      {clubs.map((club) => (
-        <Card key={club.id} sx={{ mb: 1, border: 0 }}>
-          <CardHeader
-            title={
-              <Box sx={{
-                display: 'flex',
-                alignItems: isMobile ? 'flex-start' : 'center',
-                flexDirection: isMobile ? 'column' : 'row',
-                gap: isMobile ? 0.5 : 2,
-                width: '100%'
-              }}>
-                <Link
-                  href={club.website}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  {club.name}
-                </Link>
-                <Link
-                  href={club.googleMapsLink}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  sx={{
-                    color: 'text.secondary',
-                    fontSize: '0.8em',
-                    fontWeight: 400,
-                    marginLeft: isMobile ? 0 : 'auto'
-                  }}
-                >
-                  {club.address}
-                </Link>
-              </Box>
-            }
-          />
-          <CardContent sx={{ p: isMobile ? 1 : 2 }}>
-            {club.courtGroups.map((courtGroup, groupIndex) => (
-              <CourtGroupRow
-                key={groupIndex}
-                groupIndex={groupIndex}
-                courtGroup={courtGroup}
-                isMobile={isMobile}
-                startTime={getDates().startTime}
-                endTime={getDates().endTime}
-                showClosedCourts={showClosedCourts}
-              />
-            ))}
-          </CardContent>
-        </Card>
-      ))}
+      {view === 'list' ? (
+        clubs.map((club) => (
+          <Card key={club.id} sx={{ mb: 1, border: 0 }}>
+            <CardHeader
+              title={
+                <Box sx={{
+                  display: 'flex',
+                  alignItems: isMobile ? 'flex-start' : 'center',
+                  flexDirection: isMobile ? 'column' : 'row',
+                  gap: isMobile ? 0.5 : 2,
+                  width: '100%'
+                }}>
+                  <Link
+                    href={club.website}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    {club.name}
+                  </Link>
+                  <Link
+                    href={club.googleMapsLink}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    sx={{
+                      color: 'text.secondary',
+                      fontSize: '0.8em',
+                      fontWeight: 400,
+                      marginLeft: isMobile ? 0 : 'auto'
+                    }}
+                  >
+                    {club.address}
+                  </Link>
+                </Box>
+              }
+            />
+            <CardContent sx={{ p: isMobile ? 1 : 2 }}>
+              {club.courtGroups.map((courtGroup, groupIndex) => (
+                <CourtGroupRow
+                  key={groupIndex}
+                  groupIndex={groupIndex}
+                  courtGroup={courtGroup}
+                  isMobile={isMobile}
+                  startTime={getDates().startTime}
+                  endTime={getDates().endTime}
+                  showClosedCourts={showClosedCourts}
+                />
+              ))}
+            </CardContent>
+          </Card>
+        ))
+      ) : (
+        <MapTab />
+      )}
     </Box>
   );
 };
