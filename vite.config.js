@@ -10,7 +10,9 @@ export default defineConfig(({ mode })=>{
     base: "/", // Set base to the repository name for GitHub Pages
     plugins: [react(), ViteYaml()],  
     define: {
-      __APP_ENV__: JSON.stringify(env.APP_ENV),      
+      __APP_ENV__: JSON.stringify(env.APP_ENV),    
+      GOOGLE_MAPS_API_KEY: JSON.stringify(env.GOOGLE_MAPS_API_KEY),
+      GA_TRACKING_ID: JSON.stringify(env.GA_TRACKING_ID),  
     },
   }
 });
