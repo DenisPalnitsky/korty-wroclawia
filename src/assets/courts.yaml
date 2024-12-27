@@ -405,7 +405,7 @@
     - surface: clay
       type: tent 
       light: true
-      heating: false
+      heating: true
       courts: ['1','2']
       prices:
         - from: '2024-11-01'
