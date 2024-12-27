@@ -17,4 +17,8 @@ module.exports = {
       { allowConstantExport: true },
     ],
   },
+  globals: {
+    GOOGLE_MAPS_API_KEY: 'readonly',
+    GA_TRACKING_ID: 'readonly'
+  },
 }

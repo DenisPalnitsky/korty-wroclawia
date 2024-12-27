@@ -44,6 +44,9 @@ jobs:
 
       - name: Build
         run: npm run build
+        env:
+          GOOGLE_MAPS_API_KEY: ${{ secrets.GOOGLE_MAPS_API_KEY }}
+          GA_TRACKING_ID: ${{ secrets.GA_TRACKING_ID }}
 
       - name: Test
         run: TZ=Europe/Warsaw  npm test
