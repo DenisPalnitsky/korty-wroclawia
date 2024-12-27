@@ -281,16 +281,21 @@ class CourtGroup {
 }
 
 class Club {
-  constructor(id, name, address, googleMapsLink, website, courts) {
-    this.id = id;
-    this.name = name;
-    this.address = address;
-    this.googleMapsLink = googleMapsLink;
-    this.website = website;
+  constructor (clubData){
+    const { courts = [], ...rest } = clubData;
+    
+    if (!courts) {
+        throw new Error(`No courts defined for club ${clubData.name}`);
+    };
+    
     this.courtGroups = courts.map(group =>
       new CourtGroup(group, this)
     );
+
+    // Copy all remaining properties
+    Object.assign(this, rest);
   }
+
 
 
   getMaxMinPrice(date = new Date()) {
@@ -327,12 +332,7 @@ class CourtPricingSystem {
       this.clubs = clubsData.map(club =>{
         try{
           return new Club(
-            club.id,
-            club.name,
-            club.address,
-            club.googleMapsLink,
-            club.website,
-            club.courts
+            club
           )
         } catch (error) {
           throw new Error(`Error parsing club data for club ${club.name}: ${error.message}`);

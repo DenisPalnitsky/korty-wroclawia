@@ -178,7 +178,7 @@ const ClubViewer = ({ pricingSystem, isMobile }) => {
       </Box>
             
 
-      <Grid2 id="list-controls" container >
+      <Grid2 id="list-controls" container sx={{ mb: isMobile? 1: 2 }}>
   
         <OrderBySelector onOrderChange={handleOrderChange} />
 
@@ -224,7 +224,7 @@ const ClubViewer = ({ pricingSystem, isMobile }) => {
         
       </Grid2>
 
-`      <Box id="cubs-list-container">
+      <Box id="cubs-list-container">
       
       {view === 'list' ? (
         clubs.map((club) => (
@@ -277,10 +277,10 @@ const ClubViewer = ({ pricingSystem, isMobile }) => {
           </Card>
         ))
       ) : (
-        <MapTab  />
+        <MapTab clubs={clubs} startTime={getDates().startTime} endTime={getDates().endTime} />
       )}
 
-      </Box>`
+      </Box>
 
 
     </Box>
