@@ -47,8 +47,8 @@
         st:15-23: '140'
         su:00-23: '130'
   coordinates:
-    latitude: 51.0405727
-    longitude: 16.9859901
+    lat: 51.0405727
+    long: 16.9859901
 - name: Krzycka Park
   id: krzycka-park
   address: Powstańców Śląskich 211A, 53-020 Wrocław
@@ -101,8 +101,8 @@
         su:7-23: '120'
         hl:7-23: '120'
   coordinates:
-    latitude: 51.0764055
-    longitude: 17.0069164
+    lat: 51.0764055
+    long: 17.0069164
 - name: Spartan Pułtuska
   id: spartan-pultuska
   address: Pułtuska 13, 53-116 Wrocław
@@ -158,13 +158,16 @@
         su:14-22: '120'
         hl:14-22: '120'
   coordinates:
-    latitude: 51.0737154
-    longitude: 17.01380056844733
+    lat: 51.0737154
+    long: 17.01380056844733
 - name: Spartan Lubinska
   id: spartan-lubinska
-  address: ul. Lubińska 53 53-623 Wrocław
+  address: ul. Lubińska 53, 53-623 Wrocław
   googleMapsLink: https://maps.app.goo.gl/2bpBtoohqyhVU96SA
   website: https://spartan.wroc.pl/lubinska/tenis
+  coordinates:
+    lat: 51.118881
+    long: 17.006262
   partnerCards:
   - multisport-plus
   - multisport-classic
@@ -214,9 +217,12 @@
         hl:00-23: '100'
 - name: Spartan Spiska
   id: spartan-spiska
-  address: ul. Spiska 1 50-562 Wrocław
+  address: ul. Spiska 1, 50-562 Wrocław
   googleMapsLink: https://maps.app.goo.gl/BRhyRcCt6Vd7koyC8
   website: https://spartan.wroc.pl/spiska/tenis
+  coordinates:
+    lat: 51.085407
+    long: 17.030566
   partnerCards:
   - multisport-plus
   - multisport-classic
@@ -283,8 +289,8 @@
       to: 2025-05-01
       schedule: null
   coordinates:
-    latitude: 51.109652754511735
-    longitude: 17.09615418438255
+    lat: 51.109652754511735
+    long: 17.09615418438255
 - name: Redeco
   id: redeco
   address: al. Generała Józefa Hallera 81A, 53-325 Wrocław
@@ -328,8 +334,8 @@
         st:8-22: '135'
         hl:8-22: '135'
   coordinates:
-    latitude: 51.0905672
-    longitude: 16.9970916
+    lat: 51.0905672
+    long: 16.9970916
 - name: Vario Sport
   id: vario-sport
   address: Żerniki Wrocławskie - Parkowa 32 55-010 WROCŁAW, dolnośląskie
@@ -352,8 +358,8 @@
         su:8-23: '60'
         st:7-22: '60'
   coordinates:
-    latitude: 51.03525535
-    longitude: 17.046740147356687
+    lat: 51.03525535
+    long: 17.046740147356687
 - name: Winner's Tenis Club
   id: winners
   address: ul. Kominiarska 42, 51-180 Wrocław
@@ -362,6 +368,9 @@
   partnerCards:
   - multisport-plus
   - multisport-classic
+  coordinates:
+    lat: 51.171542
+    long: 17.004297
   courts:
   - surface: clay
     type: baloon
@@ -383,7 +392,7 @@
         hl:13-17: '105'
 - name: Oleśnicki Klub Tenisowy
   id: olesnicki-klub-tenisowy
-  address: Rabarbarowa 7 56-400 OLEŚNICA, dolnośląskie
+  address: Rabarbarowa 7, 56-400 OLEŚNICA
   googleMapsLink: https://maps.app.goo.gl/5WGKjGSHppaXjnh77
   website: https://www.twojtenis.pl/pl/kluby/olesnicki_klub_tenisowy/info.html
   partnerCards:
@@ -401,13 +410,16 @@
       schedule:
         '!:6-22': '30'
   coordinates:
-    latitude: 51.2269381
-    longitude: 17.3740835
+    lat: 51.2269381
+    long: 17.3740835
 - name: KosmoS Arena
   id: kosmos-arena
-  address: ul.Mieroszowska 2 (róg Kosmonautów) 54-034 WROCŁAW, dolnośląskie
+  address: ul.Mieroszowska 2 (róg Kosmonautów), 54-034 Wrocław
   googleMapsLink: https://maps.app.goo.gl/zPKhWBUSApd4LKMX7
   website: https://kosmosarena.pl/
+  coordinates:
+    lat: 51.1429395
+    long: 16.893473
   courts:
   - surface: artificial-grass
     type: baloon
@@ -489,8 +501,8 @@
         st:7-20: '40'
         hl:7-20: '40'
   coordinates:
-    latitude: 51.1260707
-    longitude: 17.071142387251637
+    lat: 51.1260707
+    long: 17.071142387251637
 - name: Fittenis
   id: fittenis
   address: Macedońska 11, 51-113 Wrocław
@@ -532,8 +544,8 @@
         st:6-23: '60'
         hl:6-23: '60'
   coordinates:
-    latitude: 51.1343496
-    longitude: 17.0310476
+    lat: 51.1343496
+    long: 17.0310476
 - name: AWF Hala Tenisowa
   id: awf hala tenisowa
   address: 51-612 WROCŁAW, dolnośląskie
@@ -559,15 +571,18 @@
         '*:15-21': '140'
         '*:21-23': '130'
   coordinates:
-    latitude: 51.11874415
-    longitude: 17.091436884615387
+    lat: 51.11874415
+    long: 17.091436884615387
 - name: Topacz
   id: topacz
-  address: Główna 12d, 55-040 KobierzyceGłówna 12d, 55-040 Kobierzyce
+  address: Główna 12d, 55-040 Kobierzyce
   googleMapsLink: https://maps.app.goo.gl/QB1ryMXQcvCaqgFLA
   website: https://www.js-tenis.pl/oferta/
   partnerCards:
   - multisport
+  coordinates:
+    lat: 51.034292
+    long: 16.9898139
   courts:
   - surface: clay
     type: tent
@@ -598,9 +613,12 @@
       schedule: null
 - name: Omega sport
   id: omega-sport
-  address: Granitowa 4, 55-080 Smolecv
+  address: Granitowa 4, 55-080 Smolec
   googleMapsLink: https://maps.app.goo.gl/ts2aZsTmmZRsKejg7
   website: https://www.smolecsport.pl/oferta/tenis/wynajem-kortu.html
+  coordinates:
+    lat: 51.0842206
+    long: 16.9064912
   courts:
   - surface: hard
     type: indoor
@@ -667,8 +685,8 @@
         su:8-21: 128
         st:8-21: 128
   coordinates:
-    latitude: 51.1525319
-    longitude: 17.1118552
+    lat: 51.1525319
+    long: 17.1118552
 - name: Olimpijski Club
   id: olimpijski club
   address: al. Ignacego Jana Paderewskiego 35, 51-612 Wrocław
@@ -731,8 +749,8 @@
         st:6-23: '138'
         hl:6-23: '138'
   coordinates:
-    latitude: 51.1174365
-    longitude: 17.0905595
+    lat: 51.1174365
+    long: 17.0905595
 - name: Lotnicza
   id: lotnicza
   address: Lotnicza 72, 54-155 Wrocław
@@ -768,8 +786,8 @@
       to: '2025-05-01'
       schedule: *id002
   coordinates:
-    latitude: 51.1319632
-    longitude: 16.9588373
+    lat: 51.1319632
+    long: 16.9588373
 - name: Centrum Sportowe Morskie Oko
   id: morskie-oko
   address: Fryderyka Chopina 27, 51-609 Wrocław
@@ -809,5 +827,6 @@
           to: '2025-05-01'
           schedule:
   coordinates:
-    latitude: 51.1222323
-    longitude: 17.0839662
+    lat: 51.1222323
+    long: 17.0839662
+
