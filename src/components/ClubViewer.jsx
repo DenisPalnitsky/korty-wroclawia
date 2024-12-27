@@ -8,7 +8,7 @@ import {
   Box,
   Typography,
   Link, CardContent, Switch, FormControlLabel,
-  Grid2, ButtonGroup, Button
+  Grid2, ButtonGroup, Button, MenuItem
 } from '@mui/material';
 import { formatDistanceStrict, intervalToDuration, formatDuration } from 'date-fns';
 import CourtGroupRow from './CourtGroupRow';
@@ -67,6 +67,8 @@ const ClubViewer = ({ pricingSystem, isMobile }) => {
 
   const [selectedDate, setSelectedDate] = React.useState(tomorrow);
   const [timeRange, setTimeRange] = React.useState([18, 22]);
+  const [startHourMobile, setStartHourMobile] = useState(9);
+  const [durationMobile, setDurationMobile] = useState(2);
   const [showClosedCourts, setShowClosedCourts] = React.useState(false);
   const [clubs, setClubs] = React.useState(orderByName(pricingSystem.list()));
   const [order, setOrder] = React.useState('club');
@@ -86,6 +88,15 @@ const ClubViewer = ({ pricingSystem, isMobile }) => {
     
     var startTime = new Date(year, month - 1, day, timeRange[0] / 2, (timeRange[0] % 2) * 30, 0);
     var endTime = new Date(year, month - 1, day, timeRange[1] / 2, (timeRange[1] % 2) * 30, 0);
+    if (isMobile) {
+      const mobileHr = Math.floor(startHourMobile);
+      const mobileMin = (startHourMobile - mobileHr) * 60;
+      startTime = new Date(year, month - 1, day, mobileHr, mobileMin, 0);
+      endTime = new Date(startTime.getTime() + durationMobile * 60 * 60 * 1000);
+    } else {
+      startTime = new Date(year, month - 1, day, timeRange[0] / 2, (timeRange[0] % 2) * 30, 0);
+      endTime = new Date(year, month - 1, day, timeRange[1] / 2, (timeRange[1] % 2) * 30, 0);
+    }
     if (startTime > endTime) {
       const t = startTime;
       startTime = endTime;
@@ -110,7 +121,7 @@ const ClubViewer = ({ pricingSystem, isMobile }) => {
     <Box sx={{ p: isMobile ? 0 : 3 }}>
       <Box id="date-slider-box" sx={{
         display: 'flex',
-        flexDirection: isMobile ? 'column' : 'row',
+        flexDirection: 'row',
         gap: isMobile ? 2 : 4,
         alignItems: 'center',
         mb: 3
@@ -125,11 +136,57 @@ const ClubViewer = ({ pricingSystem, isMobile }) => {
                 setSelectedDate(newValue);
                 setOrderedClubs(order, getDates().startTime, getDates().endTime);
               }}
-              textField={(params) => <TextField {...params} sx={{ minWidth: '160px' }} />}
+             sx={{ width: isMobile ? '210px' : 'auto' }}
             />        
         </LocalizationProvider>
 
-        <Box id="slider-box" sx={{ display: 'flex', width: "100%", gap: 2, flexDirection: isMobile ? 'column' : 'row', }}>
+        {isMobile ? (
+          <Grid2 container sx={{ gap: 2, width: '100%' }}>
+            <Grid2 size={5}>
+              <TextField
+                select
+                label={t('Start Hour')}
+                value={startHourMobile}
+                sx={{ width: '100%' }}
+                onChange={(e) => {
+                  setStartHourMobile(parseFloat(e.target.value));
+                  setOrderedClubs(order, getDates().startTime, getDates().endTime);
+                }}
+              >
+                {Array.from({ length: 48 }, (_, i) => {
+                  const val = i * 0.5; // 0, 0.5, 1, 1.5, ...
+                  const hr = Math.floor(val);
+                  const min = (val - hr) * 60;
+                  const label = `${hr.toString().padStart(2, '0')}:${min === 0 ? '00' : '30'}`;
+                  return (
+                    <MenuItem key={val} value={val}>
+                      {label}
+                    </MenuItem>
+                  );
+                })}
+              </TextField>
+            </Grid2>
+            <Grid2 size={5}>
+              <TextField
+                select
+                label={t('Duration')}
+                value={durationMobile}
+                sx={{ width: '100%' }}
+                onChange={(e) => {
+                  setDurationMobile(parseFloat(e.target.value));
+                  setOrderedClubs(order, getDates().startTime, getDates().endTime);
+                }}
+              >
+                {[0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4].map((duration) => (
+                  <MenuItem key={duration} value={duration}>
+                    {duration}
+                  </MenuItem>
+                ))}
+              </TextField>
+            </Grid2>
+          </Grid2>
+        ):(
+          <Box id="slider-box" sx={{ display: 'flex', width: "100%", gap: 2, flexDirection: isMobile ? 'column' : 'row', }}>
           <Slider
             value={timeRange}
             onChange={(_, newValue) => { setTimeRange(newValue); setOrderedClubs(order, getDates().startTime, getDates().endTime); }}
@@ -140,8 +197,6 @@ const ClubViewer = ({ pricingSystem, isMobile }) => {
             step={1}
             valueLabelFormat={formatTimeForSlider}
             sx={{ width: isMobile ? '100%' : '75%' }} />
-
-
           <Box sx={{
             display: 'flex',
             justifyContent: 'center',
@@ -171,9 +226,8 @@ const ClubViewer = ({ pricingSystem, isMobile }) => {
                 
               </Typography>
           </Box>
-       
-
         </Box>
+        )}
 
       </Box>
             
