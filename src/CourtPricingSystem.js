@@ -286,7 +286,7 @@ class Club {
     
     if (!courts) {
         throw new Error(`No courts defined for club ${clubData.name}`);
-    };
+    }
     
     this.courtGroups = courts.map(group =>
       new CourtGroup(group, this)
