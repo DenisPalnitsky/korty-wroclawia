@@ -36,20 +36,55 @@ const resources = {
       "Order by price": "Sortuj według ceny",
       "Order by club": "Sortuj według nazwy",
       "Something went wrong": "Coś poszło nie tak",
-      "We're sorry, but something went wrong. Please try again later.": "Przepraszamy, ale coś poszło nie tak. Proszę spróbować ponownie później.",
+      "We're sorry, but something poszło nie tak. Proszę spróbować ponownie później.",
       "Reload Page": "Przeładuj stronę",
       "Report this problem": "Zgłoś problem",
-      "Start Hour": "Początek"
+      "Start Hour": "Początek",
+      "Disclaimer": "Zastrzeżenie",
+      "This is a disclaimer page. The content of this page is translated using i18n.": "To jest strona z zastrzeżeniami. Zawartość tej strony jest tłumaczona za pomocą i18n."
     }
   },  
   en: {
-    translation: {} // Ensure this is initialized
+    translation: {
+      "Project Name": "Project Name",
+      "Courts of Wroclaw": "Courts of Wroclaw",
+      "Select Date": "Select Date",
+      "Report Problem": "Report Problem",
+      "Court type": "Court type",
+      "Surface": "Surface",
+      "Court": "Court",
+      "Change mode": "Change mode",
+      "Start": "Start",
+      "Duration": "Duration",
+      "Price": "Price",
+      "Closed": "Closed",
+      "Price range": "Price range",
+      "weekends": "weekends",
+      "weekdays": "weekdays",
+      "Show Closed": "Show Closed",
+      "hour": "hour",
+      "No heating": "No heating",
+      "indoor": "indoor",
+      "outdoor": "outdoor",
+      "tent": "tent",
+      "baloon": "baloon",
+      "hard": "hard",
+      "clay": "clay",
+      "grass": "grass",
+      "carpet": "carpet",
+      "artificial-grass": "artificial-grass",
+      "Order by price": "Order by price",
+      "Order by club": "Order by club",
+      "Something went wrong": "Something went wrong",
+      "We're sorry, but something went wrong. Please try again later.": "We're sorry, but something went wrong. Please try again later.",
+      "Reload Page": "Reload Page",
+      "Report this problem": "Report this problem",
+      "Start Hour": "Start Hour",
+      "Disclaimer": "Disclaimer",
+      "This is a disclaimer page. The content of this page is translated using i18n.": "This is a disclaimer page. The content of this page is translated using i18n."
+    }
   }
 };
-
-Object.keys(resources.pl.translation).forEach(key => {
-  resources.en.translation[key] = key;
-});
 
 const dateFnsLocales = {
   pl,

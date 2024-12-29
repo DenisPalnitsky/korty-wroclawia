@@ -10,6 +10,8 @@ import Footer from './components/Footer';
 import { useTranslation } from 'react-i18next';
 import ReactGA from 'react-ga4';
 import ErrorBoundary from './components/ErrorBoundary';
+import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import Disclaimer from './components/Disclaimer';
 
 function App() {
   const { t } = useTranslation();
@@ -144,37 +146,42 @@ function App() {
   return (
     <ThemeProvider theme={appTheme}>
       <ErrorBoundary>
-        <Container maxWidth="lg" sx={{
-          minHeight: '100vh',
-          bgcolor: 'background.default',
-          pt: isMobile ? 1 : 3,
-          pb: 6,
-          display: 'flex',
-          flexDirection: 'column',
-        }}>
-          <Box sx={{
+        <Router>
+          <Container maxWidth="lg" sx={{
+            minHeight: '100vh',
+            bgcolor: 'background.default',
+            pt: isMobile ? 1 : 3,
+            pb: 6,
             display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            mb: 3,
-            width: '100%',
+            flexDirection: 'column',
           }}>
+            <Box sx={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              mb: 3,
+              width: '100%',
+            }}>
 
-            <Typography variant="h3">
-              {t('Courts of Wroclaw')}
-            </Typography>
+              <Typography variant="h3">
+                {t('Courts of Wroclaw')}
+              </Typography>
 
-            <IconButton
-              onClick={() => setMode(mode === 'light' ? 'dark' : 'light')}
-              color="inherit"
-              title={t('Change mode')}
-            >
-              {mode === 'light' ? <Brightness4Icon /> : <Brightness7Icon sx={{ color: 'white' }} />}
-            </IconButton>
-          </Box>
-          <ClubViewer pricingSystem={system} isMobile={isMobile} />
-          <Footer />
-        </Container>
+              <IconButton
+                onClick={() => setMode(mode === 'light' ? 'dark' : 'light')}
+                color="inherit"
+                title={t('Change mode')}
+              >
+                {mode === 'light' ? <Brightness4Icon /> : <Brightness7Icon sx={{ color: 'white' }} />}
+              </IconButton>
+            </Box>
+            <Switch>
+              <Route exact path="/" render={() => <ClubViewer pricingSystem={system} isMobile={isMobile} />} />
+              <Route path="/disclaimer" component={Disclaimer} />
+            </Switch>
+            <Footer />
+          </Container>
+        </Router>
       </ErrorBoundary>
     </ThemeProvider>
   );

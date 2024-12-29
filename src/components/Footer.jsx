@@ -3,6 +3,7 @@ import GitHubIcon from '@mui/icons-material/GitHub';
 import { useTranslation } from 'react-i18next';
 import ThumbDownAltIcon from '@mui/icons-material/ThumbDownAlt';
 import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
+import { Link as RouterLink } from 'react-router-dom';
 
 const Footer = () => {
   const { t } = useTranslation();
@@ -42,6 +43,24 @@ const Footer = () => {
         >
           {t('Report Problem')}
         </Button>
+      </Box>
+
+      <Box>
+        <Link
+          component={RouterLink}
+          to="/disclaimer"
+          sx={{
+            display: 'flex',
+            alignItems: 'center',
+            color: 'black',
+            transition: 'transform 0.2s ease-in-out',
+            '&:hover': {
+              transform: 'scale(1.1)',
+            }
+          }}
+        >
+          {t('Disclaimer')}
+        </Link>
       </Box>
 
       <Link

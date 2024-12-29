@@ -31,6 +31,9 @@ To run the project locally, follow these steps:
    npm run dev
    ```
 
+## Disclaimer
+
+This application includes a disclaimer page. You can navigate to the disclaimer page by clicking on the "Disclaimer" link in the footer of the application.
 
 ## License
 
