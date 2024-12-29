@@ -28,7 +28,7 @@ const ErrorPage = ({ error }) => {
         {t('Something went wrong')}
       </Typography>
       <Typography variant="body1" className="mb-4" color="textSecondary">
-        {t("We're sorry, but something went wrong. Please try again later.")}
+        {t("something_went_wrong_message")}
       </Typography>
 
       <Box className="mb-4">

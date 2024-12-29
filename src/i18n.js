@@ -36,12 +36,12 @@ const resources = {
       "Order by price": "Sortuj według ceny",
       "Order by club": "Sortuj według nazwy",
       "Something went wrong": "Coś poszło nie tak",
-      "We're sorry, but something poszło nie tak. Proszę spróbować ponownie później.",
+      "something_went_wrong_message": "Przepraszamy, coś poszło nie tak. Spróbuj ponownie później.",
       "Reload Page": "Przeładuj stronę",
       "Report this problem": "Zgłoś problem",
       "Start Hour": "Początek",
       "Disclaimer": "Zastrzeżenie",
-      "This is a disclaimer page. The content of this page is translated using i18n.": "To jest strona z zastrzeżeniami. Zawartość tej strony jest tłumaczona za pomocą i18n."
+      "disclaimer_content": "To jest strona z zastrzeżeniami. Zawartość tej strony jest tłumaczona za pomocą i18n."
     }
   },  
   en: {
@@ -76,12 +76,12 @@ const resources = {
       "Order by price": "Order by price",
       "Order by club": "Order by club",
       "Something went wrong": "Something went wrong",
-      "We're sorry, but something went wrong. Please try again later.": "We're sorry, but something went wrong. Please try again later.",
+      "something_went_wrong_message": "We're sorry, but something went wrong. Please try again later.",
       "Reload Page": "Reload Page",
       "Report this problem": "Report this problem",
       "Start Hour": "Start Hour",
       "Disclaimer": "Disclaimer",
-      "This is a disclaimer page. The content of this page is translated using i18n.": "This is a disclaimer page. The content of this page is translated using i18n."
+      "disclaimer_content": "This is a disclaimer page. The content of this page is translated using i18n."
     }
   }
 };

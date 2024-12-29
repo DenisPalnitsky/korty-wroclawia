@@ -10,7 +10,7 @@ import Footer from './components/Footer';
 import { useTranslation } from 'react-i18next';
 import ReactGA from 'react-ga4';
 import ErrorBoundary from './components/ErrorBoundary';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Disclaimer from './components/Disclaimer';
 
 function App() {
@@ -146,7 +146,7 @@ function App() {
   return (
     <ThemeProvider theme={appTheme}>
       <ErrorBoundary>
-        <Router>
+        <BrowserRouter>
           <Container maxWidth="lg" sx={{
             minHeight: '100vh',
             bgcolor: 'background.default',
@@ -175,13 +175,13 @@ function App() {
                 {mode === 'light' ? <Brightness4Icon /> : <Brightness7Icon sx={{ color: 'white' }} />}
               </IconButton>
             </Box>
-            <Switch>
-              <Route exact path="/" render={() => <ClubViewer pricingSystem={system} isMobile={isMobile} />} />
-              <Route path="/disclaimer" component={Disclaimer} />
-            </Switch>
+            <Routes>
+              <Route path="/" element={<ClubViewer pricingSystem={system} isMobile={isMobile} />} />
+              <Route path="/disclaimer" element={<Disclaimer />} />
+            </Routes>
             <Footer />
           </Container>
-        </Router>
+        </BrowserRouter>
       </ErrorBoundary>
     </ThemeProvider>
   );

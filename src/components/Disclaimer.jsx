@@ -7,7 +7,7 @@ const Disclaimer = () => {
   return (
     <div>
       <h1>{t('Disclaimer')}</h1>
-      <p>{t('This is a disclaimer page. The content of this page is translated using i18n.')}</p>
+      <p>{t('disclaimer_content')}</p>
     </div>
   );
 };
