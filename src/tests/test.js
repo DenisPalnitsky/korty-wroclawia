@@ -4,6 +4,7 @@ import  CourtPricingSystem, { PricePeriod }  from '../CourtPricingSystem.js';
 import fs from 'fs';
 import yaml from 'js-yaml';
 
+
 describe('CourtPricing', () => {
 
   const fileContents = fs.readFileSync('src/tests/courts_test.yaml', 'utf8');
@@ -394,26 +395,3 @@ describe('Test pricing period', () => {
 
 });
 
-// describe('Debug',()=>{
-//   const getDatesForYear = (year) => {
-//     const dates = [];
-//     const start = new Date(year, 0, 1);
-//     const end = new Date(year + 1, 0, 1);
-    
-//     for (let d = start; d < end; d.setDate(d.getDate() + 1)) {
-//       dates.push(new Date(d));
-//     }
-//     return dates;
-//   };
-//   const year2024 = getDatesForYear(2024);
-
-//   it.only('should return relevant dates', () => {
-//     const minDate = new Date('2024-04-30T00:00:00');
-//     const maxDate = new Date('2024-05-01T00:00:00');
-//     const relevantDates = year2024.filter(date => 
-//       date >= minDate && date < maxDate
-//     );
-//     expect(relevantDates).to.have.lengthOf(1);  
-//     expect(relevantDates[0]).not.eq(maxDate);
-//   });
-// })

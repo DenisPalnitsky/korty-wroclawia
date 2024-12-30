@@ -1,8 +1,9 @@
-import { Box, Link, Button } from '@mui/material';
+import { Box, Link, Button, Typography } from '@mui/material';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import { useTranslation } from 'react-i18next';
 import ThumbDownAltIcon from '@mui/icons-material/ThumbDownAlt';
 import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
+import { Link as RouterLink } from 'react-router-dom';
 
 const Footer = () => {
   const { t } = useTranslation();
@@ -42,6 +43,21 @@ const Footer = () => {
         >
           {t('Report Problem')}
         </Button>
+      </Box>
+
+      <Box>
+        <Link
+          component={RouterLink}
+          to="/disclaimer"
+          sx={{
+            textDecoration: 'underline',
+            color: 'inherit',
+          }}
+        >
+          <Typography variant="body2">
+            {t('Disclaimer')}
+          </Typography>
+        </Link>
       </Box>
 
       <Link
