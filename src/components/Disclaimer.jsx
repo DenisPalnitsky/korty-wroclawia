@@ -1,3 +1,4 @@
+import { Box, Typography } from '@mui/material';
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 
@@ -5,10 +6,10 @@ const Disclaimer = () => {
   const { t } = useTranslation();
 
   return (
-    <div>
-      <h1>{t('Disclaimer')}</h1>
-      <p>{t('disclaimer_content')}</p>
-    </div>
+    <Box>
+      <Typography variant='h1' align='center'>{t('Disclaimer')}</Typography>
+      <Typography dangerouslySetInnerHTML={{ __html: t('disclaimer_content') }}></Typography>
+    </Box>
   );
 };
 

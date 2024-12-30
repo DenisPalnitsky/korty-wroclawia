@@ -41,7 +41,7 @@ const resources = {
       "Report this problem": "Zgłoś problem",
       "Start Hour": "Początek",
       "Disclaimer": "Zastrzeżenie",
-      "disclaimer_content": "To jest strona z zastrzeżeniami. Zawartość tej strony jest tłumaczona za pomocą i18n."
+      "disclaimer_content": "Ta strona internetowa nie jest powiązana z żadnymi klubami tenisowymi ani organizacjami wymienionymi tutaj. Wszystkie informacje o cenach pochodzą z ogólnie dostępnych danych i są udostępniane wyłącznie w celach informacyjnych. Chociaż staramy się zapewnić dokładność tych informacji, nie możemy zagwarantować, że wszystkie ceny są aktualne lub wolne od błędów. Prosimy o weryfikację cen bezpośrednio w odpowiednich klubach. Jeśli jesteś przedstawicielem klubu i chcesz zaktualizować lub usunąć informacje o swoich cenach, skontaktuj się z nami za pośrednictwem <a href='https://forms.gle/AAz9NTmnSYhfxGRJ9'>formularza</a>"
     }
   },  
   en: {
@@ -81,7 +81,7 @@ const resources = {
       "Report this problem": "Report this problem",
       "Start Hour": "Start Hour",
       "Disclaimer": "Disclaimer",
-      "disclaimer_content": "This is a disclaimer page. The content of this page is translated using i18n."
+      "disclaimer_content": "This website is not affiliated with any tennis clubs or organizations listed herein. All pricing information is sourced from publicly available data and is provided for informational purposes only. While we strive to ensure the accuracy of the information, we cannot guarantee that all prices are up-to-date or error-free. Please verify prices directly with the respective clubs. If you are a club representative and wish to update or remove your pricing information, please contact us via <a href='https://forms.gle/AAz9NTmnSYhfxGRJ9' />."
     }
   }
 };
