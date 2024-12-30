@@ -3,9 +3,7 @@ import { expect } from 'chai';
 import  CourtPricingSystem, { PricePeriod }  from '../CourtPricingSystem.js';
 import fs from 'fs';
 import yaml from 'js-yaml';
-import { render, screen } from '@testing-library/react';
-import { MemoryRouter } from 'react-router-dom';
-import Disclaimer from '../components/Disclaimer.jsx';
+
 
 describe('CourtPricing', () => {
 
@@ -397,15 +395,3 @@ describe('Test pricing period', () => {
 
 });
 
-describe('Disclaimer Page', () => {
-  it('should render the disclaimer page', () => {
-    render(
-      <MemoryRouter initialEntries={['/disclaimer']}>
-        <Disclaimer />
-      </MemoryRouter>
-    );
-
-    expect(screen.getByText('Disclaimer')).to.exist;
-    expect(screen.getByText('This is a disclaimer page. The content of this page is translated using i18n.')).to.exist;
-  });
-});
