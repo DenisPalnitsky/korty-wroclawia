@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import {
   Card,
@@ -20,7 +20,7 @@ import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFnsV3';
 import MapTab from './MapTab';
 import ListIcon from '@mui/icons-material/List';
 import MapIcon from '@mui/icons-material/Map';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const marks = Array.from({ length: 49 }, (_, i) => {
   const hour = Math.floor(i / 2);
@@ -59,6 +59,7 @@ function orderByName(clubs) {
 const ClubViewer = ({ pricingSystem, isMobile }) => {
   const { t, i18n } = useTranslation();  
   const location = useLocation();
+  const navigate = useNavigate();
   const view = location.pathname === '/map' ? 'map' : 'list';
 
   const tomorrow = new Date();
@@ -116,6 +117,10 @@ const ClubViewer = ({ pricingSystem, isMobile }) => {
     setOrder(newOrder);      
     setOrderedClubs(newOrder, getDates().startTime, getDates().endTime);
   };  
+
+  const setView = (newView) => {
+    navigate(newView === 'map' ? '/map' : '/list');
+  };
 
   return (
     <Box sx={{ p: isMobile ? 0 : 3 }}>
