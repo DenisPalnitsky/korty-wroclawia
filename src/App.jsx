@@ -10,7 +10,7 @@ import Footer from './components/Footer';
 import { useTranslation } from 'react-i18next';
 import ReactGA from 'react-ga4';
 import ErrorBoundary from './components/ErrorBoundary';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom';
 import Disclaimer from './components/Disclaimer';
 
 function App() {
@@ -176,7 +176,9 @@ function App() {
               </IconButton>
             </Box>
             <Routes>
-              <Route path="/" element={<ClubViewer pricingSystem={system} isMobile={isMobile} />} />
+              <Route path="/" element={<Navigate to="/list" />} />
+              <Route path="/list" element={<ClubViewer pricingSystem={system} isMobile={isMobile} view="list" />} />
+              <Route path="/map" element={<ClubViewer pricingSystem={system} isMobile={isMobile} view="map" />} />
               <Route path="/disclaimer" element={<Disclaimer />} />
             </Routes>
             <Footer />

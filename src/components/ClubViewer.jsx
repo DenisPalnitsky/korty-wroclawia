@@ -20,6 +20,7 @@ import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFnsV3';
 import MapTab from './MapTab';
 import ListIcon from '@mui/icons-material/List';
 import MapIcon from '@mui/icons-material/Map';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 const marks = Array.from({ length: 49 }, (_, i) => {
   const hour = Math.floor(i / 2);
@@ -33,11 +34,9 @@ function orderByPrice(clubs, startTime, endTime) {
   return clubs.sort((a, b) => {
     const minPrice = (club, startTime, endTime) => {
       let ma = Number.MAX_SAFE_INTEGER;
-      //console.log(`Getting price for ${club.name}. Courts ${club.courtGroups.length}`);
       club.courtGroups.forEach(c => {
         if (!c.isClosed(startTime)){       
           const p = c.getPrice(startTime, endTime);
-          //console.log(`Prices for ${c.type} ${c.surface} is ${p}`);
           if (p < ma) {
             ma = p;
           }
@@ -59,7 +58,9 @@ function orderByName(clubs) {
 
 const ClubViewer = ({ pricingSystem, isMobile }) => {
   const { t, i18n } = useTranslation();  
-  const [view, setView] = useState('list');
+  const location = useLocation();
+  const navigate = useNavigate();
+  const view = location.pathname === '/map' ? 'map' : 'list';
 
   const tomorrow = new Date();
   tomorrow.setDate(tomorrow.getDate() + 1);
@@ -116,6 +117,10 @@ const ClubViewer = ({ pricingSystem, isMobile }) => {
     setOrder(newOrder);      
     setOrderedClubs(newOrder, getDates().startTime, getDates().endTime);
   };  
+
+  const setView = (newView) => {
+    navigate(newView === 'map' ? '/map' : '/list');
+  };
 
   return (
     <Box sx={{ p: isMobile ? 0 : 3 }}>
