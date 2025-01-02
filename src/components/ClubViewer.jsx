@@ -3,14 +3,13 @@ import PropTypes from 'prop-types';
 import {
   Card,
   CardHeader,
-  Slider,
+  
   TextField,
   Box,
   Typography,
   Link, CardContent, Switch, FormControlLabel,
   Grid2, ButtonGroup, Button, MenuItem
 } from '@mui/material';
-import { formatDistanceStrict, intervalToDuration, formatDuration } from 'date-fns';
 import CourtGroupRow from './CourtGroupRow';
 import CourtPricingSystem from '../CourtPricingSystem';
 import { useTranslation } from 'react-i18next';
