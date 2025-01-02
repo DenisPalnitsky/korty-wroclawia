@@ -22,42 +22,47 @@ import ListIcon from '@mui/icons-material/List';
 import MapIcon from '@mui/icons-material/Map';
 import { useLocation, useNavigate } from 'react-router-dom';
 
-const marks = Array.from({ length: 49 }, (_, i) => {
-  const hour = Math.floor(i / 2);
-  return {
-    value: i,
-    label: i % 4 === 0 ? `${hour.toString().padStart(1, '0')}:00` : ''
-  };
-});
 
 function orderByPrice(clubs, startTime, endTime) {
   return clubs.sort((a, b) => {
     const minPrice = (club, startTime, endTime) => {
       let ma = Number.MAX_SAFE_INTEGER;
       club.courtGroups.forEach(c => {
-        if (!c.isClosed(startTime)){       
+        if (!c.isClosed(startTime)) {
           const p = c.getPrice(startTime, endTime);
           if (p < ma) {
             ma = p;
           }
-        }      
+        }
       });
       return ma;
-    }    
-    
+    }
+
     const aPrices = minPrice(a, startTime, endTime);
-    const bPrices = minPrice(b, startTime, endTime);    
+    const bPrices = minPrice(b, startTime, endTime);
 
     return aPrices - bPrices;
   });
 }
 
 function orderByName(clubs) {
-  return clubs.sort((a, b) => a.name.localeCompare(b.name));  
+  return clubs.sort((a, b) => a.name.localeCompare(b.name));
+}
+
+function genDurations(isMobile) {
+  const result = [];
+  const end = isMobile ? 8 : 48;
+
+  for (let i = 1; i <= end; i++) {
+    result.push({ display: i % 2 !== 0 ? (i - 1) / 2 + ":30" : i / 2 + ":00", value: i / 2 });
+  }
+
+
+  return result;
 }
 
 const ClubViewer = ({ pricingSystem, isMobile }) => {
-  const { t, i18n } = useTranslation();  
+  const { t, i18n } = useTranslation();
   const location = useLocation();
   const navigate = useNavigate();
   const view = location.pathname === '/map' ? 'map' : 'list';
@@ -67,178 +72,119 @@ const ClubViewer = ({ pricingSystem, isMobile }) => {
   tomorrow.setHours(0, 0, 0, 0);
 
   const [selectedDate, setSelectedDate] = React.useState(tomorrow);
-  const [timeRange, setTimeRange] = React.useState([18, 22]);
-  const [startHourMobile, setStartHourMobile] = useState(9);
-  const [durationMobile, setDurationMobile] = useState(2);
+  const [startHour, setStartHour] = useState(9);
+  const [duration, setDuration] = useState(2);
   const [showClosedCourts, setShowClosedCourts] = React.useState(false);
   const [clubs, setClubs] = React.useState(orderByName(pricingSystem.list()));
   const [order, setOrder] = React.useState('club');
-  
-  const setOrderedClubs = (ord, startTime, endTime) => {    
+
+  const setOrderedClubs = (ord, startTime, endTime) => {
     if (ord === 'price') {
-      setClubs(orderByPrice (pricingSystem.list(), startTime, endTime));
-    }else {
-      setClubs(orderByName(pricingSystem.list()));   
+      setClubs(orderByPrice(pricingSystem.list(), startTime, endTime));
+    } else {
+      setClubs(orderByName(pricingSystem.list()));
     }
   }
 
   const getDates = () => {
     const year = selectedDate.getFullYear();
-    const month = selectedDate.getMonth()+1; // Note: month is 0-based
+    const month = selectedDate.getMonth() + 1; // Note: month is 0-based
     const day = selectedDate.getDate();
-    
-    var startTime = new Date(year, month - 1, day, timeRange[0] / 2, (timeRange[0] % 2) * 30, 0);
-    var endTime = new Date(year, month - 1, day, timeRange[1] / 2, (timeRange[1] % 2) * 30, 0);
-    if (isMobile) {
-      const mobileHr = Math.floor(startHourMobile);
-      const mobileMin = (startHourMobile - mobileHr) * 60;
-      startTime = new Date(year, month - 1, day, mobileHr, mobileMin, 0);
-      endTime = new Date(startTime.getTime() + durationMobile * 60 * 60 * 1000);
-    } else {
-      startTime = new Date(year, month - 1, day, timeRange[0] / 2, (timeRange[0] % 2) * 30, 0);
-      endTime = new Date(year, month - 1, day, timeRange[1] / 2, (timeRange[1] % 2) * 30, 0);
-    }
-    if (startTime > endTime) {
-      const t = startTime;
-      startTime = endTime;
-      endTime = t;
-    }
+
+    const mobileHr = Math.floor(startHour);
+    const mobileMin = (startHour - mobileHr) * 60;
+    const startTime = new Date(year, month - 1, day, mobileHr, mobileMin, 0);
+    const endTime = new Date(startTime.getTime() + duration * 60 * 60 * 1000);
+
 
     return { startTime, endTime };
   };
 
-  const formatTimeForSlider = (value) => {
-    const hours = Math.floor(value / 2);
-    const minutes = value % 2 ? '30' : '00';
-    return `${hours.toString().padStart(2, '0')}:${minutes}`;
-  };
-
-  const handleOrderChange = (newOrder) => {      
-    setOrder(newOrder);      
+  const handleOrderChange = (newOrder) => {
+    setOrder(newOrder);
     setOrderedClubs(newOrder, getDates().startTime, getDates().endTime);
-  };  
+  };
 
   const setView = (newView) => {
     navigate(newView === 'map' ? '/map' : '/list');
   };
 
   return (
-    <Box sx={{ p: isMobile ? 0 : 3 }}>
-      <Box id="date-slider-box" sx={{
-        display: 'flex',
-        flexDirection: 'row',
-        gap: isMobile ? 2 : 4,
-        alignItems: 'center',
-        mb: 3
-      }}>
+    <Box id="club-viewer-box" sx={{ p: isMobile ? 0 : 3, alignItems: 'center' }}>
 
-        
-        <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={i18n.getDateFnsLocale()} >
-          <DatePicker
+
+      <Grid2 id="date-slider-box" container 
+        spacing={isMobile? 1 : 3}
+
+        sx={{
+          mb: 2,          
+        }}>
+
+        <Grid2 size={4}>
+          <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={i18n.getDateFnsLocale()} >
+            <DatePicker
               label={t('Select Date')}
               value={new Date(selectedDate)}
               onChange={(newValue) => {
                 setSelectedDate(newValue);
                 setOrderedClubs(order, getDates().startTime, getDates().endTime);
               }}
-             sx={{ width: isMobile ? '210px' : 'auto' }}
-            />        
-        </LocalizationProvider>
+              sx={{ width: '100%' }}
+            />
+          </LocalizationProvider>
+        </Grid2>
 
-        {isMobile ? (
-          <Grid2 container sx={{ gap: 2, width: '100%' }}>
-            <Grid2 size={5}>
-              <TextField
-                select
-                label={t('Start Hour')}
-                value={startHourMobile}
-                sx={{ width: '100%' }}
-                onChange={(e) => {
-                  setStartHourMobile(parseFloat(e.target.value));
-                  setOrderedClubs(order, getDates().startTime, getDates().endTime);
-                }}
-              >
-                {Array.from({ length: 48 }, (_, i) => {
-                  const val = i * 0.5; // 0, 0.5, 1, 1.5, ...
-                  const hr = Math.floor(val);
-                  const min = (val - hr) * 60;
-                  const label = `${hr.toString().padStart(2, '0')}:${min === 0 ? '00' : '30'}`;
-                  return (
-                    <MenuItem key={val} value={val}>
-                      {label}
-                    </MenuItem>
-                  );
-                })}
-              </TextField>
-            </Grid2>
-            <Grid2 size={5}>
-              <TextField
-                select
-                label={t('Duration')}
-                value={durationMobile}
-                sx={{ width: '100%' }}
-                onChange={(e) => {
-                  setDurationMobile(parseFloat(e.target.value));
-                  setOrderedClubs(order, getDates().startTime, getDates().endTime);
-                }}
-              >
-                {[0.5, 1, 1.5, 2, 2.5, 3, 3.5, 4].map((duration) => (
-                  <MenuItem key={duration} value={duration}>
-                    {duration}
-                  </MenuItem>
-                ))}
-              </TextField>
-            </Grid2>
-          </Grid2>
-        ):(
-          <Box id="slider-box" sx={{ display: 'flex', width: "100%", gap: 2, flexDirection: isMobile ? 'column' : 'row', }}>
-          <Slider
-            value={timeRange}
-            onChange={(_, newValue) => { setTimeRange(newValue); setOrderedClubs(order, getDates().startTime, getDates().endTime); }}
-            valueLabelDisplay="auto"
-            marks={marks}
-            min={0}
-            max={48}
-            step={1}
-            valueLabelFormat={formatTimeForSlider}
-            sx={{ width: isMobile ? '100%' : '75%' }} />
-          <Box sx={{
-            display: 'flex',
-            justifyContent: 'center',
-            ml: isMobile ? 0 : 2,            
-            width: isMobile ? '100%' : '20%',        
-            border: '1px solid',
-            borderColor: 'divider',
-            borderRadius: 1,  
-          }}>
+        <Grid2 size={4}>
+          <TextField
+            id='start-time-combo-box'
+            select
+            label={isMobile ? t('start_hour_mobile') : t('start_hour')}
+            value={startHour}
+            sx = {{width: '100%'}}
+            onChange={(e) => {
+              setStartHour(parseFloat(e.target.value));
+              setOrderedClubs(order, getDates().startTime, getDates().endTime);
+            }}
+          >
+            {Array.from({ length: 48 }, (_, i) => {
+              const val = i * 0.5; // 0, 0.5, 1, 1.5, ...
+              const hr = Math.floor(val);
+              const min = (val - hr) * 60;
+              const label = `${hr.toString().padStart(2, '0')}:${min === 0 ? '00' : '30'}`;
+              return (
+                <MenuItem key={val} value={val}>
+                  {label}
+                </MenuItem>
+              );
+            })}
+          </TextField>
+        </Grid2>
 
-              <Typography  variant='body2' sx={{ p: 0.5,  }} align='center' >
-                {t('Start') + ' ' + getDates().startTime.toLocaleTimeString(i18n.language, { hour: '2-digit', minute: '2-digit' })}
-                {isMobile ? ' | ' : <br />}
-                {(() => {
-                  const endDate = getDates().endTime;
-                  const startDate = getDates().startTime;                  
-                  const minutes = (endDate - startDate)/ 1000 / 60;
+        <Grid2 size="grow">
+          <TextField
+            id="duration-combo-box"
+            select
+            label={isMobile ? t('duration_mobile') : t('Duration')}
+            value={duration}
+            sx = {{width: '100%'}}
+            onChange={(e) => {
+              setDuration(parseFloat(e.target.value));
+              setOrderedClubs(order, getDates().startTime, getDates().endTime);
+            }}
+          >
+            {genDurations(isMobile).map(v => (
+              <MenuItem key={v.display} value={v.value}>
+                {v.display}
+              </MenuItem>
+            ))}
+          </TextField>
+        </Grid2>
+
+      </Grid2>
 
 
-                  if (minutes%60 === 0) {
-                    return formatDistanceStrict(startDate, endDate, { locale: i18n.getDateFnsLocale() }) 
-                  }else{
-                    const duration = intervalToDuration({ start: startDate, end: endDate });
-                    return formatDuration(duration, { locale: i18n.getDateFnsLocale() });
-                  }                                    
-                })()}
-                
-              </Typography>
-          </Box>
-        </Box>
-        )}
+      <Grid2 id="list-controls" container sx={{ mb: isMobile ? 1 : 2 }}>
 
-      </Box>
-            
-
-      <Grid2 id="list-controls" container sx={{ mb: isMobile? 1: 2 }}>
-  
         <OrderBySelector onOrderChange={handleOrderChange} />
 
 
@@ -249,7 +195,7 @@ const ClubViewer = ({ pricingSystem, isMobile }) => {
                 checked={showClosedCourts}
                 onChange={() => setShowClosedCourts(!showClosedCourts)}
                 color="primary"
-                size="small"              
+                size="small"
               />
             }
             label={
@@ -263,16 +209,16 @@ const ClubViewer = ({ pricingSystem, isMobile }) => {
         <Box sx={{ flexGrow: 1 }} />
 
         <ButtonGroup variant="outlined" size="small" aria-label="outlined primary button group">
-          <Button 
-            onClick={() => setView('list')} 
+          <Button
+            onClick={() => setView('list')}
             variant={view === 'list' ? 'contained' : 'outlined'}
             startIcon={<ListIcon />}
             sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
           >
             {!isMobile && t('List')}
           </Button>
-          <Button 
-            onClick={() => setView('map')} 
+          <Button
+            onClick={() => setView('map')}
             variant={view === 'map' ? 'contained' : 'outlined'}
             startIcon={<MapIcon />}
             sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
@@ -280,64 +226,64 @@ const ClubViewer = ({ pricingSystem, isMobile }) => {
             {!isMobile && t('Map')}
           </Button>
         </ButtonGroup>
-        
+
       </Grid2>
 
       <Box id="cubs-list-container">
-      
-      {view === 'list' ? (
-        clubs.map((club) => (
-          <Card key={club.id} sx={{ mb: 1, border: 0 }}>
-            <CardHeader
-              title={
-                <Box sx={{
-                  display: 'flex',
-                  alignItems: isMobile ? 'flex-start' : 'center',
-                  flexDirection: isMobile ? 'column' : 'row',
-                  gap: isMobile ? 0.5 : 2,
-                  width: '100%'
-                }}>
-                  <Link
-                    href={club.website}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    {club.name}
-                  </Link>
-                  <Link
-                    href={club.googleMapsLink}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    sx={{
-                      color: 'text.secondary',
-                      fontSize: '0.8em',
-                      fontWeight: 400,
-                      marginLeft: isMobile ? 0 : 'auto'
-                    }}
-                  >
-                    {club.address}
-                  </Link>
-                </Box>
-              }
-            />
-            <CardContent sx={{ p: isMobile ? 1 : 2 }}>
-              {club.courtGroups.map((courtGroup, groupIndex) => (
-                <CourtGroupRow
-                  key={groupIndex}
-                  groupIndex={groupIndex}
-                  courtGroup={courtGroup}
-                  isMobile={isMobile}
-                  startTime={getDates().startTime}
-                  endTime={getDates().endTime}
-                  showClosedCourts={showClosedCourts}
-                />
-              ))}
-            </CardContent>
-          </Card>
-        ))
-      ) : (
-        <MapTab clubs={clubs} startTime={getDates().startTime} endTime={getDates().endTime} />
-      )}
+
+        {view === 'list' ? (
+          clubs.map((club) => (
+            <Card key={club.id} sx={{ mb: 1, border: 0 }}>
+              <CardHeader
+                title={
+                  <Box sx={{
+                    display: 'flex',
+                    alignItems: isMobile ? 'flex-start' : 'center',
+                    flexDirection: isMobile ? 'column' : 'row',
+                    gap: isMobile ? 0.5 : 2,
+                    width: '100%'
+                  }}>
+                    <Link
+                      href={club.website}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      {club.name}
+                    </Link>
+                    <Link
+                      href={club.googleMapsLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      sx={{
+                        color: 'text.secondary',
+                        fontSize: '0.8em',
+                        fontWeight: 400,
+                        marginLeft: isMobile ? 0 : 'auto'
+                      }}
+                    >
+                      {club.address}
+                    </Link>
+                  </Box>
+                }
+              />
+              <CardContent sx={{ p: isMobile ? 1 : 2 }}>
+                {club.courtGroups.map((courtGroup, groupIndex) => (
+                  <CourtGroupRow
+                    key={groupIndex}
+                    groupIndex={groupIndex}
+                    courtGroup={courtGroup}
+                    isMobile={isMobile}
+                    startTime={getDates().startTime}
+                    endTime={getDates().endTime}
+                    showClosedCourts={showClosedCourts}
+                  />
+                ))}
+              </CardContent>
+            </Card>
+          ))
+        ) : (
+          <MapTab clubs={clubs} startTime={getDates().startTime} endTime={getDates().endTime} />
+        )}
 
       </Box>
 
@@ -347,7 +293,7 @@ const ClubViewer = ({ pricingSystem, isMobile }) => {
 };
 
 ClubViewer.propTypes = {
-pricingSystem:PropTypes.instanceOf(CourtPricingSystem).isRequired,
+  pricingSystem: PropTypes.instanceOf(CourtPricingSystem).isRequired,
   isMobile: PropTypes.bool.isRequired,
 };
 
