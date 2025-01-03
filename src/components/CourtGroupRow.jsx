@@ -38,7 +38,7 @@ const CourtGroupRow = ({ courtGroup, groupIndex, isMobile, startTime, endTime, s
             }}>
             
             
-            <Grid2 id="court-type-grid" size={ isMobile ? 12 : 3 }>
+            <Grid2 id="court-type-grid" size={ isMobile ? 12 : 3 } sx={{ pl: 1}}>
                 { isMobile || isClosed ? (
                     <Typography variant="body2" sx={{ mb: 1 }}>
                         {t('Court type')}: {`${t(courtGroup.surface)} | ${t(courtGroup.type)} `}
@@ -159,14 +159,14 @@ const CourtGroupRow = ({ courtGroup, groupIndex, isMobile, startTime, endTime, s
                             <TableRow>                                             
                                 <TableCell>
                                     <Typography variant="body2">
-                                        {t('weekdays')}: {courtGroup.getMinMaxPriceForWeekday(startTime)?.minPrice} - {courtGroup.getMinMaxPriceForWeekday(startTime)?.maxPrice} zł
+                                        { isMobile? t('weekdays_mobile') : t('weekdays')}: {courtGroup.getMinMaxPriceForWeekday(startTime)?.minPrice} - {courtGroup.getMinMaxPriceForWeekday(startTime)?.maxPrice} zł
                                     </Typography>
                                 </TableCell>
                             </TableRow>
                             <TableRow>
                                 <TableCell>
                                     <Typography variant="body2">
-                                        {t('weekends')}: {courtGroup.getMinMaxPriceForWeekend(startTime)?.minPrice} - {courtGroup.getMinMaxPriceForWeekend(startTime)?.maxPrice} zł
+                                        { isMobile? t('weekends_mobile') : t('weekends')}: {courtGroup.getMinMaxPriceForWeekend(startTime)?.minPrice} - {courtGroup.getMinMaxPriceForWeekend(startTime)?.maxPrice} zł
                                     </Typography>
                                 </TableCell>
                             </TableRow>
@@ -175,14 +175,14 @@ const CourtGroupRow = ({ courtGroup, groupIndex, isMobile, startTime, endTime, s
                 </Box>
             </Grid2>
 
-            <Grid2 id="courts-tiles-grid" container size={ isMobile ? 6 : 'auto'} spacing={1}
+            <Grid2 id="courts-tiles-grid" container size={ isMobile ? 6 : 'auto'} 
                 sx={{
                     display: 'flex',
                     flexWrap: 'wrap',
-                    gap: 1,
+                    gap: isMobile? 0: 1,
                     marginLeft: 'auto',
                     marginRight: isMobile ? 0 : 1,
-                    padding: 1,
+                    padding: isMobile ? 0 : 1,
                     width: 'auto',
                     justifyContent: 'flex-end',
                     alignItems: 'center'
