@@ -1,12 +1,13 @@
 - name: Matchpoint Wrocław
   id: matchpoint
-  address: Szyszkowa 6, 55-040 Ślęza, Poland
+  address: Szyszkowa 6, 55-040 Ślęza
   googleMapsLink: https://maps.app.goo.gl/Dm2WNmwLiSPtBanZ9
-  website: https://www.matchpoint.com.pl/
+  website: https://www.matchpoint.com.pl/  
   partnerCards:
   - multisport-plus
   courts:
   - surface: hard
+    reservationLink: &matchpoint_link https://matchpoint.gymmanager.com.pl/ClassroomReservation 
     type: indoor
     courts:
     - '1'
@@ -32,6 +33,7 @@
         '!:23-6': '110'
   - surface: hard
     type: tent
+    reservationLink: *matchpoint_link
     courts:
     - '4'
     - '5'
@@ -53,7 +55,7 @@
   id: krzycka-park
   address: Powstańców Śląskich 211A, 53-020 Wrocław
   googleMapsLink: https://maps.app.goo.gl/BM8n6n7zNntvJRXZ8
-  website: http://www.krzyckapark.pl/
+  website: http://www.krzyckapark.pl/  
   partnerCards:
   - multisport-classic
   - multisport-plus
@@ -61,6 +63,7 @@
   - surface: clay
     type: outdoor
     light: true
+    reservationLink: &krzycka_reservation https://www.twojtenis.pl/pl/kluby/krzycka_park/courts_list.html
     courts:
     - '3'
     - '4'
@@ -75,6 +78,7 @@
         hl:7-23: '45'
   - surface: clay
     type: tent
+    reservationLink: *krzycka_reservation
     courts:
     - '1'
     - '2'
@@ -89,6 +93,7 @@
         hl:7-23: '120'
   - surface: artificial-grass
     type: baloon
+    reservationLink: *krzycka_reservation
     courts:
     - '5'
     prices:
@@ -107,7 +112,7 @@
   id: spartan-pultuska
   address: Pułtuska 13, 53-116 Wrocław
   googleMapsLink: https://maps.app.goo.gl/jPBjrkbjsFR7GB9s8
-  website: https://spartan.wroc.pl/pultuska/tenis
+  website: https://spartan.wroc.pl/pultuska/tenis  
   partnerCards:
   - multisport-plus
   - multisport-classic
@@ -118,6 +123,7 @@
   - surface: clay
     type: outdoor
     light: true
+    reservationLink: https://spartan.wroc.pl/pultuska/strefaklienta/index.php?s=rezerwacje_kortow
     courts:
     - '1'
     - '2'
@@ -137,6 +143,7 @@
         su:07-22: '55'
         hl:07-22: '55'
   - surface: hard
+    reservationLink: https://spartan.wroc.pl/pultuska/strefaklienta/index.php?s=rezerwacja_hali_tenisowej  
     type: tent
     courts:
     - '1'
@@ -178,6 +185,7 @@
   - surface: clay
     type: outdoor
     light: true
+    reservationLink: https://spartan.wroc.pl/lubinska/strefaklienta/index.php?s=rezerwacja_kortow
     courts:
     - '1'
     - '2'
@@ -194,6 +202,7 @@
         hl:7-22: '45'
   - surface: carpet
     type: tent
+    reservationLink: https://spartan.wroc.pl/lubinska/strefaklienta/index.php?s=rezerwacja_hal_tenisowych
     courts:
     - '4'
     - '5'
@@ -232,12 +241,13 @@
   courts:
   - surface: clay
     type: outdoor
+    light: false
+    reservationLink: https://spartan.wroc.pl/spiska/strefaklienta/index.php?s=korty
     courts:
     - '5'
     - '6'
     - '7'
     - '8'
-    light: false
     prices:
     - from: '2023-11-01'
       to: '2024-05-01'
@@ -270,7 +280,7 @@
         hl:14-22: '110'
 - name: Spartan Krajewskiego
   id: spartan-krajewskiego
-  address: Rafala Krajewskiego, 50-996 Wrocław
+  address: Rafala Krajewskiego 2, 50-690 Wrocław
   googleMapsLink: https://maps.app.goo.gl/GWpJacJpfEjyxWsR6
   website: https://spartan.wroc.pl/krajewskiego/
   partnerCards:
@@ -282,6 +292,7 @@
   courts:
   - surface: hard
     type: outdoor
+    reservationLink: https://spartan.wroc.pl/krajewskiego/strefaklienta/index.php?s=zajetosc_kortu
     courts:
     - '1'
     prices:
@@ -301,6 +312,7 @@
   courts:
   - surface: hard
     type: indoor
+    reservationLink: &redeco_res https://www.twojtenis.pl/pl/kluby/centrum_tenisowe_redeco/courts_list.html
     courts:
     - '1'
     - '2'
@@ -320,6 +332,7 @@
         hl:22-8: '100'
   - surface: clay
     type: baloon
+    reservationLink: *redeco_res
     courts:
     - '1'
     - '2'
@@ -338,7 +351,7 @@
     long: 16.9970916
 - name: Vario Sport
   id: vario-sport
-  address: Żerniki Wrocławskie - Parkowa 32 55-010 WROCŁAW, dolnośląskie
+  address: Parkowa 32, 55-010 Żerniki Wrocławskie
   googleMapsLink: https://maps.app.goo.gl/qh9DuwG1KUz9o5cZ7
   website: https://www.twojtenis.pl/pl/kluby/vario_sport/info.html
   courts:
@@ -346,6 +359,7 @@
     type: baloon
     light: false
     heating: false
+    reservationLink: https://www.twojtenis.pl/pl/kluby/vario_sport/courts_list.html
     courts:
     - '1'
     - '2'
@@ -374,6 +388,7 @@
   courts:
   - surface: clay
     type: baloon
+    reservationLink: https://www.twojtenis.pl/pl/kluby/winners_tennis_club.html
     courts:
     - '1'
     - '2'
@@ -400,6 +415,7 @@
   courts:
   - surface: clay
     type: outdoor
+    reservationLink: https://www.twojtenis.pl/pl/kluby/olesnicki_klub_tenisowy/courts_list.html
     courts:
     - '1'
     - '2'
@@ -470,6 +486,7 @@
   courts:
   - surface: hard
     type: indoor
+    reservationLink: &gem_reserv https://www.twojtenis.pl/pl/kluby/hala_tenisowa_hotel_gem.html
     courts:
     - '1'
     - '2'
@@ -485,6 +502,7 @@
         hl:7-20: '115'
   - surface: clay
     type: outdoor
+    reservationLink: *gem_reserv
     courts:
     - '4'
     - '5'
@@ -515,6 +533,7 @@
     type: tent
     light: true
     heating: true
+    reservationLink: &fittenis_reserv https://rezerwacje.fittenis.pl/training/court_calendar
     courts:
     - '1'
     - '2'
@@ -531,6 +550,7 @@
     type: outdoor
     light: false
     heating: false
+    reservationLink: &fittenis_reserv
     courts:
     - '3'
     - '4'
@@ -548,15 +568,16 @@
     long: 17.0310476
 - name: AWF Hala Tenisowa
   id: awf hala tenisowa
-  address: 51-612 WROCŁAW, dolnośląskie
+  address: Stadion Olimpijski, al Ignacego Jana Paderewskiego 35, 51-612 Wrocław
   googleMapsLink: https://maps.app.goo.gl/MYnpGY1QLNvShmqS8
-  website: http://www.halatenisowaawf.pl
+  website: https://www.twojtenis.pl/pl/kluby/awf_hala_tenisowa/info.html
   partnerCards:
   - multisport-plus
   - multisport-classic
   courts:
   - surface: hard
     type: indoor
+    reservationLink: https://www.twojtenis.pl/pl/kluby/awf_hala_tenisowa/courts_list.html
     courts:
     - '1'
     - '2'
@@ -585,6 +606,7 @@
     long: 16.9898139
   courts:
   - surface: clay
+    reservationLink: &topacz_reserv https://app.tenis4u.pl/#/court/326
     type: tent
     courts:
     - '1'
@@ -604,6 +626,7 @@
   - surface: clay
     type: outdoor
     light: true
+    reservationLink: *topacz_reserv
     courts:
     - '5'
     - '6'
@@ -622,6 +645,7 @@
   courts:
   - surface: hard
     type: indoor
+    reservationLink: 
     courts:
     - '1'
     - '2'
@@ -671,6 +695,7 @@
   courts:
   - surface: clay
     type: indoor
+    reservationLink: https://app.tenis4u.pl/#/court/263
     courts:
     - '1'
     - '2'
@@ -698,6 +723,7 @@
   courts:
   - surface: clay
     type: outdoor
+    reservationLink: &olimp_reserv https://olimpijskiclub.pl/zarezerwuj-korty-online/
     courts:
     - '1'
     - '2'
@@ -720,6 +746,7 @@
         hl:6-23: '55'
   - surface: clay
     type: outdoor
+    reservationLink: *olimp_reserv
     courts:
     - C
     light: true
@@ -735,6 +762,7 @@
         hl:6-23: '60'
   - surface: clay
     type: tent
+    reservationLink: *olimp_reserv
     courts:
     - '9'
     - '10'
@@ -762,6 +790,7 @@
   courts:
   - surface: clay
     type: indoor
+    reservationLink: &lotnicza_reserv https://www.lotniczatennisclub.pl/rezerwacja-kortow-online/
     courts:
     - '1'
     - '2'
@@ -778,6 +807,7 @@
         hl:6-23: 135
   - surface: clay
     type: baloon
+    reservationLink: *lotnicza_reserv
     courts:
     - '5'
     - '6'

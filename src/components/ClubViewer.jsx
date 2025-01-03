@@ -265,7 +265,7 @@ const ClubViewer = ({ pricingSystem, isMobile }) => {
                   </Box>
                 }
               />
-              <CardContent sx={{ p: isMobile ? 1 : 2 }}>
+              <CardContent sx={{ p:0, '&:last-child': { pb: 0 }}}>
                 {club.courtGroups.map((courtGroup, groupIndex) => (
                   <CourtGroupRow
                     key={groupIndex}

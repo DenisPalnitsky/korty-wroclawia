@@ -83,6 +83,12 @@ const CourtGroupRow = ({ courtGroup, groupIndex, isMobile, startTime, endTime, s
                             bgcolor: getCourtColorDark(courtGroup.surface),
                         },
                         position: 'relative',
+                        cursor:  courtGroup.reservationLink ? 'pointer' : 'default',
+                    }}
+                    onClick={() => {
+                        if (courtGroup.reservationLink) {
+                            window.open(courtGroup.reservationLink, '_blank');
+                        }
                     }}
                 >
                     <Typography variant="body1" sx={{ color: 'white' }}>
@@ -128,11 +134,11 @@ const CourtGroupRow = ({ courtGroup, groupIndex, isMobile, startTime, endTime, s
               
             </Grid2>
 
-            <Grid2 id="court-avg-prices-grid" size={isMobile ? 12 : 'auto'} hidden={isClosed} flexGrow={1}>
+            <Grid2 id="court-avg-prices-grid" size={isMobile ? 6 : 'auto'} hidden={isClosed} flexGrow={1}>
                 <Box sx={{ 
                     display: 'flex',
                     alignItems: 'center',
-                    ml: 3,
+                    ml: isMobile? 0 : 3,
                     py: 0.5,
                     px: 2,
                 }}>
@@ -144,23 +150,24 @@ const CourtGroupRow = ({ courtGroup, groupIndex, isMobile, startTime, endTime, s
                             whiteSpace: 'nowrap',
                             fontSize: '0.875rem',
                             color: 'text.secondary'
-                        },
+                        },                       
                         '& td:first-of-type': {
                             paddingRight: 3
                         }
                     }}>
                         <TableBody>
-                            <TableRow>
-                                <TableCell rowSpan={2}>
-                                    {t('Price range')}
-                                </TableCell>
+                            <TableRow>                                             
                                 <TableCell>
-                                    {t('weekdays')}: {courtGroup.getMinMaxPriceForWeekday(startTime)?.minPrice} - {courtGroup.getMinMaxPriceForWeekday(startTime)?.maxPrice} zł
+                                    <Typography variant="body2">
+                                        {t('weekdays')}: {courtGroup.getMinMaxPriceForWeekday(startTime)?.minPrice} - {courtGroup.getMinMaxPriceForWeekday(startTime)?.maxPrice} zł
+                                    </Typography>
                                 </TableCell>
                             </TableRow>
                             <TableRow>
                                 <TableCell>
-                                    {t('weekends')}: {courtGroup.getMinMaxPriceForWeekend(startTime)?.minPrice} - {courtGroup.getMinMaxPriceForWeekend(startTime)?.maxPrice} zł
+                                    <Typography variant="body2">
+                                        {t('weekends')}: {courtGroup.getMinMaxPriceForWeekend(startTime)?.minPrice} - {courtGroup.getMinMaxPriceForWeekend(startTime)?.maxPrice} zł
+                                    </Typography>
                                 </TableCell>
                             </TableRow>
                         </TableBody>
@@ -168,7 +175,7 @@ const CourtGroupRow = ({ courtGroup, groupIndex, isMobile, startTime, endTime, s
                 </Box>
             </Grid2>
 
-            <Grid2 id="courts-tiles-grid" container size={ isMobile ? 12 : 'auto'} spacing={1}
+            <Grid2 id="courts-tiles-grid" container size={ isMobile ? 6 : 'auto'} spacing={1}
                 sx={{
                     display: 'flex',
                     flexWrap: 'wrap',
