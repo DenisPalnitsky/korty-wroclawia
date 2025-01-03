@@ -1,4 +1,4 @@
-import { Box, Link, Button, Typography } from '@mui/material';
+import { Box, Link, Button, Typography, Grid2 } from '@mui/material';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import { useTranslation } from 'react-i18next';
 import ThumbDownAltIcon from '@mui/icons-material/ThumbDownAlt';
@@ -9,21 +9,22 @@ const Footer = () => {
   const { t } = useTranslation();
 
   return (
-    <Box
+    <Grid2
+      container
       component="footer"
-      sx={{
-        py: 2,
-        px: 3,
+      spacing={2}
+      sx={{        
         mt: 4,
+        padding: 2,
+        width: '100%',
         backgroundColor: 'white',
         borderTop: '1px solid',
         borderColor: 'grey.200',
         display: 'flex',
-        justifyContent: 'space-between',
-        alignItems: 'center'
+        
       }}
     >
-      <Box>
+      <Grid2 size={{  xs: 12, sm: 3 }} sx={{ display: 'flex', justifyContent: 'center'}}>
         <Button
           href="https://forms.gle/AAz9NTmnSYhfxGRJ9"
           target="_blank"
@@ -43,9 +44,14 @@ const Footer = () => {
         >
           {t('Report Problem')}
         </Button>
-      </Box>
+      </Grid2>
 
-      <Box>
+      <Grid2 size="grow"
+        sx={{
+          display: 'flex',
+          justifyContent: 'left',
+          alignItems: 'center',
+        }}>
         <Link
           component={RouterLink}
           to="/disclaimer"
@@ -58,25 +64,27 @@ const Footer = () => {
             {t('Disclaimer')}
           </Typography>
         </Link>
-      </Box>
+      </Grid2>
 
-      <Link
-        href="https://github.com/denispalnitsky/korty-wroclawia"
-        target="_blank"
-        rel="noopener noreferrer"
-        sx={{
-          display: 'flex',
-          alignItems: 'center',
-          color: 'black',
-          transition: 'transform 0.2s ease-in-out',
-          '&:hover': {
-            transform: 'scale(1.1)',
-          }
-        }}
-      >
-        <GitHubIcon sx={{ fontSize: 28 }} />
-      </Link>
-    </Box>
+      <Grid2>
+        <Link
+          href="https://github.com/denispalnitsky/korty-wroclawia"
+          target="_blank"
+          rel="noopener noreferrer"
+          sx={{
+            display: 'flex',
+            alignItems: 'center',
+            color: 'black',
+            transition: 'transform 0.2s ease-in-out',
+            '&:hover': {
+              transform: 'scale(1.1)',
+            }
+          }}
+        >
+          <GitHubIcon sx={{ fontSize: 28 }} />
+        </Link>
+      </Grid2>
+    </Grid2>
   );
 }
 
