@@ -10,7 +10,7 @@ import Footer from './components/Footer';
 import { useTranslation } from 'react-i18next';
 import ReactGA from 'react-ga4';
 import ErrorBoundary from './components/ErrorBoundary';
-import { BrowserRouter, Route, Routes, Navigate } from 'react-router-dom';
+import { HashRouter , Route, Routes, Navigate } from 'react-router-dom';
 import Disclaimer from './components/Disclaimer';
 
 function App() {
@@ -146,7 +146,7 @@ function App() {
   return (
     <ThemeProvider theme={appTheme}>
       <ErrorBoundary>
-        <BrowserRouter>
+        <HashRouter>
           <Container maxWidth="lg" sx={{
             minHeight: '100vh',
             bgcolor: 'background.default',
@@ -183,7 +183,7 @@ function App() {
             </Routes>
             <Footer />
           </Container>
-        </BrowserRouter>
+        </HashRouter>
       </ErrorBoundary>
     </ThemeProvider>
   );
