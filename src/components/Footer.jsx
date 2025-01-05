@@ -1,4 +1,4 @@
-import { Box, Link, Button, Typography, Grid2 } from '@mui/material';
+import { Link, Button, Typography, Grid2 } from '@mui/material';
 import GitHubIcon from '@mui/icons-material/GitHub';
 import { useTranslation } from 'react-i18next';
 import ThumbDownAltIcon from '@mui/icons-material/ThumbDownAlt';
