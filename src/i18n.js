@@ -1,7 +1,6 @@
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
-import { pl, enUS } from 'date-fns/locale';
-
+import { pl, enUS, de } from 'date-fns/locale';
 
 const resources = {
   pl: {
@@ -89,12 +88,56 @@ const resources = {
       "Disclaimer": "Disclaimer",
       "disclaimer_content": "This website is not affiliated with any tennis clubs or organizations listed herein. All pricing information is sourced from publicly available data and is provided for informational purposes only. While we strive to ensure the accuracy of the information, we cannot guarantee that all prices are up-to-date or error-free. Please verify prices directly with the respective clubs. If you are a club representative and wish to update or remove your pricing information, please contact us via <a href='https://forms.gle/AAz9NTmnSYhfxGRJ9' />."
     }
+  },
+  de: {
+    translation: {
+      "Project Name": "Projektname",
+      "Courts of Wroclaw": "Tennisplätze in Breslau",
+      "Select Date": "Datum auswählen",
+      "Report Problem": "Problem melden",
+      "Court type": "Platztyp",
+      "Surface": "Oberfläche",
+      "Court": "Platz",
+      "Change mode": "Modus ändern",
+      "Start": "Start",
+      "Duration": "Dauer (Stunden)",
+      "duration_mobile": "Dauer",
+      "Price": "Preis",
+      "Closed": "Geschlossen",
+      "weekends": "Wochenendpreise",
+      "weekends_mobile": "Wochenenden",
+      "weekdays": "Wochentagspreise",
+      "weekdays_mobile": "Wochentage",
+      "Show Closed": "Geschlossene anzeigen",
+      "hour": "Stunde",
+      "No heating": "Keine Heizung",
+      "indoor": "Halle",
+      "outdoor": "Außen",
+      "tent": "Zelt",
+      "baloon": "Ballon",
+      "hard": "Hart",
+      "clay": "Sand",
+      "grass": "Rasen",
+      "carpet": "Teppich",
+      "artificial-grass": "Kunstrasen",
+      "Order by price": "Nach Preis sortieren",
+      "Order by club": "Nach Club sortieren",
+      "Something went wrong": "Etwas ist schief gelaufen",
+      "something_went_wrong_message": "Es tut uns leid, aber etwas ist schief gelaufen. Bitte versuchen Sie es später noch einmal.",
+      "Reload Page": "Seite neu laden",
+      "Report this problem": "Dieses Problem melden",
+      "start_hour": "Startzeit",
+      "start_hour_mobile": "Start",
+      "Disclaimer": "Haftungsausschluss",
+      "disclaimer_content": "Diese Website ist nicht mit den hier aufgeführten Tennisclubs oder Organisationen verbunden. Alle Preisinformationen stammen aus öffentlich zugänglichen Daten und dienen nur zu Informationszwecken. Obwohl wir uns bemühen, die Richtigkeit der Informationen sicherzustellen, können wir nicht garantieren, dass alle Preise aktuell oder fehlerfrei sind. Bitte überprüfen Sie die Preise direkt bei den jeweiligen Clubs. Wenn Sie ein Clubvertreter sind und Ihre Preisinformationen aktualisieren oder entfernen möchten, kontaktieren Sie uns bitte über <a href='https://forms.gle/AAz9NTmnSYhfxGRJ9'>dieses Formular</a>."
+    }
   }
 };
 
 const dateFnsLocales = {
   pl,
-  en: enUS
+  en: enUS,
+  de
 };
 
 i18n.getDateFnsLocale = () => {
