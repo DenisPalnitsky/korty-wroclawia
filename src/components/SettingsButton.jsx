@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { IconButton, Menu, MenuItem, ListItemIcon, ListItemText } from '@mui/material';
+import { IconButton, Menu, MenuItem, ListItemIcon, ListItemText, Select } from '@mui/material';
 import SettingsIcon from '@mui/icons-material/Settings';
 import Brightness4Icon from '@mui/icons-material/Brightness4';
 import Brightness7Icon from '@mui/icons-material/Brightness7';
@@ -33,16 +33,19 @@ const SettingsButton = ({ mode, setMode }) => {
     setAnchorEl(null);
   };
 
-  const handleLanguageChange = (newLanguage) => {
+  const handleLanguageChange = (event) => {
+    const newLanguage = event.target.value;
     setLanguage(newLanguage);
     i18n.changeLanguage(newLanguage);
     Cookies.set('language', newLanguage);
+    handleClose();
   };
 
   const handleThemeChange = () => {
     const newMode = mode === 'light' ? 'dark' : 'light';
     setMode(newMode);
     Cookies.set('mode', newMode);
+    handleClose();
   };
 
   return (
@@ -57,17 +60,23 @@ const SettingsButton = ({ mode, setMode }) => {
           </ListItemIcon>
           <ListItemText primary={mode === 'light' ? t('Switch to Dark Mode') : t('Switch to Light Mode')} />
         </MenuItem>
-        <MenuItem onClick={() => handleLanguageChange('en')}>
+        <MenuItem>
           <ListItemIcon>
             <FlagIcon />
           </ListItemIcon>
-          <ListItemText primary={t('English')} />
-        </MenuItem>
-        <MenuItem onClick={() => handleLanguageChange('de')}>
-          <ListItemIcon>
-            <FlagIcon />
-          </ListItemIcon>
-          <ListItemText primary={t('German')} />
+          <Select
+            value={language}
+            onChange={handleLanguageChange}
+            displayEmpty
+            inputProps={{ 'aria-label': 'Without label' }}
+          >
+            <MenuItem value="en">
+              <ListItemText primary={t('English')} />
+            </MenuItem>
+            <MenuItem value="de">
+              <ListItemText primary={t('German')} />
+            </MenuItem>
+          </Select>
         </MenuItem>
       </Menu>
     </div>
