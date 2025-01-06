@@ -12,6 +12,7 @@ import ReactGA from 'react-ga4';
 import ErrorBoundary from './components/ErrorBoundary';
 import { HashRouter , Route, Routes, Navigate } from 'react-router-dom';
 import Disclaimer from './components/Disclaimer';
+import SettingsButton from './components/SettingsButton';
 
 function App() {
   const { t } = useTranslation();
@@ -167,13 +168,7 @@ function App() {
                 {t('Courts of Wroclaw')}
               </Typography>
 
-              <IconButton
-                onClick={() => setMode(mode === 'light' ? 'dark' : 'light')}
-                color="inherit"
-                title={t('Change mode')}
-              >
-                {mode === 'light' ? <Brightness4Icon /> : <Brightness7Icon sx={{ color: 'white' }} />}
-              </IconButton>
+              <SettingsButton mode={mode} setMode={setMode} />
             </Box>
             <Routes>
               <Route path="/" element={<Navigate to="/list" />} />
