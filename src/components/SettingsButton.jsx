@@ -1,56 +1,75 @@
-import React, { useState } from 'react';
-import { IconButton, Dialog, DialogTitle, DialogContent, DialogActions, Button, FormControl, InputLabel, Select, MenuItem } from '@mui/material';
+import React, { useState, useEffect } from 'react';
+import { IconButton, Menu, MenuItem, ListItemIcon, ListItemText } from '@mui/material';
 import SettingsIcon from '@mui/icons-material/Settings';
+import Brightness4Icon from '@mui/icons-material/Brightness4';
+import Brightness7Icon from '@mui/icons-material/Brightness7';
+import FlagIcon from '@mui/icons-material/Flag';
 import { useTranslation } from 'react-i18next';
+import Cookies from 'js-cookie';
 
 const SettingsButton = ({ mode, setMode }) => {
   const { t, i18n } = useTranslation();
-  const [open, setOpen] = useState(false);
+  const [anchorEl, setAnchorEl] = useState(null);
+  const open = Boolean(anchorEl);
   const [language, setLanguage] = useState(i18n.language);
 
-  const handleClickOpen = () => {
-    setOpen(true);
+  useEffect(() => {
+    const savedMode = Cookies.get('mode');
+    const savedLanguage = Cookies.get('language');
+    if (savedMode) {
+      setMode(savedMode);
+    }
+    if (savedLanguage) {
+      setLanguage(savedLanguage);
+      i18n.changeLanguage(savedLanguage);
+    }
+  }, [setMode, i18n]);
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
   };
 
   const handleClose = () => {
-    setOpen(false);
+    setAnchorEl(null);
   };
 
-  const handleLanguageChange = (event) => {
-    const newLanguage = event.target.value;
+  const handleLanguageChange = (newLanguage) => {
     setLanguage(newLanguage);
     i18n.changeLanguage(newLanguage);
+    Cookies.set('language', newLanguage);
   };
 
   const handleThemeChange = () => {
-    setMode(mode === 'light' ? 'dark' : 'light');
+    const newMode = mode === 'light' ? 'dark' : 'light';
+    setMode(newMode);
+    Cookies.set('mode', newMode);
   };
 
   return (
     <div>
-      <IconButton onClick={handleClickOpen} color="inherit" title={t('Settings')}>
+      <IconButton onClick={handleClick} color="inherit" title={t('Settings')}>
         <SettingsIcon />
       </IconButton>
-      <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>{t('Settings')}</DialogTitle>
-        <DialogContent>
-          <FormControl fullWidth margin="normal">
-            <InputLabel>{t('Language')}</InputLabel>
-            <Select value={language} onChange={handleLanguageChange}>
-              <MenuItem value="en">{t('English')}</MenuItem>
-              <MenuItem value="de">{t('German')}</MenuItem>
-            </Select>
-          </FormControl>
-          <Button onClick={handleThemeChange} fullWidth>
-            {mode === 'light' ? t('Switch to Dark Mode') : t('Switch to Light Mode')}
-          </Button>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose} color="primary">
-            {t('Close')}
-          </Button>
-        </DialogActions>
-      </Dialog>
+      <Menu anchorEl={anchorEl} open={open} onClose={handleClose}>
+        <MenuItem onClick={handleThemeChange}>
+          <ListItemIcon>
+            {mode === 'light' ? <Brightness4Icon /> : <Brightness7Icon />}
+          </ListItemIcon>
+          <ListItemText primary={mode === 'light' ? t('Switch to Dark Mode') : t('Switch to Light Mode')} />
+        </MenuItem>
+        <MenuItem onClick={() => handleLanguageChange('en')}>
+          <ListItemIcon>
+            <FlagIcon />
+          </ListItemIcon>
+          <ListItemText primary={t('English')} />
+        </MenuItem>
+        <MenuItem onClick={() => handleLanguageChange('de')}>
+          <ListItemIcon>
+            <FlagIcon />
+          </ListItemIcon>
+          <ListItemText primary={t('German')} />
+        </MenuItem>
+      </Menu>
     </div>
   );
 };
