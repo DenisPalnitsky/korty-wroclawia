@@ -14,6 +14,15 @@ import { HashRouter , Route, Routes, Navigate } from 'react-router-dom';
 import Disclaimer from './components/Disclaimer';
 import i18n from './i18n';
 import Cookies from 'js-cookie';
+import pl from './assets/images/pl.svg';
+import en from './assets/images/en.svg';
+import de from './assets/images/de.svg';
+
+const languageImages = {
+  pl: pl,
+  en: en,
+  de: de
+};
 
 function App() {
   const { t } = useTranslation();
@@ -213,7 +222,7 @@ function App() {
                   color="inherit"
                   title={t('Change language')}
                 >
-                  <img src={`https://flagcdn.com/${language}.svg`} alt={language} width="24" height="24" />
+                  <img src={languageImages[language]} alt={language} width="24" height="24" />
                 </IconButton>
                 <Menu
                   anchorEl={anchorEl}
@@ -221,15 +230,15 @@ function App() {
                   onClose={handleClose}
                 >
                   <MenuItem onClick={() => handleLanguageChange('pl')}>
-                    <img src="https://flagcdn.com/pl.svg" alt="Polish" width="24" height="24" />
+                    <img src={pl} alt="Polish" width="24" height="24" />
                     <Typography variant="body1" sx={{ ml: 1 }}>Polish</Typography>
                   </MenuItem>
                   <MenuItem onClick={() => handleLanguageChange('en')}>
-                    <img src="https://flagcdn.com/gb.svg" alt="English" width="24" height="24" />
+                    <img src={en} alt="English" width="24" height="24" />
                     <Typography variant="body1" sx={{ ml: 1 }}>English</Typography>
                   </MenuItem>
                   <MenuItem onClick={() => handleLanguageChange('de')}>
-                    <img src="https://flagcdn.com/de.svg" alt="German" width="24" height="24" />
+                    <img src={de} alt="German" width="24" height="24" />
                     <Typography variant="body1" sx={{ ml: 1 }}>German</Typography>
                   </MenuItem>
                 </Menu>
@@ -240,6 +249,7 @@ function App() {
               <Route path="/list" element={<ClubViewer pricingSystem={system} isMobile={isMobile} view="list" />} />
               <Route path="/map" element={<ClubViewer pricingSystem={system} isMobile={isMobile} view="map" />} />
               <Route path="/disclaimer" element={<Disclaimer />} />
+              <Route path='assets/*' element={<Navigate to="/" />} />
             </Routes>
             <Footer />
           </Container>
