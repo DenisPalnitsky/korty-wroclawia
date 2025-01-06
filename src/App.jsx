@@ -231,7 +231,7 @@ function App() {
                 >
                   <MenuItem onClick={() => handleLanguageChange('pl')}>
                     <img src={pl} alt="Polish" width="24" height="24" />
-                    <Typography variant="body1" sx={{ ml: 1 }}>Polish</Typography>
+                    <Typography variant="body1" sx={{ ml: 1 }}>Polski</Typography>
                   </MenuItem>
                   <MenuItem onClick={() => handleLanguageChange('en')}>
                     <img src={en} alt="English" width="24" height="24" />
@@ -239,7 +239,7 @@ function App() {
                   </MenuItem>
                   <MenuItem onClick={() => handleLanguageChange('de')}>
                     <img src={de} alt="German" width="24" height="24" />
-                    <Typography variant="body1" sx={{ ml: 1 }}>German</Typography>
+                    <Typography variant="body1" sx={{ ml: 1 }}>Deutsch</Typography>
                   </MenuItem>
                 </Menu>
               </Box>
