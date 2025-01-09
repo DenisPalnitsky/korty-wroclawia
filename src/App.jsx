@@ -26,8 +26,8 @@ const languageImages = {
 
 function App() {
   const { t } = useTranslation();
-  const [mode, setMode] = useState(localStorage.getItem('themeMode'));
-  const [language, setLanguage] = useState(localStorage.getItem('language'));
+  const [mode, setMode] = useState(localStorage.getItem('themeMode') || 'light');
+  const [language, setLanguage] = useState(localStorage.getItem('language') || 'pl');
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
 
