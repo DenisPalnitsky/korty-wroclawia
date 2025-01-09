@@ -13,18 +13,17 @@ const Footer = () => {
       container
       component="footer"
       spacing={2}
-      sx={{        
+      sx={{
         mt: 4,
         padding: 2,
         width: '100%',
-        backgroundColor: 'white',
         borderTop: '1px solid',
         borderColor: 'grey.200',
         display: 'flex',
-        
+
       }}
     >
-      <Grid2 size={{  xs: 12, sm: 3 }} sx={{ display: 'flex', justifyContent: 'center'}}>
+      <Grid2 size={{ xs: 12, sm: 3 }} sx={{ display: 'flex', justifyContent: 'center' }}>
         <Button
           href="https://forms.gle/AAz9NTmnSYhfxGRJ9"
           target="_blank"

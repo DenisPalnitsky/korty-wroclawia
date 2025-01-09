@@ -2,7 +2,7 @@ import { useState, useMemo, useEffect } from 'react';
 import ClubViewer from './components/ClubViewer';
 import { CourtPricingSystem } from './CourtPricingSystem';
 import courtsData from './assets/courts.yaml';
-import { ThemeProvider, Container, Typography, createTheme, IconButton, Box, useTheme, useMediaQuery } from '@mui/material';
+import { ThemeProvider, Container, Typography, createTheme, IconButton, Box, useTheme, useMediaQuery, Menu, MenuItem } from '@mui/material';
 import Brightness4Icon from '@mui/icons-material/Brightness4';
 import Brightness7Icon from '@mui/icons-material/Brightness7';
 import { TennisPallet } from './lib/consts';
@@ -12,14 +12,24 @@ import ReactGA from 'react-ga4';
 import ErrorBoundary from './components/ErrorBoundary';
 import { HashRouter , Route, Routes, Navigate } from 'react-router-dom';
 import Disclaimer from './components/Disclaimer';
+import i18n from './i18n';
+import pl from './assets/images/pl.svg';
+import en from './assets/images/en.svg';
+import de from './assets/images/de.svg';
+
+const languageImages = {
+  pl: pl,
+  en: en,
+  de: de
+};
 
 function App() {
   const { t } = useTranslation();
-  const [mode, setMode] = useState('light');
+  const [mode, setMode] = useState(localStorage.getItem('themeMode'));
+  const [language, setLanguage] = useState(localStorage.getItem('language'));
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
-
-
+  
   const appTheme = useMemo(() => createTheme({
     palette: {
       mode,
@@ -118,8 +128,7 @@ function App() {
 
   const system = new CourtPricingSystem(courtsData);
 
-  // Google Analytics
-  useEffect(() => {
+  useEffect(() => {   
     const handleLocationChange = () => {
       ReactGA.send({
         hitType: "pageview",
@@ -142,6 +151,25 @@ function App() {
       document.body.style.backgroundColor = '';
     };
   }, [mode]);
+
+  useEffect(() => {
+    localStorage.setItem('themeMode', mode);
+    localStorage.setItem('language', language);
+  }, [mode, language]);
+
+  const [anchorEl, setAnchorEl] = useState(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+  const handleLanguageChange = (lang) => {
+    setLanguage(lang);
+    i18n.changeLanguage(lang);
+    handleClose();
+  };
 
   return (
     <ThemeProvider theme={appTheme}>
@@ -167,19 +195,47 @@ function App() {
                 {t('Courts of Wroclaw')}
               </Typography>
 
-              <IconButton
-                onClick={() => setMode(mode === 'light' ? 'dark' : 'light')}
-                color="inherit"
-                title={t('Change mode')}
-              >
-                {mode === 'light' ? <Brightness4Icon /> : <Brightness7Icon sx={{ color: 'white' }} />}
-              </IconButton>
+              <Box>
+                <IconButton
+                  onClick={() => setMode(mode === 'light' ? 'dark' : 'light')}
+                  color="inherit"
+                  title={t('Change mode')}
+                >
+                  {mode === 'light' ? <Brightness4Icon /> : <Brightness7Icon sx={{ color: 'white' }} />}
+                </IconButton>
+                <IconButton
+                  onClick={handleClick}
+                  color="inherit"
+                  title={t('Change language')}
+                >
+                  <img src={languageImages[language]} alt={language} width="24" height="24" />
+                </IconButton>
+                <Menu
+                  anchorEl={anchorEl}
+                  open={open}
+                  onClose={handleClose}
+                >
+                  <MenuItem onClick={() => handleLanguageChange('pl')}>
+                    <img src={pl} alt="Polish" width="24" height="24" />
+                    <Typography variant="body1" sx={{ ml: 1 }}>Polski</Typography>
+                  </MenuItem>
+                  <MenuItem onClick={() => handleLanguageChange('en')}>
+                    <img src={en} alt="English" width="24" height="24" />
+                    <Typography variant="body1" sx={{ ml: 1 }}>English</Typography>
+                  </MenuItem>
+                  <MenuItem onClick={() => handleLanguageChange('de')}>
+                    <img src={de} alt="German" width="24" height="24" />
+                    <Typography variant="body1" sx={{ ml: 1 }}>Deutsch</Typography>
+                  </MenuItem>
+                </Menu>
+              </Box>
             </Box>
             <Routes>
               <Route path="/" element={<Navigate to="/list" />} />
               <Route path="/list" element={<ClubViewer pricingSystem={system} isMobile={isMobile} view="list" />} />
               <Route path="/map" element={<ClubViewer pricingSystem={system} isMobile={isMobile} view="map" />} />
               <Route path="/disclaimer" element={<Disclaimer />} />
+              <Route path='assets/*' element={<Navigate to="/" />} />
             </Routes>
             <Footer />
           </Container>
