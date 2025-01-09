@@ -128,9 +128,7 @@ function App() {
 
   const system = new CourtPricingSystem(courtsData);
 
-  useEffect(() => {
-    i18n.changeLanguage(language);
-
+  useEffect(() => {   
     const handleLocationChange = () => {
       ReactGA.send({
         hitType: "pageview",

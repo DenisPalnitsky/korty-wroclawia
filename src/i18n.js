@@ -143,13 +143,15 @@ const dateFnsLocales = {
 i18n.getDateFnsLocale = () => {
   return dateFnsLocales[i18n.language] || dateFnsLocales.en;
 };
+const defaultLanguage = localStorage.getItem('language') || 'pl';
+
 
 i18n
   .use(initReactI18next)
   .init({
     resources,
-    lng: 'pl',
-    fallbackLng: 'en',
+    lng: defaultLanguage,
+    fallbackLng: 'pl',
     interpolation: {
       escapeValue: false,
       format: (value, format, lng) => {
