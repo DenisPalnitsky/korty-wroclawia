@@ -16,12 +16,14 @@ import i18n from './i18n';
 import pl from './assets/images/pl.svg';
 import en from './assets/images/en.svg';
 import de from './assets/images/de.svg';
+import { Helmet, HelmetProvider } from 'react-helmet-async';
 
 const languageImages = {
   pl: pl,
   en: en,
   de: de
 };
+
 
 function App() {
   const { t } = useTranslation();
@@ -172,18 +174,23 @@ function App() {
   };
 
   return (
-    <ThemeProvider theme={appTheme}>
-      <ErrorBoundary>
-        <HashRouter>
-          <Container maxWidth="lg" sx={{
-            minHeight: '100vh',
-            bgcolor: 'background.default',
-            pt: isMobile ? 1 : 3,
-            pb: 6,
-            display: 'flex',
-            flexDirection: 'column',
-          }}>
-            <Box sx={{
+    <HelmetProvider>
+      <ThemeProvider theme={appTheme}>
+        <Helmet>
+          <title>{t('meta_title')}</title>
+          <meta name="description" content={t('meta_description')} />
+        </Helmet>
+        <ErrorBoundary>
+          <HashRouter>
+            <Container maxWidth="lg" sx={{
+              minHeight: '100vh',
+              bgcolor: 'background.default',
+              pt: isMobile ? 1 : 3,
+              pb: 6,
+              display: 'flex',
+              flexDirection: 'column',
+            }}>
+              <Box sx={{
               display: 'flex',
               justifyContent: 'space-between',
               alignItems: 'center',
@@ -242,6 +249,7 @@ function App() {
         </HashRouter>
       </ErrorBoundary>
     </ThemeProvider>
+    </HelmetProvider>
   );
 }
 
