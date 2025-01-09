@@ -16,6 +16,7 @@ import i18n from './i18n';
 import pl from './assets/images/pl.svg';
 import en from './assets/images/en.svg';
 import de from './assets/images/de.svg';
+import { Helmet, HelmetProvider } from 'react-helmet-async';
 
 const languageImages = {
   pl: pl,
@@ -29,7 +30,7 @@ function App() {
   const [language, setLanguage] = useState(localStorage.getItem('language'));
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
-  
+
   const appTheme = useMemo(() => createTheme({
     palette: {
       mode,
@@ -128,7 +129,7 @@ function App() {
 
   const system = new CourtPricingSystem(courtsData);
 
-  useEffect(() => {   
+  useEffect(() => {
     const handleLocationChange = () => {
       ReactGA.send({
         hitType: "pageview",
@@ -146,7 +147,7 @@ function App() {
 
   useEffect(() => {
     document.body.style.backgroundColor = mode === 'light' ? '#FFFFFF' : '#121212';
-    
+
     return () => {
       document.body.style.backgroundColor = '';
     };
@@ -172,7 +173,14 @@ function App() {
   };
 
   return (
+    <HelmetProvider>
+
     <ThemeProvider theme={appTheme}>
+      <Helmet>
+        <title>{t('meta_title')}</title>
+        <meta name="description" content={t('meta_description')} />
+      </Helmet>
+
       <ErrorBoundary>
         <HashRouter>
           <Container maxWidth="lg" sx={{
@@ -242,6 +250,7 @@ function App() {
         </HashRouter>
       </ErrorBoundary>
     </ThemeProvider>
+    </HelmetProvider>
   );
 }
 

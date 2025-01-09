@@ -43,9 +43,11 @@ const resources = {
       "start_hour": "Godzina Rozpoczęcia",
       "start_hour_mobile": "Godzina",
       "Disclaimer": "Zastrzeżenie",
-      "disclaimer_content": "Ta strona internetowa nie jest powiązana z żadnymi klubami tenisowymi ani organizacjami wymienionymi tutaj. Wszystkie informacje o cenach pochodzą z ogólnie dostępnych danych i są udostępniane wyłącznie w celach informacyjnych. Chociaż staramy się zapewnić dokładność tych informacji, nie możemy zagwarantować, że wszystkie ceny są aktualne lub wolne od błędów. Prosimy o weryfikację cen bezpośrednio w odpowiednich klubach. Jeśli jesteś przedstawicielem klubu i chcesz zaktualizować lub usunąć informacje o swoich cenach, skontaktuj się z nami za pośrednictwem <a href='https://forms.gle/AAz9NTmnSYhfxGRJ9'>formularza</a>"
+      "disclaimer_content": "Ta strona internetowa nie jest powiązana z żadnymi klubami tenisowymi ani organizacjami wymienionymi tutaj. Wszystkie informacje o cenach pochodzą z ogólnie dostępnych danych i są udostępniane wyłącznie w celach informacyjnych. Chociaż staramy się zapewnić dokładność tych informacji, nie możemy zagwarantować, że wszystkie ceny są aktualne lub wolne od błędów. Prosimy o weryfikację cen bezpośrednio w odpowiednich klubach. Jeśli jesteś przedstawicielem klubu i chcesz zaktualizować lub usunąć informacje o swoich cenach, skontaktuj się z nami za pośrednictwem <a href='https://forms.gle/AAz9NTmnSYhfxGRJ9'>formularza</a>",
+      "meta_title": "Korty Wrocławia",
+      "meta_description": "Szukasz kortów tenisowych we Wrocławiu? Porównaj ceny, łatwo rezerwuj i znajdź idealny kort. Kompleksowy przewodnik po obiektach tenisowych we Wrocławiu."
     }
-  },  
+  },
   en: {
     translation: {
       "Project Name": "Project Name",
@@ -86,7 +88,9 @@ const resources = {
       "start_hour": "Start Hour",
       "start_hour_mobile": "Start",
       "Disclaimer": "Disclaimer",
-      "disclaimer_content": "This website is not affiliated with any tennis clubs or organizations listed herein. All pricing information is sourced from publicly available data and is provided for informational purposes only. While we strive to ensure the accuracy of the information, we cannot guarantee that all prices are up-to-date or error-free. Please verify prices directly with the respective clubs. If you are a club representative and wish to update or remove your pricing information, please contact us via <a href='https://forms.gle/AAz9NTmnSYhfxGRJ9' />."
+      "disclaimer_content": "This website is not affiliated with any tennis clubs or organizations listed herein. All pricing information is sourced from publicly available data and is provided for informational purposes only. While we strive to ensure the accuracy of the information, we cannot guarantee that all prices are up-to-date or error-free. Please verify prices directly with the respective clubs. If you are a club representative and wish to update or remove your pricing information, please contact us via <a href='https://forms.gle/AAz9NTmnSYhfxGRJ9' />.",
+      "meta_title": "Tennis Courts in Wroclaw",
+      "meta_description": "Looking for tennis courts in Wroclaw? Compare prices, book easily, and find your ideal court. Comprehensive guide to tennis facilities in Wrocław."
     }
   },
   de: {
@@ -129,7 +133,9 @@ const resources = {
       "start_hour": "Startzeit",
       "start_hour_mobile": "Start",
       "Disclaimer": "Haftungsausschluss",
-      "disclaimer_content": "Diese Website ist nicht mit den hier aufgeführten Tennisclubs oder Organisationen verbunden. Alle Preisinformationen stammen aus öffentlich zugänglichen Daten und dienen nur zu Informationszwecken. Obwohl wir uns bemühen, die Richtigkeit der Informationen sicherzustellen, können wir nicht garantieren, dass alle Preise aktuell oder fehlerfrei sind. Bitte überprüfen Sie die Preise direkt bei den jeweiligen Clubs. Wenn Sie ein Clubvertreter sind und Ihre Preisinformationen aktualisieren oder entfernen möchten, kontaktieren Sie uns bitte über <a href='https://forms.gle/AAz9NTmnSYhfxGRJ9'>dieses Formular</a>."
+      "disclaimer_content": "Diese Website ist nicht mit den hier aufgeführten Tennisclubs oder Organisationen verbunden. Alle Preisinformationen stammen aus öffentlich zugänglichen Daten und dienen nur zu Informationszwecken. Obwohl wir uns bemühen, die Richtigkeit der Informationen sicherzustellen, können wir nicht garantieren, dass alle Preise aktuell oder fehlerfrei sind. Bitte überprüfen Sie die Preise direkt bei den jeweiligen Clubs. Wenn Sie ein Clubvertreter sind und Ihre Preisinformationen aktualisieren oder entfernen möchten, kontaktieren Sie uns bitte über <a href='https://forms.gle/AAz9NTmnSYhfxGRJ9'>dieses Formular</a>.",
+      "meta_title": "Tennisplätze in Breslau",
+      "meta_description": "Suchen Sie Tennisplätze in Breslau? Vergleichen Sie Preise, buchen Sie einfach und finden Sie Ihren idealen Platz. Umfassender Führer zu Tennisanlagen in Breslau."
     }
   }
 };
