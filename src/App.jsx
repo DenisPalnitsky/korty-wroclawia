@@ -13,7 +13,6 @@ import ErrorBoundary from './components/ErrorBoundary';
 import { HashRouter , Route, Routes, Navigate } from 'react-router-dom';
 import Disclaimer from './components/Disclaimer';
 import i18n from './i18n';
-import Cookies from 'js-cookie';
 import pl from './assets/images/pl.svg';
 import en from './assets/images/en.svg';
 import de from './assets/images/de.svg';
@@ -26,11 +25,11 @@ const languageImages = {
 
 function App() {
   const { t } = useTranslation();
-  const [mode, setMode] = useState('light');
-  const [language, setLanguage] = useState('pl');
+  const [mode, setMode] = useState(localStorage.getItem('themeMode'));
+  const [language, setLanguage] = useState(localStorage.getItem('language'));
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
-
+  
   const appTheme = useMemo(() => createTheme({
     palette: {
       mode,
@@ -129,8 +128,9 @@ function App() {
 
   const system = new CourtPricingSystem(courtsData);
 
-  // Google Analytics
   useEffect(() => {
+    i18n.changeLanguage(language);
+
     const handleLocationChange = () => {
       ReactGA.send({
         hitType: "pageview",
@@ -155,20 +155,8 @@ function App() {
   }, [mode]);
 
   useEffect(() => {
-    const savedMode = Cookies.get('themeMode');
-    const savedLanguage = Cookies.get('language');
-    if (savedMode) {
-      setMode(savedMode);
-    }
-    if (savedLanguage) {
-      setLanguage(savedLanguage);
-      i18n.changeLanguage(savedLanguage);
-    }
-  }, []);
-
-  useEffect(() => {
-    Cookies.set('themeMode', mode, { expires: 365 });
-    Cookies.set('language', language, { expires: 365 });
+    localStorage.setItem('themeMode', mode);
+    localStorage.setItem('language', language);
   }, [mode, language]);
 
   const [anchorEl, setAnchorEl] = useState(null);

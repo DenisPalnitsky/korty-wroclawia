@@ -17,7 +17,6 @@ const Footer = () => {
         mt: 4,
         padding: 2,
         width: '100%',
-        backgroundColor: 'white',
         borderTop: '1px solid',
         borderColor: 'grey.200',
         display: 'flex',
