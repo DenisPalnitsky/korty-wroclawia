@@ -2,12 +2,12 @@
   id: matchpoint
   address: Szyszkowa 6, 55-040 Ślęza
   googleMapsLink: https://maps.app.goo.gl/Dm2WNmwLiSPtBanZ9
-  website: https://www.matchpoint.com.pl/  
+  website: https://www.matchpoint.com.pl/
   partnerCards:
   - multisport-plus
   courts:
   - surface: hard
-    reservationLink: &matchpoint_link https://matchpoint.gymmanager.com.pl/ClassroomReservation 
+    reservationLink: &matchpoint_link https://matchpoint.gymmanager.com.pl/ClassroomReservation
     type: indoor
     courts:
     - '1'
@@ -55,7 +55,7 @@
   id: krzycka-park
   address: Powstańców Śląskich 211A, 53-020 Wrocław
   googleMapsLink: https://maps.app.goo.gl/BM8n6n7zNntvJRXZ8
-  website: http://www.krzyckapark.pl/  
+  website: http://www.krzyckapark.pl/
   partnerCards:
   - multisport-classic
   - multisport-plus
@@ -112,7 +112,7 @@
   id: spartan-pultuska
   address: Pułtuska 13, 53-116 Wrocław
   googleMapsLink: https://maps.app.goo.gl/jPBjrkbjsFR7GB9s8
-  website: https://spartan.wroc.pl/pultuska/tenis  
+  website: https://spartan.wroc.pl/pultuska/tenis
   partnerCards:
   - multisport-plus
   - multisport-classic
@@ -143,7 +143,7 @@
         su:07-22: '55'
         hl:07-22: '55'
   - surface: hard
-    reservationLink: https://spartan.wroc.pl/pultuska/strefaklienta/index.php?s=rezerwacja_hali_tenisowej  
+    reservationLink: https://spartan.wroc.pl/pultuska/strefaklienta/index.php?s=rezerwacja_hali_tenisowej
     type: tent
     courts:
     - '1'
@@ -259,25 +259,25 @@
         st:7-22: '55'
         hl:7-23: '55'
   - surface: clay
-    type: tent
+    type: indoor
     courts:
     - '1'
     - '2'
     - '3'
     - '4'
     prices:
-    - from: '2023-11-01'
-      to: '2024-05-01'
+    - from: '2025-02-01'
+      to: '2025-05-01'
       schedule:
-        '*:7-11': '125'
+        '*:7-11': '140'
         '*:11-16': '110'
-        '*:16-22': '160'
-        su:7-14: '125'
-        st:7-14: '125'
-        hl:7-14: '125'
-        su:14-22: '110'
-        st:14-22: '110'
-        hl:14-22: '110'
+        '*:16-22': '170'
+        su:7-14: '140'
+        st:7-14: '140'
+        hl:7-14: '140'
+        su:14-22: '120'
+        st:14-22: '120'
+        hl:14-22: '120'
 - name: Spartan Krajewskiego
   id: spartan-krajewskiego
   address: Rafala Krajewskiego 2, 50-690 Wrocław
@@ -645,7 +645,7 @@
   courts:
   - surface: hard
     type: indoor
-    reservationLink: 
+    reservationLink:
     courts:
     - '1'
     - '2'
@@ -833,14 +833,14 @@
         - from: '2024-10-01'
           to: '2025-05-01'
           schedule:
-            "*:6-17": '120'            
-            "*:17-23": '150'            
+            "*:6-17": '120'
+            "*:17-23": '150'
             st:6-15: '120'
             su:6-15: '120'
             hl:6-15: '120'
             st:15-23: '60'
             su:15-23: '60'
-            hl:15-23: '60'            
+            hl:15-23: '60'
     - surface: clay
       type: outdoor
       courts: ['1', '2', '3', '4']
@@ -859,3 +859,29 @@
     lat: 51.1222323
     long: 17.0839662
 
+- name: K69 - Health & Performance
+  id: k69
+  address: Kozanowska 69, 54-152 Wrocław
+  googleMapsLink: https://maps.app.goo.gl/fGXf9QkEhQkiuoie6
+  website: https://k69.com.pl/oferta/tenis/
+  reservationLink: https://reservise.com/pl/online/k69hp/
+  partnerCards:
+  - multisport-plus
+  courts:
+    - surface: carpet
+      type: indoor
+      courts: ['1']
+      prices:
+        - from: '2025-02-01'
+          to: '2025-05-01'
+          schedule:
+            "*:7-15": '100'
+            "*:15-22": '150'
+            st:6-15: '120'
+            su:6-15: '120'
+            hl:7-20: '115'
+            su:7-20: '115'
+            st:7-20: '115'
+  coordinates:
+    lat: 51.139351
+    long: 16.972570
