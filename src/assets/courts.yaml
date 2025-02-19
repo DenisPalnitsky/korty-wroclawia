@@ -260,6 +260,7 @@
         hl:7-23: '55'
   - surface: clay
     type: indoor
+    reservationLink: https://spartan.wroc.pl/spiska/strefaklienta/index.php?s=hala_tenisowa
     courts:
     - '1'
     - '2'
