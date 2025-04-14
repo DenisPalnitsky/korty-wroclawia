@@ -24,20 +24,23 @@ const CourtGroupRow = ({ courtGroup, groupIndex, isMobile, startTime, endTime, s
         return null;
     }
 
+    // Get reservation link from either court group or parent club
+    const reservationLink = courtGroup.reservationLink || (courtGroup.club && courtGroup.club.reservationLink);
+
     return (
         <Grid2 id="CourtGroupRow-main" container spacing={2} key={groupIndex}
-            sx={{                
+            sx={{
                 padding: 1,
                 mb: 1,
                 display: 'flex',
-                alignItems: 'flex-start',            
-                borderColor: getCourtColor(courtGroup.surface),                
+                alignItems: 'flex-start',
+                borderColor: getCourtColor(courtGroup.surface),
                 borderRight: 'none',
                 borderTop: 'none',
                 borderBottom: 'none',
             }}>
-            
-            
+
+
             <Grid2 id="court-type-grid" size={ isMobile ? 12 : 3 } sx={{ pl: 1}}>
                 { isMobile || isClosed ? (
                     <Typography variant="body2" sx={{ mb: 1 }}>
@@ -47,18 +50,18 @@ const CourtGroupRow = ({ courtGroup, groupIndex, isMobile, startTime, endTime, s
                     <>
                         <Typography variant="body2" sx={{ mb: 1 }}>
                             {t('Court type')}: {t(courtGroup.type)}
-                        </Typography>                                                
+                        </Typography>
 
                         <Typography variant="body2" sx={{ mb: 1 }}>
                             {t('Surface')}: {t(courtGroup.surface)}
                         </Typography>
                     </>
                 )}
-                                                   
+
             </Grid2>
 
 
-            
+
             <Grid2 id="court-price-grid" size={isMobile ? 12 : 2} sx={{
                 display: 'flex',
                 justifyContent: 'center',
@@ -66,11 +69,11 @@ const CourtGroupRow = ({ courtGroup, groupIndex, isMobile, startTime, endTime, s
                 height: '100%'
             }}>
 
-                {!isClosed ? (                       
+                {!isClosed ? (
                 <Box
                     sx={{
                         borderRadius: 1,
-                        bgcolor: getCourtColor(courtGroup.surface),                        
+                        bgcolor: getCourtColor(courtGroup.surface),
                         width: isMobile ? '100%' : '120px',
                         padding: isMobile ? 'auto' : '8px 16px',
                         textAlign: 'center',
@@ -83,11 +86,11 @@ const CourtGroupRow = ({ courtGroup, groupIndex, isMobile, startTime, endTime, s
                             bgcolor: getCourtColorDark(courtGroup.surface),
                         },
                         position: 'relative',
-                        cursor:  courtGroup.reservationLink ? 'pointer' : 'default',
+                        cursor: reservationLink ? 'pointer' : 'default',
                     }}
                     onClick={() => {
-                        if (courtGroup.reservationLink) {
-                            window.open(courtGroup.reservationLink, '_blank');
+                        if (reservationLink) {
+                            window.open(reservationLink, '_blank');
                         }
                     }}
                 >
@@ -98,21 +101,21 @@ const CourtGroupRow = ({ courtGroup, groupIndex, isMobile, startTime, endTime, s
                          {courtGroup.getPrice(startTime, new Date(startTime.getTime() + 60 * 60 * 1000))} zl/{t('hour')}
                     </Typography>
 
-                    {(courtGroup.heating === false && 
+                    {(courtGroup.heating === false &&
                         (new Date().getMonth() >= 10 || // November (0-based months)
                         new Date().getMonth() <= 4)) && ( // May
                             <Tooltip title={t('No heating')} >
-                            <AcUnitIcon sx={{ color: '#68DBF2', 
+                            <AcUnitIcon sx={{ color: '#68DBF2',
                                 position: 'absolute',
                                 top: '5px',
-                                left: '5px', }} fontSize='small' /> 
+                                left: '5px', }} fontSize='small' />
                             </Tooltip>
                         )
                     }
 
 
-                </Box>) : ( 
-                    
+                </Box>) : (
+
                     <Typography
                         variant="subtitle1"
                         sx={{
@@ -125,38 +128,38 @@ const CourtGroupRow = ({ courtGroup, groupIndex, isMobile, startTime, endTime, s
                             display: 'flex',
                             alignItems: 'center',
                             justifyContent: 'center',
-                            
+
                             '&:hover': {
                                 bgcolor: getCourtColorDark(courtGroup.surface),
                             },
-                        }}>{t('Closed')}</Typography> 
+                        }}>{t('Closed')}</Typography>
                         )}
-              
+
             </Grid2>
 
             <Grid2 id="court-avg-prices-grid" size={isMobile ? 6 : 'auto'} hidden={isClosed} flexGrow={1}>
-                <Box sx={{ 
+                <Box sx={{
                     display: 'flex',
                     alignItems: 'center',
                     ml: isMobile? 0 : 3,
                     py: 0.5,
                     px: 2,
                 }}>
-                    <Table sx={{ 
+                    <Table sx={{
                         width: 'auto',
-                        '& td': { 
+                        '& td': {
                             border: 'none',
                             padding: '2px 0',
                             whiteSpace: 'nowrap',
                             fontSize: '0.875rem',
                             color: 'text.secondary'
-                        },                       
+                        },
                         '& td:first-of-type': {
                             paddingRight: 3
                         }
                     }}>
                         <TableBody>
-                            <TableRow>                                             
+                            <TableRow>
                                 <TableCell>
                                     <Typography variant="body2">
                                         { isMobile? t('weekdays_mobile') : t('weekdays')}: {courtGroup.getMinMaxPriceForWeekday(startTime)?.minPrice} - {courtGroup.getMinMaxPriceForWeekday(startTime)?.maxPrice} zł
@@ -175,7 +178,7 @@ const CourtGroupRow = ({ courtGroup, groupIndex, isMobile, startTime, endTime, s
                 </Box>
             </Grid2>
 
-            <Grid2 id="courts-tiles-grid" container size={ isMobile ? 6 : 'auto'} 
+            <Grid2 id="courts-tiles-grid" container size={ isMobile ? 6 : 'auto'}
                 sx={{
                     display: 'flex',
                     flexWrap: 'wrap',

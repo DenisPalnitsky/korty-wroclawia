@@ -531,6 +531,7 @@
   address: Macedońska 11, 51-113 Wrocław
   googleMapsLink: https://maps.app.goo.gl/kpP8x1QKB6R3Lt6v8
   website: https://teniswroclaw.com.pl
+  reservationLink: https://rezerwacje.fittenis.pl/training/court_calendar
   partnerCards:
   - multisport
   courts:
@@ -538,7 +539,6 @@
     type: tent
     light: true
     heating: true
-    reservationLink: &fittenis_reserv https://rezerwacje.fittenis.pl/training/court_calendar
     courts:
     - '1'
     - '2'
@@ -563,7 +563,6 @@
     type: outdoor
     light: false
     heating: false
-    reservationLink: &fittenis_reserv
     courts:
     - '3'
     - '4'
