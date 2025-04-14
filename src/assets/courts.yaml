@@ -526,7 +526,7 @@
   id: fittenis
   address: Macedońska 11, 51-113 Wrocław
   googleMapsLink: https://maps.app.goo.gl/kpP8x1QKB6R3Lt6v8
-  website: https://teniswroclaw.com.plhttps://teniswroclaw.com.pl
+  website: https://teniswroclaw.com.pl
   partnerCards:
   - multisport
   courts:
@@ -547,6 +547,14 @@
         hl:6-23: '100'
         '*:6-15': '100'
         '*:15-23': '140'
+    - from: '2025-04-14'
+      to: '2025-11-01'
+      schedule:
+        su:6-23: '65'
+        st:6-23: '65'
+        hl:6-23: '65'
+        '*:6-15': '65'
+        '*:15-23': '75'
   - surface: clay
     type: outdoor
     light: false
@@ -564,6 +572,15 @@
         su:6-23: '60'
         st:6-23: '60'
         hl:6-23: '60'
+    - from: '2025-04-14'
+      to: '2025-11-01'
+      schedule:
+        su:6-23: '60'
+        st:6-23: '60'
+        hl:6-23: '60'
+        '*:6-15': '50'
+        '*:15-23': '65'
+
   coordinates:
     lat: 51.1343496
     long: 17.0310476
@@ -666,6 +683,13 @@
         '*:16-23': '140'
         su:8-23: '100'
         st:8-23: '100'
+    - from: '2025-05-01'
+      to: '2025-09-30'
+      schedule:
+        '*:8-16': '40'
+        '*:16-23': '60'
+        su:0-23': '50'
+        st:0-23': '50'
   - surface: clay
     type: outdoor
     courts:
@@ -675,13 +699,20 @@
     - from: '2024-05-01'
       to: '2024-10-01'
       schedule:
-        '*:0-16': '30'
+        '*:8-16': '30'
         '*:16-23': '40'
-        st:0-24: '45'
-        su:0-24: '45'
+        st:8-23: '45'
+        su:8-23: '45'
     - from: '2024-10-01'
       to: '2025-05-01'
       schedule: null
+    - from: '2025-05-01'
+      to: '2025-09-30'
+      schedule:
+        '*:0-16': '35'
+        '*:16-23': '50'
+        su:8-23': '35'
+        st:8-23': '35'
   - surface: hard
     courts:
     - '6'
