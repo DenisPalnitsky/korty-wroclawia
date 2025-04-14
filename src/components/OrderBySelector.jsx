@@ -7,7 +7,7 @@ import { useTranslation } from 'react-i18next';
 import Typography from '@mui/material/Typography';
 
 export default function OrderBySelector({ onOrderChange }) {
-  const [order, setOrder] = React.useState('club');
+  const [order, setOrder] = React.useState('price');
   const { t } = useTranslation();
 
   const handleChange = (event) => {

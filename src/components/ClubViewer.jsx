@@ -74,17 +74,8 @@ const ClubViewer = ({ pricingSystem, isMobile }) => {
   const [startHour, setStartHour] = useState(9);
   const [duration, setDuration] = useState(2);
   const [showClosedCourts, setShowClosedCourts] = React.useState(false);
-  const [clubs, setClubs] = React.useState(orderByName(pricingSystem.list()));
-  const [order, setOrder] = React.useState('club');
-
-  const setOrderedClubs = (ord, startTime, endTime) => {
-    if (ord === 'price') {
-      setClubs(orderByPrice(pricingSystem.list(), startTime, endTime));
-    } else {
-      setClubs(orderByName(pricingSystem.list()));
-    }
-  }
-
+  const [order, setOrder] = React.useState('price');
+  
   const getDates = () => {
     const year = selectedDate.getFullYear();
     const month = selectedDate.getMonth() + 1; // Note: month is 0-based
@@ -98,6 +89,17 @@ const ClubViewer = ({ pricingSystem, isMobile }) => {
 
     return { startTime, endTime };
   };
+
+  const { startTime, endTime } = getDates();
+  const [clubs, setClubs] = React.useState(orderByPrice(pricingSystem.list(), startTime, endTime));
+
+  const setOrderedClubs = (ord, startTime, endTime) => {
+    if (ord === 'price') {
+      setClubs(orderByPrice(pricingSystem.list(), startTime, endTime));
+    } else {
+      setClubs(orderByName(pricingSystem.list()));
+    }
+  }
 
   const handleOrderChange = (newOrder) => {
     setOrder(newOrder);
