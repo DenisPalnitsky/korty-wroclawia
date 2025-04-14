@@ -924,3 +924,31 @@
   coordinates:
     lat: 51.139351
     long: 16.972570
+
+- name: Tenis Planet Smolec
+  id: tenis-planet-smolec
+  website: https://www.tenisplanet.pl/
+  address: Śliwkowa 134, 55-080 Smolec
+  googleMapsLink: https://maps.app.goo.gl/tjgmw6Gxped4othz5
+  reservationLink: https://app.tenis4u.pl/#/court/153
+  partnerCards:
+  - multisport-plus
+  - multisport-classic
+  courts:
+    - surface: carpet
+      type: outdoor
+      courts: ['1', '2', '3']
+      prices:
+        - from: '2025-04-13'
+          to: '2025-11-01'
+          schedule:
+            "*:7-16": 25
+            "*:16-22": 45
+            "su:7-22": 25
+            "st:7-22": 25
+            "hl:7-22": 25
+  coordinates:
+    lat: 51.084217505567246
+    long: 16.902187341121568
+
+
