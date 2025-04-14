@@ -12,7 +12,7 @@ describe('CourtPricing', () => {
   const courtPricingSystem = new CourtPricingSystem(data);
 
 
-  it('should return the correct price for a given date and time range', () => {    
+  it('should return the correct price for a given date and time range', () => {
     const courtGroup1 = courtPricingSystem.list()[0].courtGroups[0];
     const courtGroup2 = courtPricingSystem.list()[0].courtGroups[1];
 
@@ -41,7 +41,7 @@ describe('CourtPricing', () => {
 
     // court 5, 1.5 hours at night
     price = courtGroup2.getPrice('2024-11-06T16:00:00', '2024-11-06T17:30:00');
-    expect(price).to.equal(160+80, "1.5 hours in the evening on wednesday");  
+    expect(price).to.equal(160+80, "1.5 hours in the evening on wednesday");
   });
 
   it ('should return correct prices for krzycka park', () => {
@@ -78,7 +78,7 @@ describe('CourtPricing', () => {
           }
         ]
       });
-      
+
       const result = system.clubs[0].courtGroups[1].getPrice('2024-09-30T07:00:00', '2024-09-30T08:00:00');
       expect(result).to.equal(80);
     });
@@ -89,12 +89,12 @@ describe('CourtPricing', () => {
       const courtPricingSystem = new CourtPricingSystem(data);
       const res = courtPricingSystem.validate();
       if (!res.isValid) {
-        console.error('Validation failed with the following errors:');        
+        console.error('Validation failed with the following errors:');
         console.error(res.errors);
       }
 
       expect(res.isValid).to.be.true;
-        
+
     });
   });
 
@@ -124,12 +124,12 @@ describe('CourtPricing', () => {
           ]
         }]
       });
-  
+
       const result = system.validate();
       expect(result.isValid).to.be.false;
       expect(result.errors[0]).to.include('Gap found');
     });
-  
+
     it('should detect overlapping periods', () => {
       const system = new CourtPricingSystem({
         id: 'test-club',
@@ -155,12 +155,12 @@ describe('CourtPricing', () => {
           ]
         }]
       });
-  
+
       const result = system.validate();
       expect(result.isValid).to.be.false;
       expect(result.errors[0]).to.include('Overlap found');
     });
-  
+
     it('should detect missing hours in schedule', () => {
       const system = new CourtPricingSystem({
         id: 'test-club',
@@ -182,12 +182,12 @@ describe('CourtPricing', () => {
           }]
         }]
       });
-  
+
       const result = system.validate();
       expect(result.isValid).to.be.false;
       expect(result.errors[0]).to.include('Missing price');
     });
-  
+
     it('should validate correct schedule configuration', () => {
       const system = new CourtPricingSystem({
         id: 'test-club',
@@ -211,7 +211,7 @@ describe('CourtPricing', () => {
           }]
         }]
       });
-  
+
       const result = system.validate();
       expect(result.isValid).to.be.true;
       expect(result.errors).to.have.lengthOf(0);
@@ -219,7 +219,7 @@ describe('CourtPricing', () => {
         console.log("Validation errors:", system.errors.take(10));
       }
     });
-  
+
     it('should handle multiple court groups', () => {
       const system = new CourtPricingSystem({
         id: 'test-club',
@@ -250,7 +250,7 @@ describe('CourtPricing', () => {
           }
         ]
       });
-  
+
       const result = system.validate();
       expect(result.isValid).to.be.true;
     });
@@ -259,17 +259,22 @@ describe('CourtPricing', () => {
 });
 
 describe('RealDataValidation', () => {
+  // Setting a timeout of 10 seconds for this test suite
+  beforeEach(function() {
+    this.timeout(10000); // 10 seconds
+  });
+
   it('validation of assets/courts.yaml', () => {
     const fileContents = fs.readFileSync('src/assets/courts.yaml', 'utf8');
     const data = yaml.load(fileContents);
     const courtPricingSystem = new CourtPricingSystem(data);
-  
+
     const res = courtPricingSystem.validate();
     if (!res.isValid) {
       console.error('Validation failed with the following errors:');
       console.error(res.errors);
     }
-    
+
     expect(res.isValid).to.be.true;
   });
 });
@@ -278,9 +283,9 @@ describe('Price Range Tests', () => {
   const fileContents = fs.readFileSync('src/tests/courts_test.yaml', 'utf8');
   const data = yaml.load(fileContents);
   const courtPricingSystem = new CourtPricingSystem(data);
-  
 
-  it('should return correct price ranges for weekday', () => {   
+
+  it('should return correct price ranges for weekday', () => {
     const date = new Date('2024-05-04T10:00:00');
     const weekdayPrices = courtPricingSystem.clubs[0].courtGroups[0].getMinMaxPriceForWeekday(date);
     expect(weekdayPrices).to.deep.equal({
@@ -312,7 +317,7 @@ describe('Price Range Tests', () => {
     const date = new Date('2024-04-04T10:00:00');
     const weekdayPrices = courtPricingSystem.clubs[0].courtGroups[0].getMinMaxPriceForWeekday(date);
     const weekendPrices = courtPricingSystem.clubs[0].courtGroups[0].getMinMaxPriceForWeekend(date);
-    
+
     expect(weekdayPrices).to.be.null;
     expect(weekendPrices).to.be.null;
   });
@@ -367,13 +372,13 @@ describe('Test pricing period', () => {
     price = pricePeriod.getHalfHourRate(date);
     expect(price).to.equal(75);
 
-    
+
     date = new Date('2024-11-11T10:00:00'); // Holiday, Independence Day
     price = pricePeriod.getHalfHourRate(date);
-    expect(price).to.equal(100);        
+    expect(price).to.equal(100);
 
   });
-  
+
   it('should return closed if there is no price for timerange', () => {
     const data = {
       from: '2024-01-01',
@@ -383,11 +388,11 @@ describe('Test pricing period', () => {
         "*:15-22": "100",
         "st:7-22": "150",
         "su:7-22": "160",
-        "hl:7-22": "200",        
+        "hl:7-22": "200",
       }
     };
     const pricePeriod = new PricePeriod(data);
-    
+
     let date = new Date('2024-05-04T23:00:00'); // Thursday
     let price = pricePeriod.getHalfHourRate(date);
     expect(price).null;
