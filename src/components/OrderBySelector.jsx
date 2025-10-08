@@ -29,6 +29,7 @@ export default function OrderBySelector({ onOrderChange }) {
         onChange={handleChange}>        
         <MenuItem value={'club'}>  <Typography variant="body2"> {t('Order by club')}</Typography> </MenuItem>        
         <MenuItem value={'price'}> <Typography variant="body2">{t('Order by price')}</Typography></MenuItem>
+        <MenuItem value={'distance'}> <Typography variant="body2">{t('Order by distance')}</Typography></MenuItem>
       </Select>
     </FormControl>
   );

@@ -8,7 +8,7 @@ import {
   Box,
   Typography,
   Link, CardContent, Switch, FormControlLabel,
-  Grid2, ButtonGroup, Button, MenuItem
+  Grid2, ButtonGroup, Button, MenuItem, Alert, Snackbar, CircularProgress
 } from '@mui/material';
 import CourtGroupRow from './CourtGroupRow';
 import CourtPricingSystem from '../CourtPricingSystem';
@@ -19,7 +19,9 @@ import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFnsV3';
 import MapTab from './MapTab';
 import ListIcon from '@mui/icons-material/List';
 import MapIcon from '@mui/icons-material/Map';
+import LocationOnIcon from '@mui/icons-material/LocationOn';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { getCurrentLocation, sortClubsByDistance, formatDistance } from '../lib/locationUtils';
 
 
 function orderByPrice(clubs, startTime, endTime) {
@@ -46,6 +48,10 @@ function orderByPrice(clubs, startTime, endTime) {
 
 function orderByName(clubs) {
   return clubs.sort((a, b) => a.name.localeCompare(b.name));
+}
+
+function orderByDistance(clubs, userLat, userLng) {
+  return sortClubsByDistance(clubs, userLat, userLng);
 }
 
 function genDurations(isMobile) {
@@ -75,6 +81,10 @@ const ClubViewer = ({ pricingSystem, isMobile }) => {
   const [duration, setDuration] = useState(2);
   const [showClosedCourts, setShowClosedCourts] = React.useState(false);
   const [order, setOrder] = React.useState('price');
+  const [userLocation, setUserLocation] = React.useState(null);
+  const [locationLoading, setLocationLoading] = React.useState(false);
+  const [locationError, setLocationError] = React.useState(null);
+  const [snackbarOpen, setSnackbarOpen] = React.useState(false);
   
   const getDates = () => {
     const year = selectedDate.getFullYear();
@@ -96,6 +106,12 @@ const ClubViewer = ({ pricingSystem, isMobile }) => {
   const setOrderedClubs = (ord, startTime, endTime) => {
     if (ord === 'price') {
       setClubs(orderByPrice(pricingSystem.list(), startTime, endTime));
+    } else if (ord === 'distance') {
+      if (userLocation) {
+        setClubs(orderByDistance(pricingSystem.list(), userLocation.lat, userLocation.lng));
+      } else {
+        setClubs(orderByName(pricingSystem.list()));
+      }
     } else {
       setClubs(orderByName(pricingSystem.list()));
     }
@@ -103,11 +119,38 @@ const ClubViewer = ({ pricingSystem, isMobile }) => {
 
   const handleOrderChange = (newOrder) => {
     setOrder(newOrder);
-    setOrderedClubs(newOrder, getDates().startTime, getDates().endTime);
+    if (newOrder === 'distance' && !userLocation) {
+      handleGetLocation();
+    } else {
+      setOrderedClubs(newOrder, getDates().startTime, getDates().endTime);
+    }
+  };
+
+  const handleGetLocation = async () => {
+    setLocationLoading(true);
+    setLocationError(null);
+    
+    try {
+      const location = await getCurrentLocation();
+      setUserLocation(location);
+      setOrderedClubs('distance', getDates().startTime, getDates().endTime);
+    } catch (error) {
+      setLocationError(error.message);
+      setSnackbarOpen(true);
+      // Fallback to name sorting if location fails
+      setOrder('club');
+      setOrderedClubs('club', getDates().startTime, getDates().endTime);
+    } finally {
+      setLocationLoading(false);
+    }
   };
 
   const setView = (newView) => {
     navigate(newView === 'map' ? '/map' : '/list');
+  };
+
+  const handleSnackbarClose = () => {
+    setSnackbarOpen(false);
   };
 
   return (
@@ -188,6 +231,25 @@ const ClubViewer = ({ pricingSystem, isMobile }) => {
 
         <OrderBySelector onOrderChange={handleOrderChange} />
 
+        {order === 'distance' && !userLocation && (
+          <Button
+            onClick={handleGetLocation}
+            disabled={locationLoading}
+            startIcon={locationLoading ? <CircularProgress size={16} /> : <LocationOnIcon />}
+            variant="outlined"
+            size="small"
+            sx={{ ml: 1 }}
+          >
+            {locationLoading ? t('Getting location...') : t('Get my location')}
+          </Button>
+        )}
+
+        {userLocation && order === 'distance' && (
+          <Typography variant="body2" sx={{ ml: 1, display: 'flex', alignItems: 'center' }}>
+            <LocationOnIcon sx={{ mr: 0.5, fontSize: 16 }} />
+            {t('Location active')}
+          </Typography>
+        )}
 
         {!isMobile && (
           <FormControlLabel
@@ -251,19 +313,38 @@ const ClubViewer = ({ pricingSystem, isMobile }) => {
                     >
                       {club.name}
                     </Link>
-                    <Link
-                      href={club.googleMapsLink}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      sx={{
-                        color: 'text.secondary',
-                        fontSize: '0.8em',
-                        fontWeight: 400,
-                        marginLeft: isMobile ? 0 : 'auto'
-                      }}
-                    >
-                      {club.address}
-                    </Link>
+                    <Box sx={{ 
+                      display: 'flex', 
+                      flexDirection: isMobile ? 'column' : 'row', 
+                      alignItems: isMobile ? 'flex-start' : 'center',
+                      marginLeft: isMobile ? 0 : 'auto',
+                      gap: 1
+                    }}>
+                      <Link
+                        href={club.googleMapsLink}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        sx={{
+                          color: 'text.secondary',
+                          fontSize: '0.8em',
+                          fontWeight: 400,
+                        }}
+                      >
+                        {club.address}
+                      </Link>
+                      {order === 'distance' && club.distance !== undefined && (
+                        <Typography variant="caption" sx={{ 
+                          color: 'primary.main',
+                          fontWeight: 500,
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: 0.5
+                        }}>
+                          <LocationOnIcon sx={{ fontSize: 12 }} />
+                          {formatDistance(club.distance)}
+                        </Typography>
+                      )}
+                    </Box>
                   </Box>
                 }
               />
@@ -288,6 +369,20 @@ const ClubViewer = ({ pricingSystem, isMobile }) => {
 
       </Box>
 
+      <Snackbar
+        open={snackbarOpen}
+        autoHideDuration={6000}
+        onClose={handleSnackbarClose}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+      >
+        <Alert 
+          onClose={handleSnackbarClose} 
+          severity="error" 
+          sx={{ width: '100%' }}
+        >
+          {locationError}
+        </Alert>
+      </Snackbar>
 
     </Box>
   );
