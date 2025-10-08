@@ -179,6 +179,7 @@ const ClubViewer = ({ pricingSystem, isMobile }) => {
 
   React.useEffect(() => {
     handleGetLocation();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

@@ -1,7 +1,7 @@
 /* eslint-env mocha */
 import { expect } from 'chai';
 import  CourtPricingSystem, { PricePeriod }  from '../CourtPricingSystem.js';
-import { sortClubsByDistance, calculateDistance } from '../lib/locationUtils.js';
+import { sortClubsByDistance } from '../lib/locationUtils.js';
 import fs from 'fs';
 import yaml from 'js-yaml';
 
