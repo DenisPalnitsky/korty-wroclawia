@@ -103,15 +103,15 @@ const ClubViewer = ({ pricingSystem, isMobile }) => {
   const { startTime, endTime } = getDates();
   const [clubs, setClubs] = React.useState(orderByPrice(pricingSystem.list(), startTime, endTime));
 
-  const addDistancesToClubs = (clubs) => {
-    if (!userLocation) return clubs;
+  const addDistancesToClubs = (clubs, location = userLocation) => {
+    if (!location) return clubs;
 
     return clubs.map(club => ({
       ...club,
       distance: club.coordinates?.lat && club.coordinates?.long
         ? calculateDistance(
-            userLocation.lat,
-            userLocation.long,
+            location.lat,
+            location.long,
             club.coordinates.lat,
             club.coordinates.long
           )
@@ -119,21 +119,21 @@ const ClubViewer = ({ pricingSystem, isMobile }) => {
     }));
   };
 
-  const setOrderedClubs = (ord, startTime, endTime) => {
+  const setOrderedClubs = (ord, startTime, endTime, location = userLocation) => {
     let sortedClubs;
 
     if (ord === 'price') {
       sortedClubs = orderByPrice(pricingSystem.list(), startTime, endTime);
-      sortedClubs = addDistancesToClubs(sortedClubs);
+      sortedClubs = addDistancesToClubs(sortedClubs, location);
     } else if (ord === 'distance') {
-      if (userLocation) {
-        sortedClubs = orderByDistance(pricingSystem.list(), userLocation.lat, userLocation.long);
+      if (location) {
+        sortedClubs = orderByDistance(pricingSystem.list(), location.lat, location.long);
       } else {
         sortedClubs = orderByName(pricingSystem.list());
       }
     } else {
       sortedClubs = orderByName(pricingSystem.list());
-      sortedClubs = addDistancesToClubs(sortedClubs);
+      sortedClubs = addDistancesToClubs(sortedClubs, location);
     }
 
     setClubs(sortedClubs);
@@ -176,6 +176,31 @@ const ClubViewer = ({ pricingSystem, isMobile }) => {
   const handleSnackbarClose = () => {
     setSnackbarOpen(false);
   };
+
+  React.useEffect(() => {
+    const fetchLocationOnMount = async () => {
+      setLocationLoading(true);
+      setLocationError(null);
+
+      try {
+        const location = await getCurrentLocation();
+        setUserLocation(location);
+
+        // Pass location directly to avoid stale state issue
+        // Distances will be shown without changing the sort order
+        const { startTime, endTime } = getDates();
+        setOrderedClubs(order, startTime, endTime, location);
+      } catch (error) {
+        // Silently fail - user can manually request location later if needed
+        setLocationError(error.message);
+      } finally {
+        setLocationLoading(false);
+      }
+    };
+
+    fetchLocationOnMount();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <Box id="club-viewer-box" sx={{ p: isMobile ? 0 : 3, alignItems: 'center' }}>
