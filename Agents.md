@@ -149,19 +149,17 @@ prices:
 
 The schedule uses a specific format for time-based pricing:
 
-- `*`: All days of the week
+- `*`: All days of the week except those that are specified in other rules(order does not matter)
 - `st`: Saturday
 - `su`: Sunday
 - `hl`: Holiday
-- `!`: Night hours (typically 23:00-06:00)
-- `sa`: Saturday (alternative notation)
+- `!`: All days without exeptions.
 
 Time ranges are specified in 24-hour format (HH-HH), and prices are in Polish Złoty (PLN).
 
 ### Special Schedule Values
 
-- `null`: Indicates no pricing available for that period
-- Empty schedule: Indicates the court is not available during that period
+- `null` or  Empty schedule: indicates the court is not available during that period
 
 ## YAML Anchors and References
 
