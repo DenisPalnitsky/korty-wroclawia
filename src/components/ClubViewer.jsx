@@ -177,11 +177,6 @@ const ClubViewer = ({ pricingSystem, isMobile }) => {
     setSnackbarOpen(false);
   };
 
-  React.useEffect(() => {
-    handleGetLocation();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
   return (
     <Box id="club-viewer-box" sx={{ p: isMobile ? 0 : 3, alignItems: 'center' }}>
 
@@ -348,7 +343,7 @@ const ClubViewer = ({ pricingSystem, isMobile }) => {
                         rel="noopener noreferrer"
                         sx={{
                           color: 'text.secondary',
-                          fontSize: '0.75em',
+                          fontSize: (theme) => theme.typography.caption.fontSize,
                           fontWeight: 400,
                         }}
                       >

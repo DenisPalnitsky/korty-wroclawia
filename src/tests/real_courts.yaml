@@ -410,7 +410,6 @@
     prices:
     - from: '2024-11-01'
       to: '2025-04-13'
-      schedule: null
     - from: '2025-05-01'
       to: '2025-11-01'
       schedule:
@@ -842,7 +841,6 @@
     prices:
     - from: '2024-11-01'
       to: '2025-05-01'
-      schedule: null
     - from: '2025-05-01'
       to: '2025-09-30'
       schedule:
@@ -904,7 +902,6 @@
         su:8-23: '45'
     - from: '2024-10-01'
       to: '2025-05-01'
-      schedule: null
     - from: '2025-05-01'
       to: '2025-11-01'
       schedule:
