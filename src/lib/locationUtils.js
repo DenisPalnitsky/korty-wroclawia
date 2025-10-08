@@ -14,9 +14,9 @@ export function calculateDistance(lat1, lon1, lat2, lon2) {
   const R = 6371; // Earth's radius in kilometers
   const dLat = (lat2 - lat1) * Math.PI / 180;
   const dLon = (lon2 - lon1) * Math.PI / 180;
-  const a = 
+  const a =
     Math.sin(dLat/2) * Math.sin(dLat/2) +
-    Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) * 
+    Math.cos(lat1 * Math.PI / 180) * Math.cos(lat2 * Math.PI / 180) *
     Math.sin(dLon/2) * Math.sin(dLon/2);
   const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
   return R * c;
@@ -24,7 +24,7 @@ export function calculateDistance(lat1, lon1, lat2, lon2) {
 
 /**
  * Get user's current location using the Geolocation API
- * @returns {Promise<{lat: number, lng: number}>} User's coordinates
+ * @returns {Promise<{lat: number, long: number}>} User's coordinates
  */
 export function getCurrentLocation() {
   return new Promise((resolve, reject) => {
@@ -37,7 +37,7 @@ export function getCurrentLocation() {
       (position) => {
         resolve({
           lat: position.coords.latitude,
-          lng: position.coords.longitude
+          long: position.coords.longitude
         });
       },
       (error) => {
@@ -71,17 +71,17 @@ export function getCurrentLocation() {
  * Sort clubs by distance from user's location
  * @param {Array} clubs - Array of club objects with coordinates
  * @param {number} userLat - User's latitude
- * @param {number} userLng - User's longitude
+ * @param {number} userLong - User's longitude
  * @returns {Array} Sorted clubs array
  */
-export function sortClubsByDistance(clubs, userLat, userLng) {
+export function sortClubsByDistance(clubs, userLat, userLong) {
   return clubs
     .map(club => ({
       ...club,
       distance: calculateDistance(
-        userLat, 
-        userLng, 
-        club.coordinates.lat, 
+        userLat,
+        userLong,
+        club.coordinates.lat,
         club.coordinates.long
       )
     }))

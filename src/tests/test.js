@@ -1,6 +1,7 @@
 /* eslint-env mocha */
 import { expect } from 'chai';
 import  CourtPricingSystem, { PricePeriod }  from '../CourtPricingSystem.js';
+import { sortClubsByDistance, calculateDistance } from '../lib/locationUtils.js';
 import fs from 'fs';
 import yaml from 'js-yaml';
 
@@ -398,5 +399,48 @@ describe('Test pricing period', () => {
     expect(price).null;
   })
 
+});
+
+describe('Distance Sorting', () => {
+  const fileContents = fs.readFileSync('src/tests/real_courts.yaml', 'utf8');
+  const data = yaml.load(fileContents);
+  const courtPricingSystem = new CourtPricingSystem(data);
+
+  it('should return clubs in exact expected order from given coordinates', () => {
+    // User coordinates: 51.1327566, 16.9570721, 524
+    const userLat = 51.1327566;
+    const userLng = 16.9570721;
+
+    const clubs = courtPricingSystem.list();
+    const clubsWithCoordinates = clubs.filter(club =>
+      club.coordinates && club.coordinates.lat && club.coordinates.long
+    );
+
+    const sortedClubs = sortClubsByDistance(clubsWithCoordinates, userLat, userLng);
+
+    // Expected order of top 5 closest clubs
+    const expectedOrder = [
+      'Lotnicza',
+      'K69 - Health & Performance',
+      'Spartan Lubinska',
+      'KosmoS Arena',
+      'Fittenis'
+    ];
+
+    const topFive = sortedClubs.slice(0, 5);
+
+    // Verify exact order
+    topFive.forEach((club, index) => {
+      expect(club.name).to.equal(expectedOrder[index],
+        `Position ${index + 1} should be "${expectedOrder[index]}" but got "${club.name}"`
+      );
+    });
+
+    // Log the results for debugging
+    console.log('\nTop 5 closest clubs from coordinates (51.1327566, 16.9570721):');
+    topFive.forEach((club, index) => {
+      console.log(`  ${index + 1}. ${club.name}: ${club.distance.toFixed(2)}km`);
+    });
+  });
 });
 
