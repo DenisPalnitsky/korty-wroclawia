@@ -74,6 +74,7 @@
   address: Powstańców Śląskich 211A, 53-020 Wrocław
   googleMapsLink: https://maps.app.goo.gl/BM8n6n7zNntvJRXZ8
   website: http://www.krzyckapark.pl/
+  prices_source: https://www.twojtenis.pl/pl/kluby/krzycka_park/prices.html
   partnerCards:
   - multisport-classic
   - multisport-plus
@@ -105,6 +106,13 @@
         su:7-23: '50'
         st:7-23: '50'
         hl:7-23: '50'
+    - from: '2025-10-01'
+      to: '2026-04-30'
+      schedule:
+        '*:7-15': '40'
+        '*:15-23': '50'
+        st:7-16: '45'
+        su:8-16: '45'
   - surface: clay
     type: tent
     reservationLink: *krzycka_reservation
@@ -128,6 +136,13 @@
         st:7-23: '60'
         su:7-23: '60'
         hl:7-23: '60'
+    - from: '2025-10-01'
+      to: '2026-04-30'
+      schedule:
+        '*:7-15': '110'
+        '*:15-23': '170'
+        st:7-16: '120'
+        su:8-16: '120'
   - surface: artificial-grass
     type: baloon
     reservationLink: *krzycka_reservation
@@ -150,6 +165,13 @@
         st:7-23: '50'
         su:7-23: '50'
         hl:7-23: '50'
+    - from: '2025-10-01'
+      to: '2026-04-30'
+      schedule:
+        '*:7-15': '110'
+        '*:15-23': '170'
+        st:7-16: '120'
+        su:8-16: '120'
   coordinates:
     lat: 51.0764055
     long: 17.0069164
@@ -422,6 +444,7 @@
   address: al. Generała Józefa Hallera 81A, 53-325 Wrocław
   googleMapsLink: https://maps.app.goo.gl/JB32kdVwZSP8E3DJ8
   website: https://redeco.pl
+  prices_source: https://www.twojtenis.pl/pl/kluby/centrum_tenisowe_redeco/prices.html
   partnerCards:
   - multisport-plus
   courts:
@@ -457,6 +480,18 @@
         st:22-8: '60'
         hl:7-22: '75'
         hl:22-8: '60'
+    - from: '2025-10-01'
+      to: '2026-04-30'
+      schedule:
+        '*:7-15': '145'
+        '*:15-22': '175'
+        '*:22-7': '105'
+        su:8-22: '140'
+        st:8-22: '140'
+        hl:8-22: '140'
+        su:22-8: '105'
+        st:22-8: '105'
+        hl:22-8: '105'
   - surface: clay
     type: baloon
     reservationLink: *redeco_res
@@ -483,6 +518,14 @@
         su:6-22: '70'
         st:6-22: '70'
         hl:6-22: '70'
+    - from: '2025-10-01'
+      to: '2026-04-30'
+      schedule:
+        '*:7-15': '130'
+        '*:15-22': '170'
+        su:7-22: '135'
+        st:7-22: '135'
+        hl:7-22: '135'
   coordinates:
     lat: 51.0905672
     long: 16.9970916
@@ -491,6 +534,7 @@
   address: Parkowa 32, 55-010 Żerniki Wrocławskie
   googleMapsLink: https://maps.app.goo.gl/qh9DuwG1KUz9o5cZ7
   website: https://www.twojtenis.pl/pl/kluby/vario_sport/info.html
+  prices_source: https://www.twojtenis.pl/pl/kluby/vario_sport/prices.html
   courts:
   - surface: clay
     type: baloon
@@ -501,13 +545,13 @@
     - '1'
     - '2'
     prices:
-    - from: '2024-11-01'
-      to: '2025-05-01'
+    - from: '2024-10-01'
+      to: '2025-04-30'
       schedule:
-        '*:7-16': '60'
-        '*:16-23': '140'
-        su:8-23: '60'
-        st:7-22: '60'
+        '*:7-16': '65'
+        '*:16-23': '145'
+        su:8-23: '65'
+        st:7-22: '65'
     - from: '2025-05-01'
       to: '2025-11-01'
       schedule:
@@ -523,6 +567,7 @@
   address: ul. Kominiarska 42, 51-180 Wrocław
   googleMapsLink: https://maps.app.goo.gl/6fn5UrsWGKmejWQLA
   website: http://winnerstennisclub.pl
+  prices_source: https://www.twojtenis.pl/pl/kluby/winners_tennis_club/prices.html
   partnerCards:
   - multisport-plus
   - multisport-classic
@@ -558,12 +603,22 @@
         su:6-24: '60'
         st:6-24: '60'
         hl:6-24: '60'
+    - from: '2025-10-01'
+      to: '2026-04-30'
+      schedule:
+        '*:6-11': '120'
+        '*:11-15': '120'
+        '*:15-24': '155'
+        su:6-24: '125'
+        st:6-24: '125'
+        hl:6-24: '125'
 
 - name: Oleśnicki Klub Tenisowy
   id: olesnicki-klub-tenisowy
   address: Rabarbarowa 7, 56-400 OLEŚNICA
   googleMapsLink: https://maps.app.goo.gl/5WGKjGSHppaXjnh77
   website: https://www.twojtenis.pl/pl/kluby/olesnicki_klub_tenisowy/info.html
+  prices_source: https://www.twojtenis.pl/pl/kluby/olesnicki_klub_tenisowy/prices.html
   partnerCards:
   - multisport
   courts:
@@ -646,6 +701,7 @@
   address: Józefa Mianowskiego 2B, 51-605 Wrocław
   googleMapsLink: https://maps.app.goo.gl/rnYYGhw3bookeDak9
   website: https://gemhotel.pl/obiekty-sportowe/hala-tenisowa-i-korty/
+  prices_source: https://www.twojtenis.pl/pl/kluby/hala_tenisowa_hotel_gem/prices.html
   partnerCards:
   - multisport-plus
   - multisport-classic
@@ -674,6 +730,14 @@
         su:7-20: '60'
         st:7-20: '60'
         hl:7-20: '60'
+    - from: 2025-10-01
+      to: 2026-04-30
+      schedule:
+        '*:7-16': '110'
+        '*:16-22': '155'
+        su:7-20: '120'
+        st:7-20: '120'
+        hl:7-20: '120'
   - surface: clay
     type: outdoor
     reservationLink: *gem_reserv
@@ -692,6 +756,14 @@
         su:7-20: '60'
         st:7-20: '60'
         hl:7-20: '60'
+    - from: 2025-10-01
+      to: 2026-04-30
+      schedule:
+        '*:7-15': '40'
+        '*:15-22': '50'
+        su:7-20: '40'
+        st:7-20: '40'
+        hl:7-20: '40'
   coordinates:
     lat: 51.1260707
     long: 17.071142387251637
@@ -764,6 +836,7 @@
   address: Stadion Olimpijski, al Ignacego Jana Paderewskiego 35, 51-612 Wrocław
   googleMapsLink: https://maps.app.goo.gl/MYnpGY1QLNvShmqS8
   website: https://www.twojtenis.pl/pl/kluby/awf_hala_tenisowa/info.html
+  prices_source: https://www.twojtenis.pl/pl/kluby/awf_hala_tenisowa/prices.html
   partnerCards:
   - multisport-plus
   - multisport-classic
@@ -791,6 +864,14 @@
         st:8-21: '60'
         '*:7-15': '50'
         '*:15-23': '60'
+    - from: '2025-10-01'
+      to: '2026-04-30'
+      schedule:
+        su:7-20: '120'
+        st:7-21: '120'
+        '*:7-15': '110'
+        '*:15-21': '155'
+        '*:21-23': '130'
   coordinates:
     lat: 51.11874415
     long: 17.091436884615387

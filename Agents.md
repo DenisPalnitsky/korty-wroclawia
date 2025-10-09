@@ -146,6 +146,9 @@ prices:
     "!:23-6": "50"                    # Night hours, 23-6h: 50 PLN
 ```
 
+### Seasons
+Usually winter season have higher prices and lasts from 01.10 to 30.04 next year. Summer season has lower prices and lasts from 01.05 to 30.09 next year.
+
 ### Schedule Format
 
 The schedule uses a specific format for time-based pricing:
