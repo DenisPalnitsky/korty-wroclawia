@@ -39,6 +39,7 @@ This document provides comprehensive information about the Korty Wrocławia proj
 - **react-helmet-async 2.0.5** - SEO management
 
 ### Development Tools
+- **pnpm** - Fast, disk space efficient package manager
 - **ESLint** - Code linting
 - **Prettier** - Code formatting
 - **Mocha** - Testing framework
@@ -144,6 +145,9 @@ prices:
     "hl:7-23": "45"                   # Holiday, 7-23h: 45 PLN
     "!:23-6": "50"                    # Night hours, 23-6h: 50 PLN
 ```
+
+### Seasons
+Usually winter season have higher prices and lasts from 01.10 to 30.04 next year. Summer season has lower prices and lasts from 01.05 to 30.09 next year.
 
 ### Schedule Format
 
@@ -335,29 +339,61 @@ Used for utility classes and responsive design:
 
 ```bash
 # Development
-npm run dev              # Start development server
-npm run preview          # Preview production build
+pnpm dev                 # Start development server
+pnpm preview             # Preview production build
 
 # Building
-npm run build            # Create production build
-npm run predeploy        # Build before deployment
-npm run deploy           # Deploy to GitHub Pages
+pnpm build               # Create production build
+pnpm predeploy           # Build before deployment
+pnpm deploy              # Deploy to GitHub Pages
 
 # Code Quality
-npm run lint             # Run ESLint
-npm run lint:fix         # Fix ESLint issues
-npm run format           # Format code with Prettier
-npm run format:check     # Check code formatting
+pnpm lint                # Run ESLint
+pnpm lint:fix            # Fix ESLint issues
+pnpm format              # Format code with Prettier
+pnpm format:check        # Check code formatting
 
 # Testing
-npm run test             # Run tests
-npm run test:watch       # Run tests in watch mode
+pnpm test                # Run tests
+pnpm test:watch          # Run tests in watch mode
 
 # Utilities
-npm run clean            # Clean dist folder
-npm run clean:all        # Clean everything and reinstall
-npm run analyze          # Analyze bundle size
-npm run build-holidays   # Generate holiday data
+pnpm clean               # Clean dist folder
+pnpm clean:all           # Clean everything and reinstall with pnpm
+pnpm analyze             # Analyze bundle size
+pnpm build-holidays      # Generate holiday data
+```
+
+### Package Manager
+
+This project uses **pnpm** as the package manager for better performance and disk space efficiency.
+
+#### Installation
+```bash
+# Install pnpm globally (if not already installed)
+npm install -g pnpm
+
+# Or using corepack (recommended)
+corepack enable
+corepack prepare pnpm@latest --activate
+```
+
+#### Usage
+```bash
+# Install dependencies
+pnpm install
+
+# Add a new dependency
+pnpm add <package-name>
+
+# Add a dev dependency
+pnpm add -D <package-name>
+
+# Remove a dependency
+pnpm remove <package-name>
+
+# Update dependencies
+pnpm update
 ```
 
 ### Environment Variables
@@ -432,7 +468,7 @@ src/tests/
 - **Configuration**: Hash routing for SPA compatibility
 
 ### Build Process
-1. Install dependencies
+1. Install dependencies with `pnpm install`
 2. Run linting and formatting checks
 3. Build production bundle
 4. Deploy to `gh-pages` branch
@@ -465,7 +501,7 @@ src/tests/
 ## Maintenance Guidelines
 
 ### Regular Updates
-- **Dependencies**: Monthly security updates
+- **Dependencies**: Monthly security updates using `pnpm update`
 - **Court Data**: Quarterly data verification
 - **Translations**: As needed for new features
 
@@ -490,9 +526,10 @@ src/tests/
 ### Pull Request Process
 1. Fork repository
 2. Create feature branch
-3. Make changes with tests
-4. Run linting and formatting
-5. Submit pull request
+3. Install dependencies with `pnpm install`
+4. Make changes with tests
+5. Run linting and formatting with `pnpm lint` and `pnpm format`
+6. Submit pull request
 
 ### Data Updates
 - **Court Information**: Update `courts.yaml` directly
