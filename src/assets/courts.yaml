@@ -79,11 +79,11 @@
     - from: '2025-10-01'
       to: '2026-05-01'
       schedule:
-        '*:7-15': '145'
-        '*:15-23': '175'
-        st:7-15: '175'
-        st:15-23: '145'
-        su:7-23: '145'
+        '*:7-15': '135'
+        '*:15-23': '165'
+        st:7-15: '165'
+        st:15-23: '135'
+        su:7-23: '135'
   coordinates:
     lat: 51.0405727
     long: 16.9859901
@@ -198,6 +198,7 @@
   address: Pułtuska 13, 53-116 Wrocław
   googleMapsLink: https://maps.app.goo.gl/jPBjrkbjsFR7GB9s8
   website: https://spartan.wroc.pl/pultuska/tenis
+  prices_source: https://spartan.wroc.pl/pultuska/cennik
   partnerCards:
   - multisport-plus
   - multisport-classic
@@ -239,6 +240,9 @@
         st:07-22: '60'
         su:07-22: '60'
         hl:07-22: '60'
+    - from: 2025-11-01
+      to: 2026-05-01
+      schedule:
   - surface: hard
     reservationLink: https://spartan.wroc.pl/pultuska/strefaklienta/index.php?s=rezerwacja_hali_tenisowej
     type: tent
@@ -273,6 +277,18 @@
         st:14-22: '60'
         su:14-22: '60'
         hl:14-22: '60'
+    - from: 2025-11-01
+      to: 2026-05-01
+      schedule:
+        '*:07-11': '140'
+        '*:11-16': '110'
+        '*:16-22': '170'
+        st:7-14: '140'
+        su:7-14: '140'
+        hl:7-14: '140'
+        st:14-22: '120'
+        su:14-22: '120'
+        hl:14-22: '120'
   coordinates:
     lat: 51.0737154
     long: 17.01380056844733
@@ -281,6 +297,7 @@
   address: ul. Lubińska 53, 53-623 Wrocław
   googleMapsLink: https://maps.app.goo.gl/2bpBtoohqyhVU96SA
   website: https://spartan.wroc.pl/lubinska/tenis
+  prices_source: https://spartan.wroc.pl/lubinska/tenis
   partnerCards:
   - multisport-plus
   - multisport-classic
@@ -321,6 +338,9 @@
         '*:11-16': '50'
         '*:16-22': '73'
         hl:7-22: '60'
+    - from: '2025-10-01'
+      to: '2026-05-01'
+      schedule:
   - surface: carpet
     type: tent
     reservationLink: https://spartan.wroc.pl/lubinska/strefaklienta/index.php?s=rezerwacja_hal_tenisowych
@@ -354,11 +374,20 @@
         '*:7-11': '60'
         '*:11-16': '50'
         '*:16-22': '73'
+    - from: '2025-10-01'
+      to: '2026-05-01'
+      schedule:
+        '*:7-16': '95'
+        '*:16-23': '130'
+        st:8-20: '100'
+        su:8-20: '100'
+        hl:8-20: '100'
 - name: Spartan Spiska
   id: spartan-spiska
   address: ul. Spiska 1, 50-562 Wrocław
   googleMapsLink: https://maps.app.goo.gl/BRhyRcCt6Vd7koyC8
   website: https://spartan.wroc.pl/spiska/tenis
+  prices_source: https://spartan.wroc.pl/spiska/tenis
   coordinates:
     lat: 51.085407
     long: 17.030566
@@ -400,6 +429,9 @@
         su:7-22: '60'
         st:7-22: '60'
         hl:7-23: '60'
+    - from: '2025-11-01'
+      to: '2026-05-01'
+      schedule:
   - surface: clay
     type: indoor
     reservationLink: https://spartan.wroc.pl/spiska/strefaklienta/index.php?s=hala_tenisowa
@@ -430,11 +462,24 @@
         su:7-22: '60'
         st:7-22: '60'
         hl:7-22: '60'
+    - from: '2025-10-01'
+      to: '2026-05-01'
+      schedule:
+        '*:7-11': '140'
+        '*:11-16': '110'
+        '*:16-22': '170'
+        su:7-14: '140'
+        st:7-14: '140'
+        hl:7-14: '140'
+        su:14-22: '120'
+        st:14-22: '120'
+        hl:14-22: '120'
 - name: Spartan Krajewskiego
   id: spartan-krajewskiego
   address: Rafala Krajewskiego 2, 50-690 Wrocław
   googleMapsLink: https://maps.app.goo.gl/GWpJacJpfEjyxWsR6
   website: https://spartan.wroc.pl/krajewskiego/
+  prices_source: https://spartan.wroc.pl/krajewskiego/tenis
   partnerCards:
   - multisport-plus
   - multisport-classic
@@ -454,6 +499,9 @@
       to: '2025-11-01'
       schedule:
         '!:7-22': '40'
+    - from: '2025-11-01'
+      to: '2026-05-01'
+      schedule:
   coordinates:
     lat: 51.109652754511735
     long: 17.09615418438255
@@ -660,6 +708,7 @@
   address: ul.Mieroszowska 2 (róg Kosmonautów), 54-034 Wrocław
   googleMapsLink: https://maps.app.goo.gl/zPKhWBUSApd4LKMX7
   website: https://kosmosarena.pl/
+  prices_source: https://kosmosarena.pl/cennik/
   coordinates:
     lat: 51.1429395
     long: 16.893473
@@ -679,15 +728,24 @@
         '*:21-23': '130'
         su:8-23: '130'
         st:8-23: '130'
-    - from: 2025-05-01
-      to: 2025-11-01
+    - from: '2025-05-01'
+      to: '2025-10-01'
       schedule:
-        '*:7-11': '45'
+        '*:8-11': '45'
         '*:11-15': '35'
         '*:15-21': '70'
         '*:21-23': '65'
-        su:7-23: '60'
-        st:7-23: '60'
+        su:8-23: '60'
+        st:8-23: '60'
+    - from: '2025-10-01'
+      to: '2026-04-30'
+      schedule:
+        '*:8-11': '120'
+        '*:11-15': '95'
+        '*:15-21': '140'
+        '*:21-23': '130'
+        su:8-23: '130'
+        st:8-23: '130'
   - surface: artificial-grass
     type: outdoor
     courts:
@@ -702,18 +760,21 @@
         '*:11-15': '35'
         '*:15-21': '70'
         '*:21-23': '65'
-    - from: 2024-11-01
-      to: 2025-05-01
+    - from: '2024-11-01'
+      to: '2025-05-01'
       schedule:
-    - from: 2025-05-01
-      to: 2025-11-01
+    - from: '2025-05-01'
+      to: '2025-10-01'
       schedule:
-        su:8-23: '60'
-        st:8-23: '60'
         '*:8-11': '45'
         '*:11-15': '35'
         '*:15-21': '70'
         '*:21-23': '65'
+        su:8-23: '60'
+        st:8-23: '60'
+    - from: '2025-10-01'
+      to: '2026-05-01'
+      schedule:
 - name: Hala Tenisowa Hotel Gem
   id: gem
   address: Józefa Mianowskiego 2B, 51-605 Wrocław
@@ -790,6 +851,7 @@
   address: Macedońska 11, 51-113 Wrocław
   googleMapsLink: https://maps.app.goo.gl/kpP8x1QKB6R3Lt6v8
   website: https://teniswroclaw.com.pl
+  prices_source: https://teniswroclaw.com.pl/cennik/
   reservationLink: https://rezerwacje.fittenis.pl/training/court_calendar
   partnerCards:
   - multisport
@@ -811,13 +873,21 @@
         '*:6-15': '100'
         '*:15-23': '140'
     - from: '2025-04-14'
-      to: '2025-11-01'
+      to: '2025-10-01'
       schedule:
         su:6-23: '65'
         st:6-23: '65'
         hl:6-23: '65'
         '*:6-15': '65'
         '*:15-23': '75'
+    - from: '2025-10-01'
+      to: '2026-04-01'
+      schedule:
+        '*:6-15': '120'
+        '*:15-23': '150'
+        su:6-23: '120'
+        st:6-23: '120'
+        hl:6-23: '120'
   - surface: clay
     type: outdoor
     light: false
@@ -839,13 +909,16 @@
       schedule:
         null
     - from: '2025-04-14'
-      to: '2025-11-01'
+      to: '2025-10-01'
       schedule:
+        '*:6-15': '50'
+        '*:15-22': '65'
         su:6-23: '60'
         st:6-23: '60'
         hl:6-23: '60'
-        '*:6-15': '50'
-        '*:15-23': '65'
+    - from: '2025-10-01'
+      to: '2026-04-01'
+      schedule:
   coordinates:
     lat: 51.1343496
     long: 17.0310476
@@ -898,6 +971,7 @@
   address: Główna 12d, 55-040 Kobierzyce
   googleMapsLink: https://maps.app.goo.gl/QB1ryMXQcvCaqgFLA
   website: https://www.js-tenis.pl/oferta/
+  prices_source: https://app.tenis4u.pl/#/court/326
   partnerCards:
   - multisport
   coordinates:
@@ -930,6 +1004,16 @@
         su:7-23: '60'
         st:7-23: '60'
         hl:7-23: '60'
+    - from: '2025-10-01'
+      to: '2026-04-01'
+      schedule:
+        '*:7-23': '160'
+        su:7-15: '140'
+        st:7-15: '140'
+        hl:7-15: '140'
+        su:15-23: '120'
+        st:15-23: '120'
+        hl:15-23: '120'
   - surface: clay
     type: outdoor
     light: true
@@ -940,18 +1024,35 @@
     prices:
     - from: '2024-11-01'
       to: '2025-05-01'
+      schedule:
+        '*:7-15': '130'
+        '*:15-23': '160'
+        su:7-15: '140'
+        su:15-23: '130'
+        st:7-15: '140'
+        st:15-23: '130'
     - from: '2025-05-01'
-      to: '2025-30-09'
+      to: '2025-10-01'
       schedule:
         '*:7-15': '60'
         '*:15-23': '75'
         su:7-23: '60'
         st:7-23: '60'
+    - from: '2025-10-01'
+      to: '2026-05-01'
+      schedule:
+        '*:7-15': '130'
+        '*:15-23': '160'
+        su:7-15: '140'
+        su:15-23: '130'
+        st:7-15: '140'
+        st:15-23: '130'
 - name: Omega sport
   id: omega-sport
   address: Granitowa 4, 55-080 Smolec
   googleMapsLink: https://maps.app.goo.gl/ts2aZsTmmZRsKejg7
   website: https://www.smolecsport.pl/oferta/tenis/wynajem-kortu.html
+  prices_source: https://www.smolecsport.pl/cennik.html
   reservationLink: https://www.smolecsport.pl/rezerwacje.html
   coordinates:
     lat: 51.0842206
@@ -980,12 +1081,20 @@
         su:8-23: '100'
         st:8-23: '100'
     - from: '2025-05-01'
-      to: '2025-09-30'
+      to: '2025-10-01'
       schedule:
         '*:8-16': '40'
         '*:16-23': '60'
-        su:0-23: '50'
-        st:0-23: '50'
+        su:8-23: '50'
+        st:8-23: '50'
+    - from: '2025-10-01'
+      to: '2026-04-30'
+      schedule:
+        '*:8-16': '100'
+        '*:16-23': '140'
+        su:8-23: '100'
+        st:8-23: '100'
+        hl:8-23: '100'
   - surface: clay
     type: outdoor
     courts:
@@ -1001,23 +1110,29 @@
         su:8-23: '45'
     - from: '2024-10-01'
       to: '2025-05-01'
-    - from: '2025-05-01'
-      to: '2025-11-01'
       schedule:
-        '*:0-16': '35'
+    - from: '2025-05-01'
+      to: '2025-10-01'
+      schedule:
+        '*:8-16': '35'
         '*:16-23': '50'
         su:8-23: '35'
         st:8-23: '35'
+    - from: '2025-10-01'
+      to: '2026-04-30'
+      schedule:
   - surface: hard
     courts:
     - '6'
     type: outdoor
     prices: *id001
+
 - name: Centrum Tenisowe Kłokoczyce
   id: klokoczyce
   address: Kłokoczycka 5, 51-376 Wrocław
   googleMapsLink: https://maps.app.goo.gl/2Qc652uw7wsLiHC89
   website: https://app.tenis4u.pl/#/court/263
+  prices_source: https://app.tenis4u.pl/#/court/263
   courts:
   - surface: clay
     type: indoor
@@ -1036,12 +1151,20 @@
         su:8-21: 128
         st:8-21: 128
     - from: '2025-05-01'
-      to: '2025-09-30'
+      to: '2025-10-01'
       schedule:
-        '*:8-16': 52
-        '*:16-22': 76
-        su:8-21: 58
-        st:8-21: 58
+        '*:8-16': '52'
+        '*:16-22': '76'
+        su:8-21: '58'
+        st:8-21: '58'
+    - from: '2025-10-01'
+      to: '2026-04-30'
+      schedule:
+        '*:8-16': '139'
+        '*:16-22': '160'
+        su:8-21: '128'
+        st:8-21: '128'
+        hl:8-21: '128'
   coordinates:
     lat: 51.1525319
     long: 17.1118552
@@ -1050,6 +1173,7 @@
   address: al. Ignacego Jana Paderewskiego 35, 51-612 Wrocław
   googleMapsLink: https://maps.app.goo.gl/kRtYtYA4FH1PApEPA
   website: https://olimpijskiclub.pl
+  prices_source: https://olimpijskiclub.pl/zarezerwuj-korty-online/
   partnerCards:
   - multisport-plus
   - multisport-classic
@@ -1089,6 +1213,9 @@
         su:6-23: '60'
         st:6-23: '60'
         hl:6-23: '60'
+    - from: '2025-11-01'
+      to: '2026-05-01'
+      schedule:
   - surface: clay
     type: outdoor
     reservationLink: *olimp_reserv
@@ -1117,6 +1244,9 @@
         su:6-23: '66'
         st:6-23: '66'
         hl:6-23: '66'
+    - from: '2025-10-01'
+      to: '2026-05-01'
+      schedule:
   - surface: clay
     type: tent
     reservationLink: *olimp_reserv
@@ -1141,6 +1271,14 @@
         su:6-23: '70'
         st:6-23: '70'
         hl:6-23: '70'
+    - from: '2025-10-01'
+      to: '2026-05-01'
+      schedule:
+        '*:6-15': '135'
+        '*:15-23': '165'
+        su:6-23: '140'
+        st:6-23: '140'
+        hl:6-23: '140'
   coordinates:
     lat: 51.1174365
     long: 17.0905595
@@ -1149,6 +1287,7 @@
   address: Lotnicza 72, 54-155 Wrocław
   googleMapsLink: https://maps.app.goo.gl/ZrJuUfh5uuiSEX3XA
   website: http://www.lotniczatennisclub.pl/
+  prices_source: https://www.lotniczatennisclub.pl/cennik/
   partnerCards:
   - multisport-plus
   - multisport-classic
@@ -1179,6 +1318,14 @@
         st:6-23: '55'
         su:6-23: '55'
         hl:6-23: '55'
+    - from: '2025-10-01'
+      to: '2026-05-01'
+      schedule:
+        '*:7-16': '130'
+        '*:16-23': '170'
+        st:7-23: '135'
+        su:7-23: '135'
+        hl:7-23: '135'
   - surface: clay
     type: baloon
     reservationLink: *lotnicza_reserv
@@ -1198,6 +1345,14 @@
         st:6-23: '45'
         su:6-23: '45'
         hl:6-23: '45'
+    - from: '2025-10-01'
+      to: '2026-05-01'
+      schedule:
+        '*:7-16': '100'
+        '*:16-23': '170'
+        st:7-23: '125'
+        su:7-23: '125'
+        hl:7-23: '125'
   coordinates:
     lat: 51.1319632
     long: 16.9588373
@@ -1206,6 +1361,7 @@
   address: Fryderyka Chopina 27, 51-609 Wrocław
   googleMapsLink: https://maps.app.goo.gl/7d4TMJ2sEEQnRBne6
   website: http://www.kortymorskieoko.pl/
+  prices_source: http://www.kortymorskieoko.pl/
   partnerCards:
   - multisport-plus
   - multisport-classic
@@ -1235,6 +1391,17 @@
             st:6-23: '120'
             su:6-23: '120'
             hl:6-23: '120'
+        - from: '2025-10-01'
+          to: '2026-05-01'
+          schedule:
+            "*:6-17": '120'
+            "*:17-23": '150'
+            st:6-15: '120'
+            su:6-15: '120'
+            hl:6-15: '120'
+            st:15-23: '60'
+            su:15-23: '60'
+            hl:15-23: '60'
     - surface: clay
       type: outdoor
       courts: ['1', '2', '3', '4']
@@ -1247,6 +1414,9 @@
             st:6-23: '120'
             su:6-23: '120'
             hl:6-23: '120'
+        - from: '2025-10-01'
+          to: '2026-05-01'
+          schedule:
     - surface: grass
       type: outdoor
       courts: ['5', '6']
@@ -1259,6 +1429,9 @@
             st:6-23: '120'
             su:6-23: '120'
             hl:6-23: '120'
+        - from: '2025-10-01'
+          to: '2026-05-01'
+          schedule:
   coordinates:
     lat: 51.1222323
     long: 17.0839662
@@ -1268,6 +1441,7 @@
   address: Kozanowska 69, 54-152 Wrocław
   googleMapsLink: https://maps.app.goo.gl/fGXf9QkEhQkiuoie6
   website: https://k69.com.pl/oferta/tenis/
+  prices_source: https://k69.com.pl/oferta/tenis/
   reservationLink: https://reservise.com/pl/online/k69hp/
   partnerCards:
   - multisport-plus
@@ -1289,9 +1463,21 @@
         - from: '2025-05-01'
           to: '2025-10-01'
           schedule:
-            "*:7-22": '40'
-            st:7-22: '40'
-            su:7-22: '40'
+            "*:6-12": '40'
+            "*:12-15": '35'
+            "*:15-23": '60'
+            st:6-23: '40'
+            su:6-23: '40'
+            hl:6-23: '40'
+        - from: '2025-10-01'
+          to: '2026-05-01'
+          schedule:
+            "*:6-12": '40'
+            "*:12-15": '35'
+            "*:15-23": '60'
+            st:6-23: '40'
+            su:6-23: '40'
+            hl:6-23: '40'
   coordinates:
     lat: 51.139351
     long: 16.972570
@@ -1301,6 +1487,7 @@
   website: https://www.tenisplanet.pl/
   address: Śliwkowa 134, 55-080 Smolec
   googleMapsLink: https://maps.app.goo.gl/tjgmw6Gxped4othz5
+  prices_source: https://app.tenis4u.pl/#/court/153
   reservationLink: https://app.tenis4u.pl/#/court/153
   partnerCards:
   - multisport-plus
@@ -1310,14 +1497,30 @@
       type: outdoor
       courts: ['1', '2', '3']
       prices:
+        - from: '2024-10-01'
+          to: '2025-04-01'
+          schedule:
+            "*:7-15": '20'
+            "*:15-22": '30'
+            "su:7-22": '25'
+            "st:7-22": '25'
+            "hl:7-22": '25'
         - from: '2025-04-01'
           to: '2025-10-01'
           schedule:
-            "*:7-16": 25
-            "*:16-22": 45
-            "su:7-22": 30
-            "st:7-22": 30
-            "hl:7-22": 30
+            "*:7-16": '25'
+            "*:16-22": '45'
+            "su:7-22": '30'
+            "st:7-22": '30'
+            "hl:7-22": '30'
+        - from: '2025-10-01'
+          to: '2026-03-31'
+          schedule:
+            "*:7-15": '20'
+            "*:15-22": '30'
+            "su:7-22": '25'
+            "st:7-22": '25'
+            "hl:7-22": '25'
   coordinates:
     lat: 51.084217505567246
     long: 16.902187341121568
