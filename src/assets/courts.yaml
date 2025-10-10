@@ -3,6 +3,7 @@
   address: Szyszkowa 6, 55-040 Ślęza
   googleMapsLink: https://maps.app.goo.gl/Dm2WNmwLiSPtBanZ9
   website: https://www.matchpoint.com.pl/
+  prices_source: https://matchpoint.com.pl/cennik/
   partnerCards:
   - multisport-plus
   courts:
@@ -41,6 +42,15 @@
         st:15-23: '60'
         su:7-15: '50'
         su:15-23: '50'
+    - from: '2025-10-01'
+      to: '2026-05-01'
+      schedule:
+        '*:7-15': '145'
+        '*:15-23': '175'
+        st:7-15: '175'
+        st:15-23: '145'
+        su:7-23: '145'
+        '!:23-6': '115'
   - surface: hard
     type: tent
     reservationLink: *matchpoint_link
@@ -59,13 +69,21 @@
         st:15-23: '140'
         su:00-23: '130'
     - from: '2025-05-01'
-      to: '2025-11-01'
+      to: '2025-10-01'
       schedule:
         '*:7-15': '60'
         '*:15-23': '80'
         st:00-15: '80'
         st:15-23: '60'
         su:00-23: '50'
+    - from: '2025-10-01'
+      to: '2026-05-01'
+      schedule:
+        '*:7-15': '145'
+        '*:15-23': '175'
+        st:7-15: '175'
+        st:15-23: '145'
+        su:7-23: '145'
   coordinates:
     lat: 51.0405727
     long: 16.9859901
