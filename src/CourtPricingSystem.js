@@ -1,7 +1,8 @@
 import Holidays from 'date-holidays';
 
 const HL = new Holidays("PL");
-const holidaysMap = getHolidays ();
+// PL holidays for past/future pricing periods and tests with fixed years (see getHolidays).
+const HOLIDAY_YEAR_SPAN = 10;
 
 function formatDate(date) {
   return date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
@@ -10,19 +11,18 @@ function formatDate(date) {
 function getHolidays () {
   const currentYear = new Date().getFullYear();
   const m = new Map();
-    
-  const holidays = [
-    ...HL.getHolidays(currentYear - 1),
-    ...HL.getHolidays(currentYear),
-    ...HL.getHolidays(currentYear + 1)
-  ];
-  for (const holiday of holidays) {
-    const dt = formatDate(holiday.start);
-    m.set(dt, true);
+
+  for (let y = currentYear - HOLIDAY_YEAR_SPAN; y <= currentYear + HOLIDAY_YEAR_SPAN; y++) {
+    for (const holiday of HL.getHolidays(y)) {
+      const dt = formatDate(holiday.start);
+      m.set(dt, true);
+    }
   }
 
   return m;
 }
+
+const holidaysMap = getHolidays ();
 
 function isHoliday(date) {
   return holidaysMap.has(formatDate(date));
