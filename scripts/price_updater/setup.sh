@@ -18,36 +18,22 @@ echo ""
 echo "3️⃣  Installing Playwright browser..."
 playwright install chromium
 
-# Check for API keys
+# Check for API key
 echo ""
-echo "4️⃣  Checking API keys..."
-has_key=false
-
-if [ -n "$ANTHROPIC_API_KEY" ]; then
-    echo "✅ ANTHROPIC_API_KEY is set (Claude)"
-    has_key=true
-fi
+echo "4️⃣  Checking API key..."
 
 if [ -n "$OPENAI_API_KEY" ]; then
-    echo "✅ OPENAI_API_KEY is set (GPT)"
-    has_key=true
-fi
-
-if [ "$has_key" = false ]; then
-    echo "⚠️  No API keys found!"
+    echo "✅ OPENAI_API_KEY is set"
+else
+    echo "⚠️  OPENAI_API_KEY not set"
     echo ""
-    echo "Set at least one API key:"
-    echo "  For Claude: export ANTHROPIC_API_KEY='sk-ant-your-key'"
-    echo "  For GPT:    export OPENAI_API_KEY='sk-...'"
-    echo ""
-    echo "Get your key from:"
-    echo "  Claude: https://console.anthropic.com/"
-    echo "  GPT:    https://platform.openai.com/api-keys"
+    echo "  export OPENAI_API_KEY='sk-...'"
+    echo "  https://platform.openai.com/api-keys"
 fi
 
 echo ""
 echo "✅ Setup complete!"
 echo ""
-echo "Try a dry run:"
-echo "  python update_prices.py --dry-run"
+echo "Try a dry run (pick your model):"
+echo "  python update_prices.py --model gpt-5 --dry-run"
 

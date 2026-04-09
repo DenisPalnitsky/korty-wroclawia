@@ -1,7 +1,6 @@
 # Requirements for the price updater script
 
-# LLM APIs (choose at least one)
-anthropic>=0.40.0
+# LLM API
 openai>=1.0.0
 
 # Web scraping

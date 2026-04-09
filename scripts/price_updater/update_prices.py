@@ -2,23 +2,24 @@
 """
 Automatic Price Updater for Korty Wrocławia
 
-This script crawls tennis club pricing pages and uses AI (Claude or GPT) to extract
+This script crawls tennis club pricing pages and uses the OpenAI API to extract
 and update pricing information in courts.yaml.
 
 Usage:
-    python update_prices.py [--dry-run] [--venue "Venue Name"] [--provider anthropic|openai]
+    python update_prices.py --model MODEL [--dry-run] [--venue "Venue Name"]
 
 Options:
+    --model         OpenAI model id (required), e.g. gpt-5 or gpt-4o
     --dry-run       Show changes without applying them
     --venue         Update only a specific venue (by name)
-    --provider      LLM provider: 'anthropic' (Claude) or 'openai' (GPT) - auto-detected if not specified
+
+Requires OPENAI_API_KEY.
 """
 
 import argparse
 import json
 import os
 import sys
-from datetime import datetime
 from pathlib import Path
 
 import yaml
@@ -26,71 +27,33 @@ from playwright.sync_api import sync_playwright
 from rich.console import Console
 from rich.progress import Progress, SpinnerColumn, TextColumn
 from rich.panel import Panel
-from rich.syntax import Syntax
 
 console = Console()
 
 
 class PriceUpdater:
-    def __init__(self, dry_run=False, provider=None):
+    def __init__(self, dry_run=False, *, model):
         self.dry_run = dry_run
+        self.model = model
         # Script is in scripts/price_updater/, so go up to project root
         self.yaml_path = Path(__file__).parent.parent.parent / "src" / "assets" / "courts.yaml"
 
-        # Auto-detect provider if not specified
-        if provider is None:
-            provider = self._detect_provider()
+        self.llm_client = self._initialize_openai_client()
 
-        self.provider = provider
-        self.llm_client = self._initialize_llm_client()
-
-    def _detect_provider(self):
-        """Auto-detect which LLM provider to use based on available API keys"""
-        anthropic_key = os.environ.get("ANTHROPIC_API_KEY")
-        openai_key = os.environ.get("OPENAI_API_KEY")
-
-        if anthropic_key and openai_key:
-            console.print("ℹ️  Both API keys found, defaulting to Anthropic (Claude)", style="blue")
-            return "anthropic"
-        elif anthropic_key:
-            return "anthropic"
-        elif openai_key:
-            return "openai"
-        else:
-            console.print("❌ No API keys found!", style="red")
-            console.print("Set either ANTHROPIC_API_KEY or OPENAI_API_KEY environment variable", style="yellow")
+    def _initialize_openai_client(self):
+        try:
+            from openai import OpenAI
+        except ImportError:
+            console.print("❌ OpenAI package not installed! Run: pip install openai", style="red")
             sys.exit(1)
 
-    def _initialize_llm_client(self):
-        """Initialize the appropriate LLM client"""
-        if self.provider == "anthropic":
-            try:
-                from anthropic import Anthropic
-                api_key = os.environ.get("ANTHROPIC_API_KEY")
-                if not api_key:
-                    console.print("❌ ANTHROPIC_API_KEY not set!", style="red")
-                    sys.exit(1)
-                console.print("🤖 Using Anthropic (Claude Sonnet 4)", style="cyan")
-                return Anthropic(api_key=api_key)
-            except ImportError:
-                console.print("❌ Anthropic package not installed! Run: pip install anthropic", style="red")
-                sys.exit(1)
-        elif self.provider == "openai":
-            try:
-                from openai import OpenAI
-                api_key = os.environ.get("OPENAI_API_KEY")
-                if not api_key:
-                    console.print("❌ OPENAI_API_KEY not set!", style="red")
-                    sys.exit(1)
-                model_name = os.environ.get("OPENAI_MODEL", "gpt-5")
-                console.print(f"🤖 Using OpenAI ({model_name})", style="cyan")
-                return OpenAI(api_key=api_key)
-            except ImportError:
-                console.print("❌ OpenAI package not installed! Run: pip install openai", style="red")
-                sys.exit(1)
-        else:
-            console.print(f"❌ Unknown provider: {self.provider}", style="red")
+        api_key = os.environ.get("OPENAI_API_KEY")
+        if not api_key:
+            console.print("❌ OPENAI_API_KEY not set!", style="red")
             sys.exit(1)
+
+        console.print(f"🤖 Using OpenAI ({self.model})", style="cyan")
+        return OpenAI(api_key=api_key)
 
     def load_yaml(self):
         """Load the courts.yaml file"""
@@ -292,7 +255,7 @@ class PriceUpdater:
             return None
 
     def extract_pricing_with_llm(self, venue_name, venue_data, page_content):
-        """Use LLM (Claude or GPT) to extract pricing information from page content"""
+        """Use OpenAI to extract pricing information from page content"""
 
         # Build court structure info for context
         courts_info = []
@@ -352,20 +315,8 @@ If outdoor courts exist, include them with empty schedule: {{"schedule": {{}}}}
 RETURN ONLY VALID JSON, NO MARKDOWN, NO EXPLANATIONS."""
 
         try:
-            if self.provider == "anthropic":
-                provider_name = "Claude"
-            else:
-                model_name = os.environ.get("OPENAI_MODEL", "gpt-5")
-                provider_name = model_name.upper()
-            console.print(f"  🤖 Asking {provider_name} to extract pricing...", style="yellow")
-
-            # Call appropriate LLM API
-            if self.provider == "anthropic":
-                response_text = self._call_anthropic(prompt)
-            elif self.provider == "openai":
-                response_text = self._call_openai(prompt)
-            else:
-                raise ValueError(f"Unknown provider: {self.provider}")
+            console.print(f"  🤖 Asking {self.model} to extract pricing...", style="yellow")
+            response_text = self._call_openai(prompt)
 
             # Try to extract JSON if wrapped in markdown
             if response_text.startswith("```"):
@@ -381,19 +332,9 @@ RETURN ONLY VALID JSON, NO MARKDOWN, NO EXPLANATIONS."""
             console.print(f"  ❌ Error extracting pricing: {str(e)}", style="red")
             return None
 
-    def _call_anthropic(self, prompt):
-        """Call Anthropic API"""
-        message = self.llm_client.messages.create(
-            model="claude-sonnet-4-20250514",
-            max_tokens=2000,
-            messages=[{"role": "user", "content": prompt}]
-        )
-        return message.content[0].text.strip()
-
     def _call_openai(self, prompt):
         """Call OpenAI API"""
-        # Try GPT-5 first, fall back to GPT-4o if not available
-        model = os.environ.get("OPENAI_MODEL", "gpt-5")
+        model = self.model
 
         # GPT-5/o1 specific parameters
         is_reasoning_model = model.startswith("gpt-5") or model.startswith("o1")
@@ -502,7 +443,8 @@ RETURN ONLY VALID JSON, NO MARKDOWN, NO EXPLANATIONS."""
         """Run the price update process"""
         console.print(Panel.fit(
             "🎾 [bold]Tennis Court Price Updater[/bold] 🎾\n"
-            f"Mode: {'DRY RUN' if self.dry_run else 'LIVE UPDATE'}",
+            f"Mode: {'DRY RUN' if self.dry_run else 'LIVE UPDATE'}\n"
+            f"Model: {self.model}",
             border_style="green"
         ))
 
@@ -549,21 +491,20 @@ RETURN ONLY VALID JSON, NO MARKDOWN, NO EXPLANATIONS."""
 
 
 def main():
-    print("DEBUG: main() started")
     parser = argparse.ArgumentParser(description="Update tennis court prices automatically")
+    parser.add_argument(
+        '--model',
+        required=True,
+        metavar='NAME',
+        help='OpenAI model id (required), e.g. gpt-5 or gpt-4o',
+    )
     parser.add_argument('--dry-run', action='store_true', help='Show changes without applying them')
     parser.add_argument('--venue', type=str, help='Update only a specific venue')
-    parser.add_argument('--provider', type=str, choices=['anthropic', 'openai'],
-                        help="LLM provider: 'anthropic' (Claude) or 'openai' (GPT). Auto-detected if not specified.")
 
     args = parser.parse_args()
-    print(f"DEBUG: args parsed - venue={args.venue}, dry_run={args.dry_run}")
 
-    # Run updater (API key check happens in __init__)
-    updater = PriceUpdater(dry_run=args.dry_run, provider=args.provider)
-    print("DEBUG: updater created, calling run()")
+    updater = PriceUpdater(dry_run=args.dry_run, model=args.model)
     updater.run(specific_venue=args.venue)
-    print("DEBUG: run() completed")
 
 
 if __name__ == "__main__":
