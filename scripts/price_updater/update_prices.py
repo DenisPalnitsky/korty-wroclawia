@@ -296,7 +296,8 @@ class PriceUpdater:
 
         # Build court structure info for context
         courts_info = []
-        for court in venue_data.get('courts', []):
+        court_groups = venue_data.get('courtGroups', venue_data.get('courts', []))
+        for court in court_groups:
             court_type = court.get('type', 'unknown')
             surface = court.get('surface', 'unknown')
             count = len(court.get('courts', []))
@@ -431,7 +432,8 @@ RETURN ONLY VALID JSON, NO MARKDOWN, NO EXPLANATIONS."""
             schedule = extracted_court.get('schedule', {})
 
             # Find matching court in venue data
-            for court in venue_data.get('courts', []):
+            court_groups = venue_data.get('courtGroups', venue_data.get('courts', []))
+            for court in court_groups:
                 if (court.get('type') == court_type and
                     court.get('surface') == surface):
 

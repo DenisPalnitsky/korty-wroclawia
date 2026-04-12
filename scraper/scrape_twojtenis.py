@@ -19,7 +19,7 @@ from datetime import datetime, timedelta
 from playwright.sync_api import sync_playwright, TimeoutError as PlaywrightTimeout
 
 
-BASE_URL = "https://www.twojtenis.pl"
+BASE_URL = "https://old.twojtenis.pl"
 CLUB_URL = f"{BASE_URL}/pl/kluby/centrum_tenisowe_redeco"
 LOGIN_URL = f"{BASE_URL}/pl/login.html"
 SCHEDULE_URL = f"{CLUB_URL}/courts_list.html"

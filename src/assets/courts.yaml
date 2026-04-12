@@ -8,7 +8,7 @@
   - multisport-plus
   courtGroups:
   - surface: hard
-    reservationLink: &matchpoint_link https://matchpoint.gymmanager.com.pl/ClassroomReservation
+    reservationLink: https://matchpoint.gymmanager.com.pl/ClassroomReservation
     type: indoor
     courts:
     - '1'
@@ -53,7 +53,7 @@
         '!:23-6': '115'
   - surface: hard
     type: tent
-    reservationLink: *matchpoint_link
+    reservationLink: https://matchpoint.gymmanager.com.pl/ClassroomReservation
     courts:
     - '4'
     - '5'
@@ -92,7 +92,7 @@
   address: Powstańców Śląskich 211A, 53-020 Wrocław
   googleMapsLink: https://maps.app.goo.gl/BM8n6n7zNntvJRXZ8
   website: http://www.krzyckapark.pl/
-  prices_source: https://www.twojtenis.pl/pl/kluby/krzycka_park/prices.html
+  prices_source: https://old.twojtenis.pl/pl/kluby/krzycka_park/prices.html
   partnerCards:
   - multisport-classic
   - multisport-plus
@@ -100,7 +100,7 @@
   - surface: clay
     type: outdoor
     light: true
-    reservationLink: &krzycka_reservation https://www.twojtenis.pl/pl/kluby/krzycka_park/courts_list.html
+    reservationLink: https://old.twojtenis.pl/pl/kluby/krzycka_park/courts_list.html
     courts:
     - '3'
     - '4'
@@ -115,7 +115,7 @@
         hl:7-23: '45'
     - from: '2024-10-01'
       to: '2025-05-01'
-      schedule:
+      schedule: null
     - from: '2025-05-01'
       to: '2025-10-01'
       schedule:
@@ -133,7 +133,7 @@
         su:8-16: '45'
   - surface: clay
     type: tent
-    reservationLink: *krzycka_reservation
+    reservationLink: https://old.twojtenis.pl/pl/kluby/krzycka_park/courts_list.html
     courts:
     - '1'
     - '2'
@@ -163,7 +163,7 @@
         su:8-16: '120'
   - surface: artificial-grass
     type: baloon
-    reservationLink: *krzycka_reservation
+    reservationLink: https://old.twojtenis.pl/pl/kluby/krzycka_park/courts_list.html
     courts:
     - '5'
     prices:
@@ -230,7 +230,7 @@
         hl:07-22: '55'
     - from: 2024-10-01
       to: 2025-05-01
-      schedule:
+      schedule: null
     - from: 2025-05-01
       to: 2025-10-01
       schedule:
@@ -242,7 +242,7 @@
         hl:07-22: '60'
     - from: 2025-10-01
       to: 2026-05-01
-      schedule:
+      schedule: null
   - surface: hard
     reservationLink: https://spartan.wroc.pl/pultuska/strefaklienta/index.php?s=rezerwacja_hali_tenisowej
     type: tent
@@ -328,7 +328,7 @@
         hl:7-22: '45'
     - from: '2024-10-01'
       to: '2025-05-01'
-      schedule:
+      schedule: null
     - from: '2025-05-01'
       to: '2025-10-01'
       schedule:
@@ -340,7 +340,7 @@
         hl:7-22: '60'
     - from: '2025-10-01'
       to: '2026-05-01'
-      schedule:
+      schedule: null
   - surface: carpet
     type: tent
     reservationLink: https://spartan.wroc.pl/lubinska/strefaklienta/index.php?s=rezerwacja_hal_tenisowych
@@ -419,7 +419,7 @@
         hl:7-23: '55'
     - from: '2024-10-01'
       to: '2025-05-01'
-      schedule:
+      schedule: null
     - from: '2025-05-01'
       to: '2025-10-01'
       schedule:
@@ -431,7 +431,7 @@
         hl:7-23: '60'
     - from: '2025-10-01'
       to: '2026-05-01'
-      schedule:
+      schedule: null
   - surface: clay
     type: indoor
     reservationLink: https://spartan.wroc.pl/spiska/strefaklienta/index.php?s=hala_tenisowa
@@ -502,6 +502,7 @@
     - from: '2025-10-01'
       to: '2026-05-01'
       schedule:
+        '!:7-22': '40'
   coordinates:
     lat: 51.109652754511735
     long: 17.09615418438255
@@ -510,13 +511,13 @@
   address: al. Generała Józefa Hallera 81A, 53-325 Wrocław
   googleMapsLink: https://maps.app.goo.gl/JB32kdVwZSP8E3DJ8
   website: https://redeco.pl
-  prices_source: https://www.twojtenis.pl/pl/kluby/centrum_tenisowe_redeco/prices.html
+  prices_source: https://old.twojtenis.pl/pl/kluby/centrum_tenisowe_redeco/prices.html
   partnerCards:
   - multisport-plus
   courtGroups:
   - surface: hard
     type: indoor
-    reservationLink: &redeco_res https://www.twojtenis.pl/pl/kluby/centrum_tenisowe_redeco/courts_list.html
+    reservationLink: https://old.twojtenis.pl/pl/kluby/centrum_tenisowe_redeco/courts_list.html
     courts:
     - '1'
     - '2'
@@ -560,7 +561,7 @@
         hl:22-8: '105'
   - surface: clay
     type: baloon
-    reservationLink: *redeco_res
+    reservationLink: https://old.twojtenis.pl/pl/kluby/centrum_tenisowe_redeco/courts_list.html
     courts:
     - '1'
     - '2'
@@ -599,14 +600,14 @@
   id: vario-sport
   address: Parkowa 32, 55-010 Żerniki Wrocławskie
   googleMapsLink: https://maps.app.goo.gl/qh9DuwG1KUz9o5cZ7
-  website: https://www.twojtenis.pl/pl/kluby/vario_sport/info.html
-  prices_source: https://www.twojtenis.pl/pl/kluby/vario_sport/prices.html
+  website: https://old.twojtenis.pl/pl/kluby/vario_sport/info.html
+  prices_source: https://old.twojtenis.pl/pl/kluby/vario_sport/prices.html
   courtGroups:
   - surface: clay
     type: baloon
     light: false
     heating: false
-    reservationLink: https://www.twojtenis.pl/pl/kluby/vario_sport/courts_list.html
+    reservationLink: https://old.twojtenis.pl/pl/kluby/vario_sport/courts_list.html
     courts:
     - '1'
     - '2'
@@ -640,7 +641,7 @@
   address: ul. Kominiarska 42, 51-180 Wrocław
   googleMapsLink: https://maps.app.goo.gl/6fn5UrsWGKmejWQLA
   website: http://winnerstennisclub.pl
-  prices_source: https://www.twojtenis.pl/pl/kluby/winners_tennis_club/prices.html
+  prices_source: https://old.twojtenis.pl/pl/kluby/winners_tennis_club/prices.html
   partnerCards:
   - multisport-plus
   - multisport-classic
@@ -650,7 +651,7 @@
   courtGroups:
   - surface: clay
     type: baloon
-    reservationLink: https://www.twojtenis.pl/pl/kluby/winners_tennis_club.html
+    reservationLink: https://old.twojtenis.pl/pl/kluby/winners_tennis_club.html
     courts:
     - '1'
     - '2'
@@ -685,19 +686,18 @@
         su:6-24: '125'
         st:6-24: '125'
         hl:6-24: '125'
-
 - name: Oleśnicki Klub Tenisowy
   id: olesnicki-klub-tenisowy
   address: Rabarbarowa 7, 56-400 OLEŚNICA
   googleMapsLink: https://maps.app.goo.gl/5WGKjGSHppaXjnh77
-  website: https://www.twojtenis.pl/pl/kluby/olesnicki_klub_tenisowy/info.html
-  prices_source: https://www.twojtenis.pl/pl/kluby/olesnicki_klub_tenisowy/prices.html
+  website: https://old.twojtenis.pl/pl/kluby/olesnicki_klub_tenisowy/info.html
+  prices_source: https://old.twojtenis.pl/pl/kluby/olesnicki_klub_tenisowy/prices.html
   partnerCards:
   - multisport
   courtGroups:
   - surface: clay
     type: outdoor
-    reservationLink: https://www.twojtenis.pl/pl/kluby/olesnicki_klub_tenisowy/courts_list.html
+    reservationLink: https://old.twojtenis.pl/pl/kluby/olesnicki_klub_tenisowy/courts_list.html
     courts:
     - '1'
     - '2'
@@ -705,6 +705,10 @@
     prices:
     - from: '2025-05-01'
       to: '2025-10-01'
+      schedule:
+        '*:6-22': '30'
+    - from: '2025-10-01'
+      to: '2026-05-01'
       schedule:
         '*:6-22': '30'
   coordinates:
@@ -769,7 +773,7 @@
         '*:21-23': '65'
     - from: '2024-10-01'
       to: '2025-05-01'
-      schedule:
+      schedule: null
     - from: '2025-05-01'
       to: '2025-10-01'
       schedule:
@@ -781,20 +785,20 @@
         st:8-23: '60'
     - from: '2025-10-01'
       to: '2026-05-01'
-      schedule:
+      schedule: null
 - name: Hala Tenisowa Hotel Gem
   id: gem
   address: Józefa Mianowskiego 2B, 51-605 Wrocław
   googleMapsLink: https://maps.app.goo.gl/rnYYGhw3bookeDak9
   website: https://gemhotel.pl/obiekty-sportowe/hala-tenisowa-i-korty/
-  prices_source: https://www.twojtenis.pl/pl/kluby/hala_tenisowa_hotel_gem/prices.html
+  prices_source: https://old.twojtenis.pl/pl/kluby/hala_tenisowa_hotel_gem/prices.html
   partnerCards:
   - multisport-plus
   - multisport-classic
   courtGroups:
   - surface: hard
     type: indoor
-    reservationLink: &gem_reserv https://www.twojtenis.pl/pl/kluby/hala_tenisowa_hotel_gem.html
+    reservationLink: https://old.twojtenis.pl/pl/kluby/hala_tenisowa_hotel_gem.html
     courts:
     - '1'
     - '2'
@@ -826,7 +830,7 @@
         hl:7-20: '120'
   - surface: clay
     type: outdoor
-    reservationLink: *gem_reserv
+    reservationLink: https://old.twojtenis.pl/pl/kluby/hala_tenisowa_hotel_gem.html
     courts:
     - '4'
     - '5'
@@ -888,7 +892,7 @@
         '*:6-15': '65'
         '*:15-23': '75'
     - from: '2025-10-01'
-      to: '2026-04-01'
+      to: '2026-05-01'
       schedule:
         '*:6-15': '120'
         '*:15-23': '150'
@@ -933,15 +937,15 @@
   id: awf hala tenisowa
   address: Stadion Olimpijski, al Ignacego Jana Paderewskiego 35, 51-612 Wrocław
   googleMapsLink: https://maps.app.goo.gl/MYnpGY1QLNvShmqS8
-  website: https://www.twojtenis.pl/pl/kluby/awf_hala_tenisowa/info.html
-  prices_source: https://www.twojtenis.pl/pl/kluby/awf_hala_tenisowa/prices.html
+  website: https://old.twojtenis.pl/pl/kluby/awf_hala_tenisowa/info.html
+  prices_source: https://old.twojtenis.pl/pl/kluby/awf_hala_tenisowa/prices.html
   partnerCards:
   - multisport-plus
   - multisport-classic
   courtGroups:
   - surface: hard
     type: indoor
-    reservationLink: https://www.twojtenis.pl/pl/kluby/awf_hala_tenisowa/courts_list.html
+    reservationLink: https://old.twojtenis.pl/pl/kluby/awf_hala_tenisowa/courts_list.html
     courts:
     - '1'
     - '2'
@@ -986,7 +990,7 @@
     long: 16.9898139
   courtGroups:
   - surface: clay
-    reservationLink: &topacz_reserv https://app.tenis4u.pl/#/court/326
+    reservationLink: https://app.tenis4u.pl/#/court/326
     type: tent
     courts:
     - '1'
@@ -1024,7 +1028,7 @@
   - surface: clay
     type: outdoor
     light: true
-    reservationLink: *topacz_reserv
+    reservationLink: https://app.tenis4u.pl/#/court/326
     courts:
     - '5'
     - '6'
@@ -1067,7 +1071,7 @@
   courtGroups:
   - surface: hard
     type: indoor
-    reservationLink:
+    reservationLink: null
     courts:
     - '1'
     - '2'
@@ -1117,7 +1121,7 @@
         su:8-23: '45'
     - from: '2024-10-01'
       to: '2025-05-01'
-      schedule:
+      schedule: null
     - from: '2025-05-01'
       to: '2025-10-01'
       schedule:
@@ -1127,13 +1131,12 @@
         st:8-23: '35'
     - from: '2025-10-01'
       to: '2026-04-30'
-      schedule:
+      schedule: null
   - surface: hard
     courts:
     - '6'
     type: outdoor
     prices: *id001
-
 - name: Centrum Tenisowe Kłokoczyce
   id: klokoczyce
   address: Kłokoczycka 5, 51-376 Wrocław
@@ -1187,7 +1190,7 @@
   courtGroups:
   - surface: clay
     type: outdoor
-    reservationLink: &olimp_reserv https://olimpijskiclub.pl/zarezerwuj-korty-online/
+    reservationLink: https://olimpijskiclub.pl/zarezerwuj-korty-online/
     courts:
     - '1'
     - '2'
@@ -1210,7 +1213,7 @@
         hl:6-23: '55'
     - from: '2024-10-01'
       to: '2025-05-01'
-      schedule:
+      schedule: null
     - from: '2025-05-01'
       to: '2025-10-01'
       schedule:
@@ -1222,10 +1225,10 @@
         hl:6-23: '60'
     - from: '2025-10-01'
       to: '2026-05-01'
-      schedule:
+      schedule: null
   - surface: clay
     type: outdoor
-    reservationLink: *olimp_reserv
+    reservationLink: https://olimpijskiclub.pl/zarezerwuj-korty-online/
     courts:
     - C
     light: true
@@ -1241,7 +1244,7 @@
         hl:6-23: '60'
     - from: '2024-10-01'
       to: '2025-05-01'
-      schedule:
+      schedule: null
     - from: '2025-05-01'
       to: '2025-10-01'
       schedule:
@@ -1253,10 +1256,10 @@
         hl:6-23: '66'
     - from: '2025-10-01'
       to: '2026-05-01'
-      schedule:
+      schedule: null
   - surface: clay
     type: tent
-    reservationLink: *olimp_reserv
+    reservationLink: https://olimpijskiclub.pl/zarezerwuj-korty-online/
     courts:
     - '9'
     - '10'
@@ -1301,7 +1304,7 @@
   courtGroups:
   - surface: clay
     type: indoor
-    reservationLink: &lotnicza_reserv https://www.lotniczatennisclub.pl/rezerwacja-kortow-online/
+    reservationLink: https://www.lotniczatennisclub.pl/rezerwacja-kortow-online/
     courts:
     - '1'
     - '2'
@@ -1335,7 +1338,7 @@
         hl:7-23: '135'
   - surface: clay
     type: baloon
-    reservationLink: *lotnicza_reserv
+    reservationLink: https://www.lotniczatennisclub.pl/rezerwacja-kortow-online/
     courts:
     - '5'
     - '6'
@@ -1374,80 +1377,86 @@
   - multisport-plus
   - multisport-classic
   courtGroups:
-    - surface: clay
-      type: baloon
-      courts: ['1', '2', '3']
-      prices:
-        - from: '2024-10-01'
-          to: '2025-05-01'
-          schedule:
-            "*:6-17": '120'
-            "*:17-23": '150'
-            st:6-15: '120'
-            su:6-15: '120'
-            hl:6-15: '120'
-            st:15-23: '60'
-            su:15-23: '60'
-            hl:15-23: '60'
-        - from: '2025-05-01'
-          to: '2025-10-01'
-          schedule:
-            "*:6-15": '120'
-            "*:15-17": '120'
-            "*:17-21": '150'
-            "*:21-23": '150'
-            st:6-23: '120'
-            su:6-23: '120'
-            hl:6-23: '120'
-
-        - from: '2025-10-01'
-          to: '2026-05-01'
-          schedule:
-            "*:6-15": '135'
-            "*:15-23": '165'
-            st:6-23: '135'
-            su:6-23: '135'
-            hl:6-23: '135'
-    - surface: clay
-      type: outdoor
-      courts: ['1', '2', '3', '4']
-      prices:
-        - from: '2025-05-01'
-          to: '2025-10-01'
-          schedule:
-            "*:6-15": '120'
-            "*:15-23": '150'
-            st:6-23: '120'
-            su:6-23: '120'
-            hl:6-23: '120'
-        - from: '2025-10-01'
-          to: '2026-05-01'
-          schedule:
-
-    - surface: grass
-      type: outdoor
-      courts: ['5', '6']
-      prices:
-        - from: '2025-05-01'
-          to: '2025-10-01'
-          schedule:
-            "*:6-15": '135'
-            "*:15-23": '165'
-            st:6-23: '135'
-            su:6-23: '135'
-            hl:6-23: '135'
-        - from: '2025-10-01'
-          to: '2026-05-01'
-          schedule:
-            "*:6-15": '135'
-            "*:15-23": '165'
-            st:6-23: '135'
-            su:6-23: '135'
-            hl:6-23: '135'
+  - surface: clay
+    type: baloon
+    courts:
+    - '1'
+    - '2'
+    - '3'
+    prices:
+    - from: '2024-10-01'
+      to: '2025-05-01'
+      schedule:
+        '*:6-17': '120'
+        '*:17-23': '150'
+        st:6-15: '120'
+        su:6-15: '120'
+        hl:6-15: '120'
+        st:15-23: '60'
+        su:15-23: '60'
+        hl:15-23: '60'
+    - from: '2025-05-01'
+      to: '2025-10-01'
+      schedule:
+        '*:6-15': '120'
+        '*:15-17': '120'
+        '*:17-21': '150'
+        '*:21-23': '150'
+        st:6-23: '120'
+        su:6-23: '120'
+        hl:6-23: '120'
+    - from: '2025-10-01'
+      to: '2026-05-01'
+      schedule:
+        '*:6-15': '135'
+        '*:15-23': '165'
+        st:6-23: '135'
+        su:6-23: '135'
+        hl:6-23: '135'
+  - surface: clay
+    type: outdoor
+    courts:
+    - '1'
+    - '2'
+    - '3'
+    - '4'
+    prices:
+    - from: '2025-05-01'
+      to: '2025-10-01'
+      schedule:
+        '*:6-15': '120'
+        '*:15-23': '150'
+        st:6-23: '120'
+        su:6-23: '120'
+        hl:6-23: '120'
+    - from: '2025-10-01'
+      to: '2026-05-01'
+      schedule: null
+  - surface: grass
+    type: outdoor
+    courts:
+    - '5'
+    - '6'
+    prices:
+    - from: '2025-05-01'
+      to: '2025-10-01'
+      schedule:
+        '*:6-15': '135'
+        '*:15-23': '165'
+        st:6-23: '135'
+        su:6-23: '135'
+        hl:6-23: '135'
+    - from: '2025-10-01'
+      to: '2026-05-01'
+      schedule:
+        '*:6-15': '135'
+        '*:15-23': '165'
+        st:6-23: '135'
+        su:6-23: '135'
+        hl:6-23: '135'
   coordinates:
     lat: 51.1222323
     long: 17.0839662
-
 - name: K69 - Health & Performance
   id: k69
   address: Kozanowska 69, 54-152 Wrocław
@@ -1458,42 +1467,42 @@
   partnerCards:
   - multisport-plus
   courtGroups:
-    - surface: carpet
-      type: indoor
-      courts: ['1']
-      prices:
-        - from: '2025-02-01'
-          to: '2025-05-01'
-          schedule:
-            "*:7-15": '100'
-            "*:15-22": '150'
-            st:6-15: '120'
-            su:6-15: '120'
-            hl:7-20: '115'
-            su:7-20: '115'
-            st:7-20: '115'
-        - from: '2025-05-01'
-          to: '2025-10-01'
-          schedule:
-            "*:6-12": '40'
-            "*:12-15": '35'
-            "*:15-23": '60'
-            st:6-23: '40'
-            su:6-23: '40'
-            hl:6-23: '40'
-        - from: '2025-10-01'
-          to: '2026-05-01'
-          schedule:
-            "*:7-15": '115'
-            "*:15-22": '165'
-            "*:15-23": '60'
-            st:6-23: '120'
-            su:6-23: '120'
-            hl:6-23: '120'
+  - surface: carpet
+    type: indoor
+    courts:
+    - '1'
+    prices:
+    - from: '2025-02-01'
+      to: '2025-05-01'
+      schedule:
+        '*:7-15': '100'
+        '*:15-22': '150'
+        st:6-15: '120'
+        su:6-15: '120'
+        hl:7-20: '115'
+        su:7-20: '115'
+        st:7-20: '115'
+    - from: '2025-05-01'
+      to: '2025-10-01'
+      schedule:
+        '*:6-12': '40'
+        '*:12-15': '35'
+        '*:15-23': '60'
+        st:6-23: '40'
+        su:6-23: '40'
+        hl:6-23: '40'
+    - from: '2025-10-01'
+      to: '2026-05-01'
+      schedule:
+        '*:7-15': '115'
+        '*:15-22': '165'
+        '*:15-23': '60'
+        st:6-23: '120'
+        su:6-23: '120'
+        hl:6-23: '120'
   coordinates:
     lat: 51.139351
-    long: 16.972570
-
+    long: 16.97257
 - name: Tenis Planet Smolec
   id: tenis-planet-smolec
   website: https://www.tenisplanet.pl/
@@ -1505,36 +1514,37 @@
   - multisport-plus
   - multisport-classic
   courtGroups:
-    - surface: carpet
-      type: outdoor
-      courts: ['1', '2', '3']
-      prices:
-        - from: '2024-10-01'
-          to: '2025-04-01'
-          schedule:
-            "*:7-15": '20'
-            "*:15-22": '30'
-            "su:7-22": '25'
-            "st:7-22": '25'
-            "hl:7-22": '25'
-        - from: '2025-04-01'
-          to: '2025-10-01'
-          schedule:
-            "*:7-16": '25'
-            "*:16-22": '45'
-            "su:7-22": '30'
-            "st:7-22": '30'
-            "hl:7-22": '30'
-        - from: '2025-10-01'
-          to: '2026-03-31'
-          schedule:
-            "*:7-15": '20'
-            "*:15-22": '30'
-            "su:7-22": '25'
-            "st:7-22": '25'
-            "hl:7-22": '25'
+  - surface: carpet
+    type: outdoor
+    courts:
+    - '1'
+    - '2'
+    - '3'
+    prices:
+    - from: '2024-10-01'
+      to: '2025-04-01'
+      schedule:
+        '*:7-15': '20'
+        '*:15-22': '30'
+        su:7-22: '25'
+        st:7-22: '25'
+        hl:7-22: '25'
+    - from: '2025-04-01'
+      to: '2025-10-01'
+      schedule:
+        '*:7-16': '25'
+        '*:16-22': '45'
+        su:7-22: '30'
+        st:7-22: '30'
+        hl:7-22: '30'
+    - from: '2025-10-01'
+      to: '2026-05-01'
+      schedule:
+        '*:7-15': '20'
+        '*:15-22': '30'
+        su:7-22: '25'
+        st:7-22: '25'
+        hl:7-22: '25'
   coordinates:
     lat: 51.084217505567246
     long: 16.902187341121568
-
-
