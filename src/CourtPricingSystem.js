@@ -282,13 +282,13 @@ class CourtGroup {
 
 class Club {
   constructor (clubData){
-    const { courts = [], ...rest } = clubData;
-    
-    if (!courts) {
+    const { courtGroups = [], ...rest } = clubData;
+
+    if (!courtGroups) {
         throw new Error(`No courts defined for club ${clubData.name}`);
     }
-    
-    this.courtGroups = courts.map(group =>
+
+    this.courtGroups = courtGroups.map(group =>
       new CourtGroup(group, this)
     );
 
@@ -478,17 +478,31 @@ class CourtPricingSystem {
       return dates;
     };
   
-    const year2024 = getDatesForYear(2024);
+    // Collect all years covered by pricing periods
+    const yearsSet = new Set();
+    for (const club of this.clubs) {
+      for (const courtGroup of club.courtGroups) {
+        for (const price of courtGroup.prices) {
+          yearsSet.add(price.from.getFullYear());
+          yearsSet.add(price.to.getFullYear());
+        }
+      }
+    }
+    const allDates = [];
+    for (const year of yearsSet) {
+      allDates.push(...getDatesForYear(year));
+    }
+
     const hours = Array.from({length: 14}, (_, i) => i + 8); // generates [8,9...,21]
-  
+
     for (const club of this.clubs) {
       for (const courtGroup of club.courtGroups) {
         // Get min/max dates from pricing periods
         const minDate = new Date(Math.min(...courtGroup.prices.map(p => new Date(p.from))));
         const maxDate = new Date(Math.max(...courtGroup.prices.map(p => new Date(p.to))));
-  
+
         // Filter dates within pricing period range
-        const relevantDates = year2024.filter(date => 
+        const relevantDates = allDates.filter(date =>
           date >= minDate && date < maxDate
         );
   

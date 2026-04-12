@@ -6,7 +6,7 @@
   prices_source: https://matchpoint.com.pl/cennik/
   partnerCards:
   - multisport-plus
-  courts:
+  courtGroups:
   - surface: hard
     reservationLink: &matchpoint_link https://matchpoint.gymmanager.com.pl/ClassroomReservation
     type: indoor
@@ -96,7 +96,7 @@
   partnerCards:
   - multisport-classic
   - multisport-plus
-  courts:
+  courtGroups:
   - surface: clay
     type: outdoor
     light: true
@@ -205,7 +205,7 @@
   - medicover
   - fit-profit
   - pzu-sport
-  courts:
+  courtGroups:
   - surface: clay
     type: outdoor
     light: true
@@ -307,7 +307,7 @@
   coordinates:
     lat: 51.118881
     long: 17.006262
-  courts:
+  courtGroups:
   - surface: clay
     type: outdoor
     light: true
@@ -397,7 +397,7 @@
   - medicover
   - fit-profit
   - pzu-sport
-  courts:
+  courtGroups:
   - surface: clay
     type: outdoor
     light: false
@@ -486,7 +486,7 @@
   - medicover
   - fit-profit
   - pzu-sport
-  courts:
+  courtGroups:
   - surface: hard
     type: outdoor
     reservationLink: https://spartan.wroc.pl/krajewskiego/strefaklienta/index.php?s=zajetosc_kortu
@@ -513,7 +513,7 @@
   prices_source: https://www.twojtenis.pl/pl/kluby/centrum_tenisowe_redeco/prices.html
   partnerCards:
   - multisport-plus
-  courts:
+  courtGroups:
   - surface: hard
     type: indoor
     reservationLink: &redeco_res https://www.twojtenis.pl/pl/kluby/centrum_tenisowe_redeco/courts_list.html
@@ -601,7 +601,7 @@
   googleMapsLink: https://maps.app.goo.gl/qh9DuwG1KUz9o5cZ7
   website: https://www.twojtenis.pl/pl/kluby/vario_sport/info.html
   prices_source: https://www.twojtenis.pl/pl/kluby/vario_sport/prices.html
-  courts:
+  courtGroups:
   - surface: clay
     type: baloon
     light: false
@@ -647,7 +647,7 @@
   coordinates:
     lat: 51.171542
     long: 17.004297
-  courts:
+  courtGroups:
   - surface: clay
     type: baloon
     reservationLink: https://www.twojtenis.pl/pl/kluby/winners_tennis_club.html
@@ -694,7 +694,7 @@
   prices_source: https://www.twojtenis.pl/pl/kluby/olesnicki_klub_tenisowy/prices.html
   partnerCards:
   - multisport
-  courts:
+  courtGroups:
   - surface: clay
     type: outdoor
     reservationLink: https://www.twojtenis.pl/pl/kluby/olesnicki_klub_tenisowy/courts_list.html
@@ -719,7 +719,7 @@
   coordinates:
     lat: 51.1429395
     long: 16.893473
-  courts:
+  courtGroups:
   - surface: artificial-grass
     type: baloon
     courts:
@@ -791,7 +791,7 @@
   partnerCards:
   - multisport-plus
   - multisport-classic
-  courts:
+  courtGroups:
   - surface: hard
     type: indoor
     reservationLink: &gem_reserv https://www.twojtenis.pl/pl/kluby/hala_tenisowa_hotel_gem.html
@@ -862,7 +862,7 @@
   reservationLink: https://rezerwacje.fittenis.pl/training/court_calendar
   partnerCards:
   - multisport
-  courts:
+  courtGroups:
   - surface: clay
     type: tent
     light: true
@@ -938,7 +938,7 @@
   partnerCards:
   - multisport-plus
   - multisport-classic
-  courts:
+  courtGroups:
   - surface: hard
     type: indoor
     reservationLink: https://www.twojtenis.pl/pl/kluby/awf_hala_tenisowa/courts_list.html
@@ -984,7 +984,7 @@
   coordinates:
     lat: 51.034292
     long: 16.9898139
-  courts:
+  courtGroups:
   - surface: clay
     reservationLink: &topacz_reserv https://app.tenis4u.pl/#/court/326
     type: tent
@@ -1064,7 +1064,7 @@
   coordinates:
     lat: 51.0842206
     long: 16.9064912
-  courts:
+  courtGroups:
   - surface: hard
     type: indoor
     reservationLink:
@@ -1140,7 +1140,7 @@
   googleMapsLink: https://maps.app.goo.gl/2Qc652uw7wsLiHC89
   website: https://app.tenis4u.pl/#/court/263
   prices_source: https://app.tenis4u.pl/#/court/263
-  courts:
+  courtGroups:
   - surface: clay
     type: indoor
     reservationLink: https://app.tenis4u.pl/#/court/263
@@ -1184,7 +1184,7 @@
   partnerCards:
   - multisport-plus
   - multisport-classic
-  courts:
+  courtGroups:
   - surface: clay
     type: outdoor
     reservationLink: &olimp_reserv https://olimpijskiclub.pl/zarezerwuj-korty-online/
@@ -1298,7 +1298,7 @@
   partnerCards:
   - multisport-plus
   - multisport-classic
-  courts:
+  courtGroups:
   - surface: clay
     type: indoor
     reservationLink: &lotnicza_reserv https://www.lotniczatennisclub.pl/rezerwacja-kortow-online/
@@ -1373,7 +1373,7 @@
   partnerCards:
   - multisport-plus
   - multisport-classic
-  courts:
+  courtGroups:
     - surface: clay
       type: baloon
       courts: ['1', '2', '3']
@@ -1457,7 +1457,7 @@
   reservationLink: https://reservise.com/pl/online/k69hp/
   partnerCards:
   - multisport-plus
-  courts:
+  courtGroups:
     - surface: carpet
       type: indoor
       courts: ['1']
@@ -1504,7 +1504,7 @@
   partnerCards:
   - multisport-plus
   - multisport-classic
-  courts:
+  courtGroups:
     - surface: carpet
       type: outdoor
       courts: ['1', '2', '3']

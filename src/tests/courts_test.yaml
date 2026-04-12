@@ -4,11 +4,11 @@
   googleMapsLink: https://maps.app.goo.gl/Dm2WNmwLiSPtBanZ9
   website: https://www.matchpoint.com.pl/
   partnerCards: ['multisport-plus']
-  courts:
+  courtGroups:
   - surface: hard
     type: indoor
-    courts: ['1', '2']    
-    prices:      
+    courts: ['1', '2']
+    prices:
       - from: '2024-05-01'
         to: '2024-11-01'
         schedule:
@@ -45,7 +45,7 @@
   googleMapsLink: https://maps.app.goo.gl/BM8n6n7zNntvJRXZ8
   website: http://www.krzyckapark.pl/
   partnerCards: ['multisport']
-  courts:
+  courtGroups:
   - surface: clay
     type: outdoor
     light: yes
