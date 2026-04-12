@@ -81,7 +81,7 @@
   - surface: clay
     type: outdoor
     light: true
-    reservationLink: &krzycka_reservation https://www.twojtenis.pl/pl/kluby/krzycka_park/courts_list.html
+    reservationLink: &krzycka_reservation https://old.twojtenis.pl/pl/kluby/krzycka_park/courts_list.html
     courts:
     - '3'
     - '4'
@@ -427,7 +427,7 @@
   courtGroups:
   - surface: hard
     type: indoor
-    reservationLink: &redeco_res https://www.twojtenis.pl/pl/kluby/centrum_tenisowe_redeco/courts_list.html
+    reservationLink: &redeco_res https://old.twojtenis.pl/pl/kluby/centrum_tenisowe_redeco/courts_list.html
     courts:
     - '1'
     - '2'
@@ -490,13 +490,13 @@
   id: vario-sport
   address: Parkowa 32, 55-010 Żerniki Wrocławskie
   googleMapsLink: https://maps.app.goo.gl/qh9DuwG1KUz9o5cZ7
-  website: https://www.twojtenis.pl/pl/kluby/vario_sport/info.html
+  website: https://old.twojtenis.pl/pl/kluby/vario_sport/info.html
   courtGroups:
   - surface: clay
     type: baloon
     light: false
     heating: false
-    reservationLink: https://www.twojtenis.pl/pl/kluby/vario_sport/courts_list.html
+    reservationLink: https://old.twojtenis.pl/pl/kluby/vario_sport/courts_list.html
     courts:
     - '1'
     - '2'
@@ -532,7 +532,7 @@
   courtGroups:
   - surface: clay
     type: baloon
-    reservationLink: https://www.twojtenis.pl/pl/kluby/winners_tennis_club.html
+    reservationLink: https://old.twojtenis.pl/pl/kluby/winners_tennis_club.html
     courts:
     - '1'
     - '2'
@@ -563,13 +563,13 @@
   id: olesnicki-klub-tenisowy
   address: Rabarbarowa 7, 56-400 OLEŚNICA
   googleMapsLink: https://maps.app.goo.gl/5WGKjGSHppaXjnh77
-  website: https://www.twojtenis.pl/pl/kluby/olesnicki_klub_tenisowy/info.html
+  website: https://old.twojtenis.pl/pl/kluby/olesnicki_klub_tenisowy/info.html
   partnerCards:
   - multisport
   courtGroups:
   - surface: clay
     type: outdoor
-    reservationLink: https://www.twojtenis.pl/pl/kluby/olesnicki_klub_tenisowy/courts_list.html
+    reservationLink: https://old.twojtenis.pl/pl/kluby/olesnicki_klub_tenisowy/courts_list.html
     courts:
     - '1'
     - '2'
@@ -652,7 +652,7 @@
   courtGroups:
   - surface: hard
     type: indoor
-    reservationLink: &gem_reserv https://www.twojtenis.pl/pl/kluby/hala_tenisowa_hotel_gem.html
+    reservationLink: &gem_reserv https://old.twojtenis.pl/pl/kluby/hala_tenisowa_hotel_gem.html
     courts:
     - '1'
     - '2'
@@ -763,14 +763,14 @@
   id: awf hala tenisowa
   address: Stadion Olimpijski, al Ignacego Jana Paderewskiego 35, 51-612 Wrocław
   googleMapsLink: https://maps.app.goo.gl/MYnpGY1QLNvShmqS8
-  website: https://www.twojtenis.pl/pl/kluby/awf_hala_tenisowa/info.html
+  website: https://old.twojtenis.pl/pl/kluby/awf_hala_tenisowa/info.html
   partnerCards:
   - multisport-plus
   - multisport-classic
   courtGroups:
   - surface: hard
     type: indoor
-    reservationLink: https://www.twojtenis.pl/pl/kluby/awf_hala_tenisowa/courts_list.html
+    reservationLink: https://old.twojtenis.pl/pl/kluby/awf_hala_tenisowa/courts_list.html
     courts:
     - '1'
     - '2'
