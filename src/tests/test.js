@@ -56,7 +56,7 @@ describe('CourtPricing', () => {
       const system = new CourtPricingSystem({
         id: 'test-club',
         name: 'Test Club',
-        courts: [
+        courtGroups: [
           {
             surface: 'hard',
             type: 'indoor',
@@ -107,7 +107,7 @@ describe('CourtPricing', () => {
         googleMapsLink: 'https://maps.app.goo.gl/1',
         website: 'https://example.com',
         address: 'Test Street 1',
-        courts: [{
+        courtGroups: [{
           surface: 'hard',
           type: 'indoor',
           courts: ['1'],
@@ -138,7 +138,7 @@ describe('CourtPricing', () => {
         googleMapsLink: 'https://maps.app.goo.gl/1',
         website: 'https://example.com',
         address: 'Test Street 1',
-        courts: [{
+        courtGroups: [{
           surface: 'hard',
           type: 'indoor',
           courts: ['1'],
@@ -169,7 +169,7 @@ describe('CourtPricing', () => {
         googleMapsLink: 'https://maps.app.goo.gl/1',
         website: 'https://example.com',
         address: 'Test Street 1',
-        courts: [{
+        courtGroups: [{
           surface: 'hard',
           type: 'indoor',
           courts: ['1'],
@@ -196,7 +196,7 @@ describe('CourtPricing', () => {
         googleMapsLink: 'https://maps.app.goo.gl/1',
         website: 'https://example.com',
         address: 'Test Street 1',
-        courts: [{
+        courtGroups: [{
           surface: 'hard',
           type: 'indoor',
           courts: ['1'],
@@ -228,7 +228,7 @@ describe('CourtPricing', () => {
         googleMapsLink: 'https://maps.app.goo.gl/1',
         website: 'https://example.com',
         address: 'Test Street 1',
-        courts: [
+        courtGroups: [
           {
             surface: 'hard',
             type: 'indoor',

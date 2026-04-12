@@ -3,7 +3,7 @@
   address: Granitowa 4, 55-080 Smolecv
   googleMapsLink: https://maps.app.goo.gl/ts2aZsTmmZRsKejg7
   website: https://www.smolecsport.pl/oferta/tenis/wynajem-kortu.html
-  courts:                
+  courtGroups:
   - surface: hard
     courts: ['6']    
     type: outdoor
