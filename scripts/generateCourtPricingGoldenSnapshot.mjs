@@ -1,7 +1,11 @@
 /**
  * Generates a golden JSON snapshot of CourtPricingSystem outputs for production
- * courts data. Run after intentional pricing/YAML changes:
- *   node scripts/generateCourtPricingGoldenSnapshot.mjs
+ * courts data. Must match CI/test timezone (Europe/Warsaw) because pricing uses
+ * local getHours()/getDay().
+ *
+ *   npm run generate-pricing-golden
+ *
+ * Or: TZ=Europe/Warsaw node scripts/generateCourtPricingGoldenSnapshot.mjs
  */
 import fs from 'fs';
 import path from 'path';
