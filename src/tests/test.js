@@ -47,8 +47,9 @@ describe('CourtPricing', () => {
 
   it ('should return correct prices for krzycka park', () => {
     const krzycka = courtPricingSystem.list()[1].courtGroups[0];
-    let price = krzycka.getPrice('2024-12-31T16:00:00', '2024-12-31T18:00:00');
-    expect(price).to.equal(50*2, "Two hours in the evening")
+    // Use a mid-year weekday evening so local timezone cannot shift the calendar day into a holiday.
+    let price = krzycka.getPrice('2024-06-05T16:00:00', '2024-06-05T18:00:00');
+    expect(price).to.equal(50 * 2, 'Two hours in the evening');
   });
 
   describe('regression', () => {
@@ -374,7 +375,7 @@ describe('Test pricing period', () => {
     expect(price).to.equal(75);
 
 
-    date = new Date('2024-11-11T10:00:00'); // Holiday, Independence Day
+    date = new Date('2024-12-25T10:00:00'); // Holiday (Christmas) — hl schedule applies
     price = pricePeriod.getHalfHourRate(date);
     expect(price).to.equal(100);
 
