@@ -57,8 +57,9 @@ class PricePeriod {
     this.to = new Date(prices.to);
     this.to.setHours(0,0,0,0);
 
+    this.closed = prices.closed === true;
     this.schedule = prices.schedule;
-    this.dayMap = this.createPricingMap(this.schedule);    
+    this.dayMap = this.createPricingMap(this.schedule);
   }
 
   mergeTimeMaps(existingMap, newMap) {
@@ -125,10 +126,10 @@ class PricePeriod {
   }
 
   isClosed() {
+    if (this.closed) return true;
     if (this.schedule === undefined || this.schedule === null || (this.schedule && this.schedule.length === 0)) {
-      return  true;
+      return true;
     }
-    
     return false;
   }
 

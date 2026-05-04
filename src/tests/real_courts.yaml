@@ -760,7 +760,7 @@
     lat: 51.1343496
     long: 17.0310476
 - name: AWF Hala Tenisowa
-  id: awf hala tenisowa
+  id: awf-hala-tenisowa
   address: Stadion Olimpijski, al Ignacego Jana Paderewskiego 35, 51-612 Wrocław
   googleMapsLink: https://maps.app.goo.gl/MYnpGY1QLNvShmqS8
   website: https://old.twojtenis.pl/pl/kluby/awf_hala_tenisowa/info.html
@@ -947,7 +947,7 @@
     lat: 51.1525319
     long: 17.1118552
 - name: Olimpijski Club
-  id: olimpijski club
+  id: olimpijski-club
   address: al. Ignacego Jana Paderewskiego 35, 51-612 Wrocław
   googleMapsLink: https://maps.app.goo.gl/kRtYtYA4FH1PApEPA
   website: https://olimpijskiclub.pl

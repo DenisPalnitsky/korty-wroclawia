@@ -115,7 +115,7 @@
         hl:7-23: '45'
     - from: '2024-10-01'
       to: '2025-05-01'
-      schedule: null
+      closed: true
     - from: '2025-05-01'
       to: '2025-10-01'
       schedule:
@@ -219,30 +219,30 @@
     - '5'
     - '6'
     prices:
-    - from: 2024-05-01
-      to: 2024-10-01
+    - from: '2024-05-01'
+      to: '2024-10-01'
       schedule:
-        '*:07-11': '55'
+        '*:7-11': '55'
         '*:11-16': '44'
         '*:16-22': '68'
-        st:07-22: '55'
-        su:07-22: '55'
-        hl:07-22: '55'
-    - from: 2024-10-01
-      to: 2025-05-01
-      schedule: null
-    - from: 2025-05-01
-      to: 2025-10-01
+        st:7-22: '55'
+        su:7-22: '55'
+        hl:7-22: '55'
+    - from: '2024-10-01'
+      to: '2025-05-01'
+      closed: true
+    - from: '2025-05-01'
+      to: '2025-10-01'
       schedule:
-        '*:07-11': '60'
+        '*:7-11': '60'
         '*:11-16': '50'
         '*:16-22': '73'
-        st:07-22: '60'
-        su:07-22: '60'
-        hl:07-22: '60'
-    - from: 2025-10-01
-      to: 2026-05-01
-      schedule: null
+        st:7-22: '60'
+        su:7-22: '60'
+        hl:7-22: '60'
+    - from: '2025-10-01'
+      to: '2026-05-01'
+      closed: true
   - surface: hard
     reservationLink: https://spartan.wroc.pl/pultuska/strefaklienta/index.php?s=rezerwacja_hali_tenisowej
     type: tent
@@ -253,10 +253,10 @@
     - '4'
     - '5'
     prices:
-    - from: 2024-10-01
-      to: 2025-05-01
+    - from: '2024-10-01'
+      to: '2025-05-01'
       schedule:
-        '*:07-11': '140'
+        '*:7-11': '140'
         '*:11-16': '110'
         '*:16-22': '170'
         st:7-14: '140'
@@ -265,22 +265,22 @@
         st:14-22: '120'
         su:14-22: '120'
         hl:14-22: '120'
-    - from: 2025-05-01
-      to: 2025-10-01
+    - from: '2025-05-01'
+      to: '2025-10-01'
       schedule:
-        '*:07-11': '60'
+        '*:7-11': '60'
         '*:11-16': '50'
-        '*:16-22': 73'
+        '*:16-22': '73'
         st:7-14: '60'
         su:7-14: '60'
         hl:7-14: '60'
         st:14-22: '60'
         su:14-22: '60'
         hl:14-22: '60'
-    - from: 2025-10-01
-      to: 2026-05-01
+    - from: '2025-10-01'
+      to: '2026-05-01'
       schedule:
-        '*:07-11': '140'
+        '*:7-11': '140'
         '*:11-16': '110'
         '*:16-22': '170'
         st:7-14: '140'
@@ -328,7 +328,7 @@
         hl:7-22: '45'
     - from: '2024-10-01'
       to: '2025-05-01'
-      schedule: null
+      closed: true
     - from: '2025-05-01'
       to: '2025-10-01'
       schedule:
@@ -340,7 +340,7 @@
         hl:7-22: '60'
     - from: '2025-10-01'
       to: '2026-05-01'
-      schedule: null
+      closed: true
   - surface: carpet
     type: tent
     reservationLink: https://spartan.wroc.pl/lubinska/strefaklienta/index.php?s=rezerwacja_hal_tenisowych
@@ -419,7 +419,7 @@
         hl:7-23: '55'
     - from: '2024-10-01'
       to: '2025-05-01'
-      schedule: null
+      closed: true
     - from: '2025-05-01'
       to: '2025-10-01'
       schedule:
@@ -431,7 +431,7 @@
         hl:7-23: '60'
     - from: '2025-10-01'
       to: '2026-05-01'
-      schedule: null
+      closed: true
   - surface: clay
     type: indoor
     reservationLink: https://spartan.wroc.pl/spiska/strefaklienta/index.php?s=hala_tenisowa
@@ -762,8 +762,8 @@
     courts:
     - '3'
     prices:
-    - from: 2024-05-01
-      to: 2024-10-01
+    - from: '2024-05-01'
+      to: '2024-10-01'
       schedule:
         su:8-23: '60'
         st:8-23: '60'
@@ -773,7 +773,7 @@
         '*:21-23': '65'
     - from: '2024-10-01'
       to: '2025-05-01'
-      schedule: null
+      closed: true
     - from: '2025-05-01'
       to: '2025-10-01'
       schedule:
@@ -785,7 +785,7 @@
         st:8-23: '60'
     - from: '2025-10-01'
       to: '2026-05-01'
-      schedule: null
+      closed: true
 - name: Hala Tenisowa Hotel Gem
   id: gem
   address: Józefa Mianowskiego 2B, 51-605 Wrocław
@@ -804,24 +804,24 @@
     - '2'
     - '3'
     prices:
-    - from: 2024-10-01
-      to: 2025-05-01
+    - from: '2024-10-01'
+      to: '2025-05-01'
       schedule:
         '*:7-16': '110'
         '*:16-22': '150'
         su:7-20: '115'
         st:7-20: '115'
         hl:7-20: '115'
-    - from: 2025-05-01
-      to: 2025-10-01
+    - from: '2025-05-01'
+      to: '2025-10-01'
       schedule:
         '*:7-15': '55'
         '*:15-22': '65'
         su:7-20: '60'
         st:7-20: '60'
         hl:7-20: '60'
-    - from: 2025-10-01
-      to: 2026-04-30
+    - from: '2025-10-01'
+      to: '2026-04-30'
       schedule:
         '*:7-16': '110'
         '*:16-22': '155'
@@ -846,8 +846,8 @@
         su:7-20: '60'
         st:7-20: '60'
         hl:7-20: '60'
-    - from: 2025-10-01
-      to: 2026-04-30
+    - from: '2025-10-01'
+      to: '2026-04-30'
       schedule:
         '*:7-15': '40'
         '*:15-22': '50'
@@ -917,8 +917,7 @@
         hl:6-23: '60'
     - from: '2024-10-01'
       to: '2025-04-14'
-      schedule:
-        null
+      closed: true
     - from: '2025-04-14'
       to: '2025-10-01'
       schedule:
@@ -929,12 +928,12 @@
         hl:6-23: '60'
     - from: '2025-10-01'
       to: '2026-04-01'
-      schedule:
+      closed: true
   coordinates:
     lat: 51.1343496
     long: 17.0310476
 - name: AWF Hala Tenisowa
-  id: awf hala tenisowa
+  id: awf-hala-tenisowa
   address: Stadion Olimpijski, al Ignacego Jana Paderewskiego 35, 51-612 Wrocław
   googleMapsLink: https://maps.app.goo.gl/MYnpGY1QLNvShmqS8
   website: https://old.twojtenis.pl/pl/kluby/awf_hala_tenisowa/info.html
@@ -1071,7 +1070,6 @@
   courtGroups:
   - surface: hard
     type: indoor
-    reservationLink: null
     courts:
     - '1'
     - '2'
@@ -1080,10 +1078,10 @@
     - from: '2024-05-01'
       to: '2024-10-01'
       schedule:
-        '*:0-16': 35
-        '*:16-24': 55
-        su:0-24: 45
-        st:0-24: 45
+        '*:0-16': '35'
+        '*:16-24': '55'
+        su:0-24: '45'
+        st:0-24: '45'
     - from: '2024-10-01'
       to: '2025-05-01'
       schedule:
@@ -1111,7 +1109,7 @@
     courts:
     - '4'
     - '5'
-    prices: &id001
+    prices: &omega-outdoor-prices
     - from: '2024-05-01'
       to: '2024-10-01'
       schedule:
@@ -1121,7 +1119,7 @@
         su:8-23: '45'
     - from: '2024-10-01'
       to: '2025-05-01'
-      schedule: null
+      closed: true
     - from: '2025-05-01'
       to: '2025-10-01'
       schedule:
@@ -1131,12 +1129,12 @@
         st:8-23: '35'
     - from: '2025-10-01'
       to: '2026-04-30'
-      schedule: null
+      closed: true
   - surface: hard
     courts:
     - '6'
     type: outdoor
-    prices: *id001
+    prices: *omega-outdoor-prices
 - name: Centrum Tenisowe Kłokoczyce
   id: klokoczyce
   address: Kłokoczycka 5, 51-376 Wrocław
@@ -1156,10 +1154,10 @@
     - from: '2024-10-01'
       to: '2025-05-01'
       schedule:
-        '*:8-16': 139
-        '*:16-22': 160
-        su:8-21: 128
-        st:8-21: 128
+        '*:8-16': '139'
+        '*:16-22': '160'
+        su:8-21: '128'
+        st:8-21: '128'
     - from: '2025-05-01'
       to: '2025-10-01'
       schedule:
@@ -1179,7 +1177,7 @@
     lat: 51.1525319
     long: 17.1118552
 - name: Olimpijski Club
-  id: olimpijski club
+  id: olimpijski-club
   address: al. Ignacego Jana Paderewskiego 35, 51-612 Wrocław
   googleMapsLink: https://maps.app.goo.gl/kRtYtYA4FH1PApEPA
   website: https://olimpijskiclub.pl
@@ -1213,7 +1211,7 @@
         hl:6-23: '55'
     - from: '2024-10-01'
       to: '2025-05-01'
-      schedule: null
+      closed: true
     - from: '2025-05-01'
       to: '2025-10-01'
       schedule:
@@ -1225,7 +1223,7 @@
         hl:6-23: '60'
     - from: '2025-10-01'
       to: '2026-05-01'
-      schedule: null
+      closed: true
   - surface: clay
     type: outdoor
     reservationLink: https://olimpijskiclub.pl/zarezerwuj-korty-online/
@@ -1244,7 +1242,7 @@
         hl:6-23: '60'
     - from: '2024-10-01'
       to: '2025-05-01'
-      schedule: null
+      closed: true
     - from: '2025-05-01'
       to: '2025-10-01'
       schedule:
@@ -1256,7 +1254,7 @@
         hl:6-23: '66'
     - from: '2025-10-01'
       to: '2026-05-01'
-      schedule: null
+      closed: true
   - surface: clay
     type: tent
     reservationLink: https://olimpijskiclub.pl/zarezerwuj-korty-online/
@@ -1313,12 +1311,12 @@
     prices:
     - from: '2024-10-01'
       to: '2025-05-01'
-      schedule: &id002
-        '*:7-16': 130
-        '*:16-23': 170
-        st:6-23: 135
-        su:6-23: 135
-        hl:6-23: 135
+      schedule: &lotnicza-winter-2024
+        '*:7-16': '130'
+        '*:16-23': '170'
+        st:6-23: '135'
+        su:6-23: '135'
+        hl:6-23: '135'
     - from: '2025-05-01'
       to: '2025-10-01'
       schedule:
@@ -1345,7 +1343,7 @@
     prices:
     - from: '2024-10-01'
       to: '2025-05-01'
-      schedule: *id002
+      schedule: *lotnicza-winter-2024
     - from: '2025-05-01'
       to: '2025-10-01'
       schedule:
@@ -1431,7 +1429,7 @@
         hl:6-23: '120'
     - from: '2025-10-01'
       to: '2026-05-01'
-      schedule: null
+      closed: true
   - surface: grass
     type: outdoor
     courts:
