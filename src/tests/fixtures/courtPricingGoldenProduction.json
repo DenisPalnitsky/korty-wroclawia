@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generatedAt": "2026-05-01T07:26:40.277Z",
+  "generatedAt": "2026-05-02T12:56:34.651Z",
   "sourcePath": "src/assets/courts.yaml",
   "entries": {
     "matchpoint|hard|indoor|1|2024-05-01|2024-10-01": {
@@ -20767,8 +20767,8 @@
         }
       ]
     },
-    "awf hala tenisowa|hard|indoor|1|2024-10-01|2025-05-01": {
-      "clubId": "awf hala tenisowa",
+    "awf-hala-tenisowa|hard|indoor|1|2024-10-01|2025-05-01": {
+      "clubId": "awf-hala-tenisowa",
       "surface": "hard",
       "type": "indoor",
       "courtId": "1",
@@ -20883,8 +20883,8 @@
         }
       ]
     },
-    "awf hala tenisowa|hard|indoor|1|2025-05-01|2025-10-01": {
-      "clubId": "awf hala tenisowa",
+    "awf-hala-tenisowa|hard|indoor|1|2025-05-01|2025-10-01": {
+      "clubId": "awf-hala-tenisowa",
       "surface": "hard",
       "type": "indoor",
       "courtId": "1",
@@ -20999,8 +20999,8 @@
         }
       ]
     },
-    "awf hala tenisowa|hard|indoor|1|2025-10-01|2026-04-30": {
-      "clubId": "awf hala tenisowa",
+    "awf-hala-tenisowa|hard|indoor|1|2025-10-01|2026-04-30": {
+      "clubId": "awf-hala-tenisowa",
       "surface": "hard",
       "type": "indoor",
       "courtId": "1",
@@ -21115,8 +21115,8 @@
         }
       ]
     },
-    "awf hala tenisowa|hard|indoor|2|2024-10-01|2025-05-01": {
-      "clubId": "awf hala tenisowa",
+    "awf-hala-tenisowa|hard|indoor|2|2024-10-01|2025-05-01": {
+      "clubId": "awf-hala-tenisowa",
       "surface": "hard",
       "type": "indoor",
       "courtId": "2",
@@ -21231,8 +21231,8 @@
         }
       ]
     },
-    "awf hala tenisowa|hard|indoor|2|2025-05-01|2025-10-01": {
-      "clubId": "awf hala tenisowa",
+    "awf-hala-tenisowa|hard|indoor|2|2025-05-01|2025-10-01": {
+      "clubId": "awf-hala-tenisowa",
       "surface": "hard",
       "type": "indoor",
       "courtId": "2",
@@ -21347,8 +21347,8 @@
         }
       ]
     },
-    "awf hala tenisowa|hard|indoor|2|2025-10-01|2026-04-30": {
-      "clubId": "awf hala tenisowa",
+    "awf-hala-tenisowa|hard|indoor|2|2025-10-01|2026-04-30": {
+      "clubId": "awf-hala-tenisowa",
       "surface": "hard",
       "type": "indoor",
       "courtId": "2",
@@ -21463,8 +21463,8 @@
         }
       ]
     },
-    "awf hala tenisowa|hard|indoor|3|2024-10-01|2025-05-01": {
-      "clubId": "awf hala tenisowa",
+    "awf-hala-tenisowa|hard|indoor|3|2024-10-01|2025-05-01": {
+      "clubId": "awf-hala-tenisowa",
       "surface": "hard",
       "type": "indoor",
       "courtId": "3",
@@ -21579,8 +21579,8 @@
         }
       ]
     },
-    "awf hala tenisowa|hard|indoor|3|2025-05-01|2025-10-01": {
-      "clubId": "awf hala tenisowa",
+    "awf-hala-tenisowa|hard|indoor|3|2025-05-01|2025-10-01": {
+      "clubId": "awf-hala-tenisowa",
       "surface": "hard",
       "type": "indoor",
       "courtId": "3",
@@ -21695,8 +21695,8 @@
         }
       ]
     },
-    "awf hala tenisowa|hard|indoor|3|2025-10-01|2026-04-30": {
-      "clubId": "awf hala tenisowa",
+    "awf-hala-tenisowa|hard|indoor|3|2025-10-01|2026-04-30": {
+      "clubId": "awf-hala-tenisowa",
       "surface": "hard",
       "type": "indoor",
       "courtId": "3",
@@ -27379,8 +27379,8 @@
         }
       ]
     },
-    "olimpijski club|clay|outdoor|1|2024-05-01|2024-10-01": {
-      "clubId": "olimpijski club",
+    "olimpijski-club|clay|outdoor|1|2024-05-01|2024-10-01": {
+      "clubId": "olimpijski-club",
       "surface": "clay",
       "type": "outdoor",
       "courtId": "1",
@@ -27495,8 +27495,8 @@
         }
       ]
     },
-    "olimpijski club|clay|outdoor|1|2025-05-01|2025-10-01": {
-      "clubId": "olimpijski club",
+    "olimpijski-club|clay|outdoor|1|2025-05-01|2025-10-01": {
+      "clubId": "olimpijski-club",
       "surface": "clay",
       "type": "outdoor",
       "courtId": "1",
@@ -27611,8 +27611,8 @@
         }
       ]
     },
-    "olimpijski club|clay|outdoor|2|2024-05-01|2024-10-01": {
-      "clubId": "olimpijski club",
+    "olimpijski-club|clay|outdoor|2|2024-05-01|2024-10-01": {
+      "clubId": "olimpijski-club",
       "surface": "clay",
       "type": "outdoor",
       "courtId": "2",
@@ -27727,8 +27727,8 @@
         }
       ]
     },
-    "olimpijski club|clay|outdoor|2|2025-05-01|2025-10-01": {
-      "clubId": "olimpijski club",
+    "olimpijski-club|clay|outdoor|2|2025-05-01|2025-10-01": {
+      "clubId": "olimpijski-club",
       "surface": "clay",
       "type": "outdoor",
       "courtId": "2",
@@ -27843,8 +27843,8 @@
         }
       ]
     },
-    "olimpijski club|clay|outdoor|3|2024-05-01|2024-10-01": {
-      "clubId": "olimpijski club",
+    "olimpijski-club|clay|outdoor|3|2024-05-01|2024-10-01": {
+      "clubId": "olimpijski-club",
       "surface": "clay",
       "type": "outdoor",
       "courtId": "3",
@@ -27959,8 +27959,8 @@
         }
       ]
     },
-    "olimpijski club|clay|outdoor|3|2025-05-01|2025-10-01": {
-      "clubId": "olimpijski club",
+    "olimpijski-club|clay|outdoor|3|2025-05-01|2025-10-01": {
+      "clubId": "olimpijski-club",
       "surface": "clay",
       "type": "outdoor",
       "courtId": "3",
@@ -28075,8 +28075,8 @@
         }
       ]
     },
-    "olimpijski club|clay|outdoor|4|2024-05-01|2024-10-01": {
-      "clubId": "olimpijski club",
+    "olimpijski-club|clay|outdoor|4|2024-05-01|2024-10-01": {
+      "clubId": "olimpijski-club",
       "surface": "clay",
       "type": "outdoor",
       "courtId": "4",
@@ -28191,8 +28191,8 @@
         }
       ]
     },
-    "olimpijski club|clay|outdoor|4|2025-05-01|2025-10-01": {
-      "clubId": "olimpijski club",
+    "olimpijski-club|clay|outdoor|4|2025-05-01|2025-10-01": {
+      "clubId": "olimpijski-club",
       "surface": "clay",
       "type": "outdoor",
       "courtId": "4",
@@ -28307,8 +28307,8 @@
         }
       ]
     },
-    "olimpijski club|clay|outdoor|5|2024-05-01|2024-10-01": {
-      "clubId": "olimpijski club",
+    "olimpijski-club|clay|outdoor|5|2024-05-01|2024-10-01": {
+      "clubId": "olimpijski-club",
       "surface": "clay",
       "type": "outdoor",
       "courtId": "5",
@@ -28423,8 +28423,8 @@
         }
       ]
     },
-    "olimpijski club|clay|outdoor|5|2025-05-01|2025-10-01": {
-      "clubId": "olimpijski club",
+    "olimpijski-club|clay|outdoor|5|2025-05-01|2025-10-01": {
+      "clubId": "olimpijski-club",
       "surface": "clay",
       "type": "outdoor",
       "courtId": "5",
@@ -28539,8 +28539,8 @@
         }
       ]
     },
-    "olimpijski club|clay|outdoor|6|2024-05-01|2024-10-01": {
-      "clubId": "olimpijski club",
+    "olimpijski-club|clay|outdoor|6|2024-05-01|2024-10-01": {
+      "clubId": "olimpijski-club",
       "surface": "clay",
       "type": "outdoor",
       "courtId": "6",
@@ -28655,8 +28655,8 @@
         }
       ]
     },
-    "olimpijski club|clay|outdoor|6|2025-05-01|2025-10-01": {
-      "clubId": "olimpijski club",
+    "olimpijski-club|clay|outdoor|6|2025-05-01|2025-10-01": {
+      "clubId": "olimpijski-club",
       "surface": "clay",
       "type": "outdoor",
       "courtId": "6",
@@ -28771,8 +28771,8 @@
         }
       ]
     },
-    "olimpijski club|clay|outdoor|7|2024-05-01|2024-10-01": {
-      "clubId": "olimpijski club",
+    "olimpijski-club|clay|outdoor|7|2024-05-01|2024-10-01": {
+      "clubId": "olimpijski-club",
       "surface": "clay",
       "type": "outdoor",
       "courtId": "7",
@@ -28887,8 +28887,8 @@
         }
       ]
     },
-    "olimpijski club|clay|outdoor|7|2025-05-01|2025-10-01": {
-      "clubId": "olimpijski club",
+    "olimpijski-club|clay|outdoor|7|2025-05-01|2025-10-01": {
+      "clubId": "olimpijski-club",
       "surface": "clay",
       "type": "outdoor",
       "courtId": "7",
@@ -29003,8 +29003,8 @@
         }
       ]
     },
-    "olimpijski club|clay|outdoor|8|2024-05-01|2024-10-01": {
-      "clubId": "olimpijski club",
+    "olimpijski-club|clay|outdoor|8|2024-05-01|2024-10-01": {
+      "clubId": "olimpijski-club",
       "surface": "clay",
       "type": "outdoor",
       "courtId": "8",
@@ -29119,8 +29119,8 @@
         }
       ]
     },
-    "olimpijski club|clay|outdoor|8|2025-05-01|2025-10-01": {
-      "clubId": "olimpijski club",
+    "olimpijski-club|clay|outdoor|8|2025-05-01|2025-10-01": {
+      "clubId": "olimpijski-club",
       "surface": "clay",
       "type": "outdoor",
       "courtId": "8",
@@ -29235,8 +29235,8 @@
         }
       ]
     },
-    "olimpijski club|clay|outdoor|C|2024-05-01|2024-10-01": {
-      "clubId": "olimpijski club",
+    "olimpijski-club|clay|outdoor|C|2024-05-01|2024-10-01": {
+      "clubId": "olimpijski-club",
       "surface": "clay",
       "type": "outdoor",
       "courtId": "C",
@@ -29351,8 +29351,8 @@
         }
       ]
     },
-    "olimpijski club|clay|outdoor|C|2025-05-01|2025-10-01": {
-      "clubId": "olimpijski club",
+    "olimpijski-club|clay|outdoor|C|2025-05-01|2025-10-01": {
+      "clubId": "olimpijski-club",
       "surface": "clay",
       "type": "outdoor",
       "courtId": "C",
@@ -29467,8 +29467,8 @@
         }
       ]
     },
-    "olimpijski club|clay|tent|9|2024-10-01|2025-05-01": {
-      "clubId": "olimpijski club",
+    "olimpijski-club|clay|tent|9|2024-10-01|2025-05-01": {
+      "clubId": "olimpijski-club",
       "surface": "clay",
       "type": "tent",
       "courtId": "9",
@@ -29583,8 +29583,8 @@
         }
       ]
     },
-    "olimpijski club|clay|tent|9|2025-05-01|2025-10-01": {
-      "clubId": "olimpijski club",
+    "olimpijski-club|clay|tent|9|2025-05-01|2025-10-01": {
+      "clubId": "olimpijski-club",
       "surface": "clay",
       "type": "tent",
       "courtId": "9",
@@ -29699,8 +29699,8 @@
         }
       ]
     },
-    "olimpijski club|clay|tent|9|2025-10-01|2026-05-01": {
-      "clubId": "olimpijski club",
+    "olimpijski-club|clay|tent|9|2025-10-01|2026-05-01": {
+      "clubId": "olimpijski-club",
       "surface": "clay",
       "type": "tent",
       "courtId": "9",
@@ -29815,8 +29815,8 @@
         }
       ]
     },
-    "olimpijski club|clay|tent|10|2024-10-01|2025-05-01": {
-      "clubId": "olimpijski club",
+    "olimpijski-club|clay|tent|10|2024-10-01|2025-05-01": {
+      "clubId": "olimpijski-club",
       "surface": "clay",
       "type": "tent",
       "courtId": "10",
@@ -29931,8 +29931,8 @@
         }
       ]
     },
-    "olimpijski club|clay|tent|10|2025-05-01|2025-10-01": {
-      "clubId": "olimpijski club",
+    "olimpijski-club|clay|tent|10|2025-05-01|2025-10-01": {
+      "clubId": "olimpijski-club",
       "surface": "clay",
       "type": "tent",
       "courtId": "10",
@@ -30047,8 +30047,8 @@
         }
       ]
     },
-    "olimpijski club|clay|tent|10|2025-10-01|2026-05-01": {
-      "clubId": "olimpijski club",
+    "olimpijski-club|clay|tent|10|2025-10-01|2026-05-01": {
+      "clubId": "olimpijski-club",
       "surface": "clay",
       "type": "tent",
       "courtId": "10",
@@ -30163,8 +30163,8 @@
         }
       ]
     },
-    "olimpijski club|clay|tent|11|2024-10-01|2025-05-01": {
-      "clubId": "olimpijski club",
+    "olimpijski-club|clay|tent|11|2024-10-01|2025-05-01": {
+      "clubId": "olimpijski-club",
       "surface": "clay",
       "type": "tent",
       "courtId": "11",
@@ -30279,8 +30279,8 @@
         }
       ]
     },
-    "olimpijski club|clay|tent|11|2025-05-01|2025-10-01": {
-      "clubId": "olimpijski club",
+    "olimpijski-club|clay|tent|11|2025-05-01|2025-10-01": {
+      "clubId": "olimpijski-club",
       "surface": "clay",
       "type": "tent",
       "courtId": "11",
@@ -30395,8 +30395,8 @@
         }
       ]
     },
-    "olimpijski club|clay|tent|11|2025-10-01|2026-05-01": {
-      "clubId": "olimpijski club",
+    "olimpijski-club|clay|tent|11|2025-10-01|2026-05-01": {
+      "clubId": "olimpijski-club",
       "surface": "clay",
       "type": "tent",
       "courtId": "11",
