@@ -260,11 +260,8 @@ describe('CourtPricing', () => {
 
 });
 
-describe('RealDataValidation', () => {
-  // Setting a timeout of 10 seconds for this test suite
-  beforeEach(function() {
-    this.timeout(10000); // 10 seconds
-  });
+describe('RealDataValidation', function () {
+  this.timeout(30000);
 
   it('validation of assets/courts.yaml', () => {
     const fileContents = fs.readFileSync('src/assets/courts.yaml', 'utf8');

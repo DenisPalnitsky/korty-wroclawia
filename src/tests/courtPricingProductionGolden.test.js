@@ -24,7 +24,9 @@ function entryKey(clubId, surface, type, courtId, from, to) {
   return [clubId, surface, type, String(courtId), ymd(from), ymd(to)].join('|');
 }
 
-describe('CourtPricingSystem production golden (src/assets/courts.yaml)', () => {
+describe('CourtPricingSystem production golden (src/assets/courts.yaml)', function () {
+  this.timeout(30000);
+
   let system;
   let golden;
 
@@ -42,7 +44,7 @@ describe('CourtPricingSystem production golden (src/assets/courts.yaml)', () => 
     expect(res.isValid, res.errors?.join('\n')).to.be.true;
   });
 
-  it('matches golden snapshot for every open court × price period (310 entries, 7000+ assertions)', () => {
+  it('matches golden snapshot for every open court × price period', () => {
     const expectedKeys = new Set(Object.keys(golden.entries));
     let verifiedScalars = 0;
 

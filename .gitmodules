@@ -1,0 +1,3 @@
+[submodule "scrapers"]
+	path = scrapers
+	url = https://github.com/DenisPalnitsky/korty-wroclawia-scraper.git
